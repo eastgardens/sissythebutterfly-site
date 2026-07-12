@@ -4,7 +4,7 @@ import Feature from '@components/Feature.astro'
 import CallToAction from '@components/CallToAction.astro'
 import { Heading, Link } from 'accessible-astro-components'
 import { Image } from 'astro:assets'
-import heroImage from '@assets/img/sissy-hero.png'
+import heroImage from '@assets/img/cast-group-meadow.png'
 import sceneMeadow from '@assets/img/scenes/scene-sunny-meadow.png'
 import sceneGarden from '@assets/img/scenes/scene-butterfly-garden.png'
 import scenePond from '@assets/img/scenes/scene-pond.png'
@@ -39,8 +39,9 @@ const scenes = [
             Well hello, friend. I’m <span class="text-gradient">Sissy the Butterfly</span>.
           </Heading>
           <p class="max-w-2xl text-2xl">
-            I live in a big green meadow with my best friend Addy, and we are always finding
-            something small and wonderful to explore. Would you like to come along?
+            I live in a big green meadow with my best friend Addy, my little brother Buddy, and
+            his firefly Flitter. We are always finding something small and wonderful to explore.
+            Would you like to come along?
           </p>
           <div class="flex flex-col gap-3 min-[500px]:flex-row">
             <Link href="/printables/" class="button">Free printables &amp; activities</Link>
@@ -49,8 +50,8 @@ const scenes = [
         </div>
         <Image
           src={heroImage}
-          alt="Sissy the Butterfly, a smiling butterfly with purple and pink wings and two pink bows, standing in a flowery meadow."
-          width="700"
+          alt="Sissy, Addy, Buddy the grasshopper, and Flitter the firefly together in a sunny flowery meadow."
+          width="720"
           loading="eager"
           fetchpriority="high"
           class="hero-art"
@@ -84,7 +85,7 @@ const scenes = [
         {
           scenes.map((scene) => (
             <li class="scene-tile">
-              <Image src={scene.src} alt={scene.alt} width="285" class="scene-img" />
+              <Image src={scene.src} alt={scene.alt} width="560" class="scene-img" />
               <span class="scene-label">{scene.label}</span>
             </li>
           ))
@@ -124,15 +125,9 @@ const scenes = [
     gap: 1.25rem;
   }
 
-  @media (min-width: 640px) {
-    .scene-grid {
-      grid-template-columns: repeat(3, 1fr);
-    }
-  }
-
   @media (min-width: 1024px) {
     .scene-grid {
-      grid-template-columns: repeat(6, 1fr);
+      grid-template-columns: repeat(3, 1fr);
     }
   }
 
