@@ -24,6 +24,8 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - uses: withastro/action@v3
+        with:
+          node-version: 22 # Astro 6 requires >=22.12; the action's default (20) fails
 
   deploy:
     needs: build
