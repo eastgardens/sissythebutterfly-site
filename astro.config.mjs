@@ -40,7 +40,11 @@ const viteConfig = {
 export default defineConfig({
   compressHTML: true,
   site: 'https://sissythebutterfly.com',
-  integrations: [compress(), icon(), mdx(), sitemap()],
+  // astro-compress: minifyCSS OFF — its clean-css pass re-minified Vite's already-minified inline
+  // <style> blocks and wrongly dropped scoped base rules as "overridden" (order-dependent; it ate
+  // Feature.astro's `.feature{position:relative}` on interior pages → every card's ::before/::after
+  // escaped to viewport size and covered the page). Vite already minifies CSS; re-minifying is pure risk.
+  integrations: [compress({ HTML: { 'html-minifier-terser': { minifyCSS: false } } }), icon(), mdx(), sitemap()],
   vite: enhanceConfigForWorkspace(viteConfig),
   env: {
     schema: {
