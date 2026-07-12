@@ -2,19 +2,21 @@
 import DefaultLayout from '@layouts/DefaultLayout.astro'
 import PageHeader from '@components/PageHeader.astro'
 import Feature from '@components/Feature.astro'
-import { Heading } from 'accessible-astro-components'
 import { Image } from 'astro:assets'
 import duo from '@assets/img/sissy-addy-duo.png'
 import addyCast from '@assets/img/addy-cast.png'
 import sissyCast from '@assets/img/sissy-cast.png'
+import buddyCast from '@assets/img/buddy-cast.png'
+import flitterCast from '@assets/img/flitter-cast.png'
 
 /**
- * Meet Sissy & Friends — cast from canon (WEBSITE-BUILD-SPEC §2; Sissy = real Book-1 art).
- * Buddy is deliberately held for his own book (a friendly tease only, no spoilers).
+ * Meet Sissy & Friends — cast from canon (WEBSITE-BUILD-SPEC §2). Sissy/Addy = real Book-1 art;
+ * Buddy (grasshopper) + Flitter (firefly) = Jen-approved design art (2026-07-12), an evolving tier.
+ * The garden bee is held until Jen blesses it — off the page for now (cleared-canon only).
  */
 ---
 
-<DefaultLayout title="Meet Sissy & Friends" description="Meet Sissy the Butterfly and her best friend Addy — the gentle, curious characters of a teacher-created children's book world full of meadow adventures.">
+<DefaultLayout title="Meet Sissy & Friends" description="Meet Sissy the Butterfly, her best friend Addy, her brother Buddy the grasshopper, and Flitter the firefly — the gentle cast of a teacher-created children's book world.">
   <PageHeader
     title="Meet Sissy & Friends"
     subtitle="Everyone you’ll find fluttering around the meadow."
@@ -29,17 +31,29 @@ import sissyCast from '@assets/img/sissy-cast.png'
           class="cast-art"
         />
       </div>
-      <div class="mb-16 flex flex-wrap justify-center gap-8">
+      <div class="mb-16 flex flex-wrap items-end justify-center gap-8">
         <Image
           src={sissyCast}
           alt="Sissy the Butterfly, purple and pink wings with pink bows."
-          width="320"
+          width="300"
           class="cast-art"
         />
         <Image
           src={addyCast}
           alt="Addy the butterfly, blue and yellow wings with blue bows, flying happily."
-          width="320"
+          width="300"
+          class="cast-art"
+        />
+        <Image
+          src={buddyCast}
+          alt="Buddy the grasshopper, green with a satchel, waving hello."
+          width="240"
+          class="cast-art"
+        />
+        <Image
+          src={flitterCast}
+          alt="Flitter the firefly, purple with a white bow and a glowing tail."
+          width="220"
           class="cast-art"
         />
       </div>
@@ -54,21 +68,16 @@ import sissyCast from '@assets/img/sissy-cast.png'
           kind to her wingtips, and absolutely certain that everything is more fun with a
           friend watching.
         </Feature>
+        <Feature level="h2" icon="lucide:bug" title="Buddy — the quiet strength">
+          Sissy’s little brother, a grasshopper with the biggest heart in the meadow. Buddy
+          doesn’t say much — he notices instead, loves animals and books, and can fly when he
+          needs to, though he mostly likes his feet on the ground.
+        </Feature>
         <Feature level="h2" icon="lucide:lightbulb" title="Flitter — a little light">
-          A shy firefly whose glow tells you just how he’s feeling. You’ll meet him properly
-          in a story that’s still on its way…
+          Buddy’s firefly friend, who never says a word — her glow does all the talking. Bright
+          when she’s happy, dim when she’s sad, and a warm little light in the dark when someone
+          needs to find their brave.
         </Feature>
-        <Feature level="h2" icon="lucide:flower" title="The garden bee">
-          Buzz, buzz! She keeps the meadow blooming and knows a dance for every flower. Shake
-          your wings and follow along.
-        </Feature>
-      </div>
-      <div class="mt-16 text-center">
-        <Heading level="h2" class="mb-4">And someone else…</Heading>
-        <p class="mx-auto max-w-xl text-lg">
-          There’s a quiet someone with the biggest heart in the meadow, whose story is coming
-          soon. Sissy says he’s worth the wait.
-        </p>
       </div>
     </div>
   </section>
