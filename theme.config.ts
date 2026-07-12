@@ -18,7 +18,7 @@ export default defineThemeConfig({
   },
   colors: {
     primary: '#400c9f', // Sissy’s deep wing violet (sampled from the book art; AA on light)
-    secondary: '#b406fb', // her vivid wing purple (accent)
+    secondary: '#e8a33d', // nectar gold (accent; _root.scss is the twin — keep in sync)
     neutral: '#b9bec4',
     outline: '#ff4500',
   },
