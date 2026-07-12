@@ -4,6 +4,7 @@ import Feature from '@components/Feature.astro'
 import CallToAction from '@components/CallToAction.astro'
 import { Heading, Link } from 'accessible-astro-components'
 import { Image } from 'astro:assets'
+import { seasonBanner } from '@config/season'
 import heroImage from '@assets/img/cast-group-meadow.png'
 import sceneMeadow from '@assets/img/scenes/scene-sunny-meadow.png'
 import sceneGarden from '@assets/img/scenes/scene-butterfly-garden.png'
@@ -24,13 +25,24 @@ const scenes = [
 /**
  * Home — character-first, alive on load (WEBSITE-BUILD-SPEC §2).
  * Hero = Jen's real Book-1 art (2.3b); Jen's voice pass at 2.3f.
+ * Seasonal ribbon = build-time season (config/season.ts); a monthly deploy cron flips it.
  */
+const season = seasonBanner()
 ---
 
 <DefaultLayout
   title="Sissy the Butterfly — gentle adventures, free printables, and read-aloud moments"
   useTitleTemplate={false}
 >
+  <section class="season-ribbon" aria-label={`This season in the meadow: ${season.season}`}>
+    <Image src={season.image} alt={season.alt} width="1000" class="season-bg" aria-hidden="true" />
+    <div class="container">
+      <p class="season-greeting">
+        <span aria-hidden="true">{season.emoji}</span> {season.greeting}
+      </p>
+    </div>
+  </section>
+
   <section class="hero my-24">
     <div class="container">
       <div class="grid grid-cols-1 items-center gap-16 lg:grid-cols-2">
@@ -111,6 +123,47 @@ const scenes = [
 </DefaultLayout>
 
 <style>
+  /* Seasonal ribbon — a slim full-bleed band; the painterly scene sits behind a scrim so the
+     greeting stays legible and mild upscaling of the 701px source is hidden. Auto-flips by season
+     (config/season.ts) at build time. */
+  .season-ribbon {
+    position: relative;
+    overflow: hidden;
+    min-height: 120px;
+    display: flex;
+    align-items: center;
+  }
+
+  .season-bg {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center 40%;
+  }
+
+  .season-ribbon::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(90deg, rgba(64, 12, 159, 0.78) 0%, rgba(64, 12, 159, 0.45) 55%, rgba(64, 12, 159, 0.15) 100%);
+  }
+
+  .season-ribbon .container {
+    position: relative;
+    z-index: 1;
+  }
+
+  .season-greeting {
+    margin: 0;
+    padding: 1rem 0;
+    color: #fff;
+    font-weight: 700;
+    font-size: clamp(1.05rem, 2.5vw, 1.5rem);
+    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.45);
+  }
+
   .hero-art {
     border-radius: 1.5rem;
     height: auto;
