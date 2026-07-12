@@ -3,9 +3,11 @@ import DefaultLayout from '@layouts/DefaultLayout.astro'
 import PageHeader from '@components/PageHeader.astro'
 import Feature from '@components/Feature.astro'
 import { Heading } from 'accessible-astro-components'
+import { Image } from 'astro:assets'
+import sissyCast from '@assets/img/sissy-cast.png'
 
 /**
- * Meet Sissy & Friends — cast from canon (WEBSITE-BUILD-SPEC §2; art lands at 2.3b).
+ * Meet Sissy & Friends — cast from canon (WEBSITE-BUILD-SPEC §2; Sissy = real Book-1 art).
  * Buddy is deliberately held for his own book (a friendly tease only, no spoilers).
  */
 ---
@@ -17,6 +19,14 @@ import { Heading } from 'accessible-astro-components'
   />
   <section class="my-24">
     <div class="container">
+      <div class="mb-16 flex justify-center">
+        <Image
+          src={sissyCast}
+          alt="Sissy the Butterfly smiling in the meadow, from her first book."
+          width="420"
+          class="cast-art"
+        />
+      </div>
       <div class="grid grid-cols-1 gap-12 md:grid-cols-2">
         <Feature icon="lucide:sparkles" title="Sissy — the careful heart">
           Sissy notices everything: the dew, the wind, the wobble in her own tummy before she
@@ -47,3 +57,10 @@ import { Heading } from 'accessible-astro-components'
     </div>
   </section>
 </DefaultLayout>
+
+<style>
+  .cast-art {
+    border-radius: 1.5rem;
+    height: auto;
+  }
+</style>

@@ -3,10 +3,12 @@ import DefaultLayout from '@layouts/DefaultLayout.astro'
 import Feature from '@components/Feature.astro'
 import CallToAction from '@components/CallToAction.astro'
 import { Heading, Link } from 'accessible-astro-components'
+import { Image } from 'astro:assets'
+import heroImage from '@assets/img/sissy-hero.png'
 
 /**
  * Home — character-first, alive on load (WEBSITE-BUILD-SPEC §2).
- * Copy = launch skeleton; Sissy art lands at 2.3b, Jen's voice pass at 2.3f.
+ * Hero = Jen's real Book-1 art (2.3b); Jen's voice pass at 2.3f.
  */
 ---
 
@@ -16,18 +18,28 @@ import { Heading, Link } from 'accessible-astro-components'
 >
   <section class="hero my-24">
     <div class="container">
-      <div class="flex flex-col items-center gap-8 text-center">
-        <Heading level="h1" class="text-6xl lg:text-7xl">
-          Well hello, friend. I’m <span class="text-gradient">Sissy the Butterfly</span>.
-        </Heading>
-        <p class="max-w-2xl text-2xl">
-          I live in a big green meadow with my best friend Addy, and we are always finding
-          something small and wonderful to explore. Would you like to come along?
-        </p>
-        <div class="flex flex-col gap-3 min-[500px]:flex-row">
-          <Link href="/printables/" class="button">Free printables &amp; activities</Link>
-          <Link href="/meet-jen/" class="button color-secondary">Meet Jen, our author</Link>
+      <div class="grid grid-cols-1 items-center gap-16 lg:grid-cols-2">
+        <div class="flex flex-col items-center gap-8 text-center lg:items-start lg:text-left">
+          <Heading level="h1" class="text-6xl lg:text-7xl">
+            Well hello, friend. I’m <span class="text-gradient">Sissy the Butterfly</span>.
+          </Heading>
+          <p class="max-w-2xl text-2xl">
+            I live in a big green meadow with my best friend Addy, and we are always finding
+            something small and wonderful to explore. Would you like to come along?
+          </p>
+          <div class="flex flex-col gap-3 min-[500px]:flex-row">
+            <Link href="/printables/" class="button">Free printables &amp; activities</Link>
+            <Link href="/meet-jen/" class="button color-secondary">Meet Jen, our author</Link>
+          </div>
         </div>
+        <Image
+          src={heroImage}
+          alt="Sissy the Butterfly, a smiling butterfly with purple and pink wings and two pink bows, standing in a flowery meadow."
+          width="700"
+          loading="eager"
+          fetchpriority="high"
+          class="hero-art"
+        />
       </div>
     </div>
   </section>
@@ -65,3 +77,11 @@ import { Heading, Link } from 'accessible-astro-components'
 
   <!-- Email signup lands HERE at 2.3d — gated on domain authentication (spec §3 / runbook 037). -->
 </DefaultLayout>
+
+<style>
+  .hero-art {
+    border-radius: 1.5rem;
+    height: auto;
+    max-width: 100%;
+  }
+</style>

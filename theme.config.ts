@@ -1,9 +1,10 @@
 import { defineThemeConfig } from '@utils/defineThemeConfig'
 import previewImage from '@assets/img/social-preview-image.png'
-import logoImage from '@assets/img/logo.svg'
+import logoImage from '@assets/img/sissy-logo.png'
 
-// Sissy the Butterfly — site identity (WEBSITE-BUILD-SPEC §1/§2; palette = the render brand).
-// Logo + preview image are TEMPLATE placeholders until 2.3b (Jen's approved art).
+// Sissy the Butterfly — site identity (WEBSITE-BUILD-SPEC §1/§2).
+// 2.3b: logo/preview/hero/favicon all cut from Jen's REAL book art (operator-cleared interim
+// use 2026-07-10; rights signature chase continues in parallel). Palette sampled from the art.
 export default defineThemeConfig({
   name: 'Sissy the Butterfly',
   id: 'sissythebutterfly',
@@ -16,8 +17,8 @@ export default defineThemeConfig({
     image: previewImage,
   },
   colors: {
-    primary: '#724a9e', // the warm violet from Sissy’s card brand
-    secondary: '#e8a33d', // nectar gold
+    primary: '#400c9f', // Sissy’s deep wing violet (sampled from the book art; AA on light)
+    secondary: '#b406fb', // her vivid wing purple (accent)
     neutral: '#b9bec4',
     outline: '#ff4500',
   },
