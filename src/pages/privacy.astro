@@ -1,0 +1,84 @@
+---
+import DefaultLayout from '@layouts/DefaultLayout.astro'
+import PageHeader from '@components/PageHeader.astro'
+import { Heading } from 'accessible-astro-components'
+
+/**
+ * Privacy — migrated VERBATIM from the live GH-Pages policy (effective 2026-07-10).
+ * COPPA-clean statement per 013; the old GH-Pages URL stays up until DNS cutover completes.
+ */
+---
+
+<DefaultLayout title="Privacy Policy — Sissy the Butterfly">
+  <PageHeader
+    title="Privacy Policy"
+    subtitle="Effective July 10, 2026 · Plain language, because that’s the point."
+  />
+  <section class="my-24">
+    <div class="container">
+      <div class="mx-auto flex max-w-2xl flex-col gap-5 text-lg">
+        <Heading level="h2">Who we are</Heading>
+        <p>
+          Sissy the Butterfly is a children's book brand. We publish books and family-friendly
+          activity content (coloring pages, printables, and stories). Contact:
+          sissythebutterfly3@gmail.com.
+        </p>
+
+        <Heading level="h2">Children's privacy comes first</Heading>
+        <p>
+          Our content is made for families and is directed at <strong>parents and caregivers</strong>.
+          We do not knowingly collect personal information from children under 13. Our websites
+          and social accounts do not ask children for names, emails, photos, locations, or any
+          other personal information. If you believe a child has provided us personal
+          information, contact us and we will delete it promptly.
+        </p>
+
+        <Heading level="h2">What we collect</Heading>
+        <ul class="flex list-disc flex-col gap-2 pl-6">
+          <li>
+            <strong>Website:</strong> nothing personal by default. If a parent chooses to join
+            our newsletter, we collect the email address they provide, use it only to send the
+            newsletter, and delete it on request or unsubscribe.
+          </li>
+          <li>
+            <strong>Our publishing tools:</strong> we use official platform APIs (for example
+            Pinterest and Meta) solely to publish content to <strong>our own</strong> brand
+            accounts and to read <strong>our own</strong> account statistics. These tools do not
+            collect, store, or process other users' personal data, and they have no third-party
+            users.
+          </li>
+        </ul>
+
+        <Heading level="h2">What we don't do</Heading>
+        <ul class="flex list-disc flex-col gap-2 pl-6">
+          <li>We do not sell, rent, or share personal information.</li>
+          <li>We do not run third-party advertising or tracking on our site.</li>
+          <li>We do not message children or collect data from children.</li>
+        </ul>
+
+        <Heading level="h2">Social platforms</Heading>
+        <p>
+          When you interact with our accounts on Pinterest, Instagram, Facebook, or other
+          platforms, that platform's own privacy policy applies to your data there. We only see
+          what the platform shows to account owners (for example, aggregate statistics).
+        </p>
+
+        <Heading level="h2">Security &amp; retention</Heading>
+        <p>
+          Account credentials and API tokens for our own accounts are stored privately and never
+          published. We keep newsletter emails only while the subscription is active.
+        </p>
+
+        <Heading level="h2">Changes</Heading>
+        <p>
+          If this policy changes, we will update it here with a new effective date.
+        </p>
+
+        <Heading level="h2">Contact</Heading>
+        <p>
+          Questions or requests (including deletion requests): sissythebutterfly3@gmail.com.
+        </p>
+      </div>
+    </div>
+  </section>
+</DefaultLayout>

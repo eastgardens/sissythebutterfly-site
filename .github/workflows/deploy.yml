@@ -1,0 +1,36 @@
+# Deploy sissythebutterfly.com to GitHub Pages on every push to main.
+# (Hosting note: WEBSITE-BUILD-SPEC D2 prefers Netlify for its native forms; the email form is
+# 037-gated and MailerLite embeds work on any static host, so GH Pages carries the skeleton —
+# revisit at 2.3d if Netlify's forms are actually needed.)
+name: deploy
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch: {}
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: withastro/action@v3
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4

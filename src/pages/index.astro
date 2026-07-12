@@ -1,0 +1,67 @@
+---
+import DefaultLayout from '@layouts/DefaultLayout.astro'
+import Feature from '@components/Feature.astro'
+import CallToAction from '@components/CallToAction.astro'
+import { Heading, Link } from 'accessible-astro-components'
+
+/**
+ * Home — character-first, alive on load (WEBSITE-BUILD-SPEC §2).
+ * Copy = launch skeleton; Sissy art lands at 2.3b, Jen's voice pass at 2.3f.
+ */
+---
+
+<DefaultLayout
+  title="Sissy the Butterfly — gentle adventures, free printables, and read-aloud moments"
+  useTitleTemplate={false}
+>
+  <section class="hero my-24">
+    <div class="container">
+      <div class="flex flex-col items-center gap-8 text-center">
+        <Heading level="h1" class="text-6xl lg:text-7xl">
+          Well hello, friend. I’m <span class="text-gradient">Sissy the Butterfly</span>.
+        </Heading>
+        <p class="max-w-2xl text-2xl">
+          I live in a big green meadow with my best friend Addy, and we are always finding
+          something small and wonderful to explore. Would you like to come along?
+        </p>
+        <div class="flex flex-col gap-3 min-[500px]:flex-row">
+          <Link href="/printables/" class="button">Free printables &amp; activities</Link>
+          <Link href="/meet-jen/" class="button color-secondary">Meet Jen, our author</Link>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="my-32">
+    <div class="container">
+      <Heading level="h2" class="mb-8">Made by a teacher, for families</Heading>
+      <div class="grid grid-cols-1 gap-12 md:grid-cols-3">
+        <Feature icon="lucide:flower-2" title="Gentle stories">
+          Small brave moments from the meadow — stories to read together, never rushed.
+        </Feature>
+        <Feature icon="lucide:printer" title="Free printables">
+          Coloring pages, puzzles, crafts, songs, and games. Print one and play today.
+        </Feature>
+        <Feature icon="lucide:heart-handshake" title="Parents first">
+          Everything here is made for grown-ups to share with their children. No accounts,
+          no ads, nothing collected from kids.
+        </Feature>
+      </div>
+    </div>
+  </section>
+
+  <section class="my-32">
+    <div class="container">
+      <Heading level="h2" class="mb-4">Fresh this week</Heading>
+      <p class="mb-6 max-w-2xl text-lg">
+        A new free activity lands here every week. First up: the meadow is getting ready —
+        our first printable pack arrives with the site’s grand opening.
+      </p>
+      <Link href="/printables/">See what’s in the activity garden</Link>
+    </div>
+  </section>
+
+  <CallToAction title="Read the book that started it all" link="/book/" linkText="About the book" />
+
+  <!-- Email signup lands HERE at 2.3d — gated on domain authentication (spec §3 / runbook 037). -->
+</DefaultLayout>

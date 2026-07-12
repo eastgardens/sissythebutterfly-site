@@ -1,0 +1,35 @@
+---
+import DefaultLayout from '@layouts/DefaultLayout.astro'
+import PageHeader from '@components/PageHeader.astro'
+import { Link } from 'accessible-astro-components'
+
+/**
+ * /links — THE bio-link hub (CHANNEL-PAGES-BUILD-SPEC §0). Every social bio's ONE link
+ * points here. Owned, on-brand, $0 — replaces linktr.ee. Keep it a short, fast list.
+ */
+const links = [
+  { href: '/printables/', label: 'Free printables & activities' },
+  { href: '/book/', label: 'The book — choose where to buy' },
+  { href: '/meet-sissy/', label: 'Meet Sissy & Friends' },
+  { href: '/meet-jen/', label: 'Meet Jen (the author)' },
+  { href: '/parents/', label: 'For parents & caregivers' },
+]
+---
+
+<DefaultLayout title="Sissy the Butterfly — links">
+  <PageHeader title="Hello from the meadow! 🦋" subtitle="Everything Sissy, one flutter away." />
+  <section class="my-24">
+    <div class="container">
+      <div class="mx-auto flex max-w-md flex-col gap-4">
+        {
+          links.map((link) => (
+            <Link href={link.href} class="button w-full text-center">
+              {link.label}
+            </Link>
+          ))
+        }
+        <!-- Newsletter link joins at 2.3d (behind the deliverability gate). -->
+      </div>
+    </div>
+  </section>
+</DefaultLayout>

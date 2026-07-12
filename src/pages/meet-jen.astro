@@ -1,0 +1,47 @@
+---
+import DefaultLayout from '@layouts/DefaultLayout.astro'
+import PageHeader from '@components/PageHeader.astro'
+import { Heading } from 'accessible-astro-components'
+
+/**
+ * Meet Jen — the trust anchor (013's copy shape; WEBSITE-BUILD-SPEC §2).
+ * Lead-with-Jen is a DECIDED principle. Draft copy — Jen's voice pass (2.3f) owns the final
+ * words; the quiet-honesty block below ships in every version.
+ */
+---
+
+<DefaultLayout title="Meet Jen — teacher, mom, and the author of Sissy the Butterfly">
+  <PageHeader title="Meet Jen" subtitle="Teacher. Mom. The person behind the butterfly." />
+  <section class="my-24">
+    <div class="container">
+      <div class="mx-auto flex max-w-2xl flex-col gap-6 text-lg">
+        <p>
+          Hi — I’m Jen. I’ve spent my career as a teacher (including years helping children
+          learning English find their voice), and I’m a mom who knows exactly what bedtime
+          looks like when everyone is one story away from sleep.
+        </p>
+        <p>
+          Sissy the Butterfly started as stories for the children in my own life. The meadow
+          grew — there are six books written, and the first one is out in the world now. Each
+          story is about the small kind of brave: trying again, being a good friend, finding
+          the wonder in an ordinary afternoon.
+        </p>
+        <p>
+          Everything on this site — the stories, the printables, the songs — is made the way I
+          made things for my classroom: carefully, warmly, and for grown-ups and children to
+          enjoy <em>together</em>.
+        </p>
+        <Heading level="h2" class="mt-8">A note on how we work</Heading>
+        <p>
+          Some of Sissy’s activities and pictures are made with help from computer tools. Every
+          single one is reviewed and approved by a real person — usually me — before it ever
+          reaches you. The stories, the world, and the heart are mine.
+        </p>
+        <p class="mt-4">
+          Want new printables and stories as they hatch? A parents’ newsletter is coming with
+          our grand opening.
+        </p>
+      </div>
+    </div>
+  </section>
+</DefaultLayout>

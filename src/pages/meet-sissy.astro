@@ -1,0 +1,49 @@
+---
+import DefaultLayout from '@layouts/DefaultLayout.astro'
+import PageHeader from '@components/PageHeader.astro'
+import Feature from '@components/Feature.astro'
+import { Heading } from 'accessible-astro-components'
+
+/**
+ * Meet Sissy & Friends — cast from canon (WEBSITE-BUILD-SPEC §2; art lands at 2.3b).
+ * Buddy is deliberately held for his own book (a friendly tease only, no spoilers).
+ */
+---
+
+<DefaultLayout title="Meet Sissy & Friends">
+  <PageHeader
+    title="Meet Sissy & Friends"
+    subtitle="Everyone you’ll find fluttering around the meadow."
+  />
+  <section class="my-24">
+    <div class="container">
+      <div class="grid grid-cols-1 gap-12 md:grid-cols-2">
+        <Feature icon="lucide:sparkles" title="Sissy — the careful heart">
+          Sissy notices everything: the dew, the wind, the wobble in her own tummy before she
+          tries something new. She is learning that brave isn’t about being unafraid — it’s
+          about fluttering forward anyway.
+        </Feature>
+        <Feature icon="lucide:zap" title="Addy — the bold spark">
+          Sissy’s best friend, first to leap and loudest to cheer. Addy is small but mighty,
+          kind to her wingtips, and absolutely certain that everything is more fun with a
+          friend watching.
+        </Feature>
+        <Feature icon="lucide:lightbulb" title="Flitter — a little light">
+          A shy firefly whose glow tells you just how he’s feeling. You’ll meet him properly
+          in a story that’s still on its way…
+        </Feature>
+        <Feature icon="lucide:flower" title="The garden bee">
+          Buzz, buzz! She keeps the meadow blooming and knows a dance for every flower. Shake
+          your wings and follow along.
+        </Feature>
+      </div>
+      <div class="mt-16 text-center">
+        <Heading level="h2" class="mb-4">And someone else…</Heading>
+        <p class="mx-auto max-w-xl text-lg">
+          There’s a quiet someone with the biggest heart in the meadow, whose story is coming
+          soon. Sissy says he’s worth the wait.
+        </p>
+      </div>
+    </div>
+  </section>
+</DefaultLayout>

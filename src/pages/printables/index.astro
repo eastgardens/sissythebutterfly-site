@@ -1,0 +1,88 @@
+---
+import DefaultLayout from '@layouts/DefaultLayout.astro'
+import PageHeader from '@components/PageHeader.astro'
+import Feature from '@components/Feature.astro'
+
+/**
+ * Printables & Activities — THE FRONT DOOR (WEBSITE-BUILD-SPEC §2; taxonomy LOCKED, 7
+ * categories incl. day-1 Music). Each category page is a Pinterest-search-matched landing.
+ */
+const categories = [
+  {
+    href: '/printables/coloring/',
+    icon: 'lucide:palette',
+    title: 'Coloring',
+    text: 'Sissy and friends, ready for your best colors.',
+  },
+  {
+    href: '/printables/crafts/',
+    icon: 'lucide:scissors',
+    title: 'Crafts',
+    text: 'Make a butterfly, build a meadow — with things you already have.',
+  },
+  {
+    href: '/printables/puzzles/',
+    icon: 'lucide:puzzle',
+    title: 'Puzzles',
+    text: 'Mazes, word searches, and matching games from the meadow.',
+  },
+  {
+    href: '/printables/activities/',
+    icon: 'lucide:trees',
+    title: 'Activities',
+    text: 'Movement games, treasure hunts, and garden adventures.',
+  },
+  {
+    href: '/printables/teaching-guides/',
+    icon: 'lucide:graduation-cap',
+    title: 'Teaching Guides',
+    text: 'Read-aloud scripts and classroom-ready companions, teacher-made.',
+  },
+  {
+    href: '/printables/make-your-own/',
+    icon: 'lucide:pencil',
+    title: 'Make Your Own',
+    text: 'Blank comic panels, song sheets, and maps — your imagination goes here.',
+  },
+  {
+    href: '/printables/music/',
+    icon: 'lucide:music',
+    title: 'Music & Songs',
+    text: 'Lyric and action sheets for wiggling, buzzing, and singing along.',
+  },
+]
+---
+
+<DefaultLayout title="Free Printables & Activities">
+  <PageHeader
+    title="Printables & Activities"
+    subtitle="Free, teacher-created, and ready to print. Grown-ups download; everyone plays."
+  />
+  <section class="my-24">
+    <div class="container">
+      <div class="grid grid-cols-1 gap-12 md:grid-cols-2 lg:grid-cols-3">
+        {
+          categories.map((category) => (
+            <a href={category.href} class="category-card">
+              <Feature icon={category.icon} title={category.title}>
+                {category.text}
+              </Feature>
+            </a>
+          ))
+        }
+      </div>
+      <p class="mt-16 text-center text-lg">
+        The activity garden is being planted — the first free printables arrive with our grand
+        opening. Check back soon!
+      </p>
+    </div>
+  </section>
+</DefaultLayout>
+
+<style>
+  .category-card {
+    display: block;
+    text-decoration: none;
+    color: inherit;
+  }
+</style>

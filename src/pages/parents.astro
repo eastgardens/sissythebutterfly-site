@@ -1,0 +1,52 @@
+---
+import DefaultLayout from '@layouts/DefaultLayout.astro'
+import PageHeader from '@components/PageHeader.astro'
+import Feature from '@components/Feature.astro'
+import { Heading } from 'accessible-astro-components'
+
+/**
+ * For Parents — the trust surface (013/014; WEBSITE-BUILD-SPEC §2). COPPA-clean by
+ * construction; claim ceiling = "teacher-created, reading-through-play, parent-mediated".
+ */
+---
+
+<DefaultLayout title="For Parents & Caregivers">
+  <PageHeader
+    title="For Parents"
+    subtitle="What Sissy the Butterfly is, how we work, and the promises we keep."
+  />
+  <section class="my-24">
+    <div class="container">
+      <div class="grid grid-cols-1 gap-12 md:grid-cols-3">
+        <Feature icon="lucide:shield-check" title="Nothing collected from kids">
+          No child accounts, no forms for children, no messages to children — ever. The only
+          thing we ever ask for is a parent’s email, and only if you choose to join our
+          newsletter.
+        </Feature>
+        <Feature icon="lucide:user-check" title="A human approves everything">
+          Every post, printable, and story is reviewed and approved by a named human (usually
+          Jen) before it’s published. Some materials are made with help from computer tools;
+          nothing skips the review.
+        </Feature>
+        <Feature icon="lucide:book-open" title="Reading through play">
+          Sissy is teacher-created and parent-mediated: made for grown-ups and children to
+          enjoy together. We’ll never promise curriculum miracles — just good stories and
+          honest fun.
+        </Feature>
+      </div>
+      <div class="mx-auto mt-16 flex max-w-2xl flex-col gap-4 text-lg">
+        <Heading level="h2">Our promises</Heading>
+        <ul class="flex list-disc flex-col gap-2 pl-6">
+          <li>No advertising or third-party tracking on this site.</li>
+          <li>No purchase pressure aimed at children, anywhere, ever.</li>
+          <li>Free means free — printables never move behind a paywall.</li>
+          <li>Questions answered by a real person: sissythebutterfly3@gmail.com.</li>
+        </ul>
+        <p class="mt-4">
+          The fine print lives on our <a href="/privacy/">privacy page</a> — it’s short and
+          written in plain language, because that’s the point.
+        </p>
+      </div>
+    </div>
+  </section>
+</DefaultLayout>

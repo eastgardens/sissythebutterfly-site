@@ -1,0 +1,65 @@
+---
+import DefaultLayout from '@layouts/DefaultLayout.astro'
+import PageHeader from '@components/PageHeader.astro'
+import { Heading, Link } from 'accessible-astro-components'
+
+/**
+ * The Book — the first-party buy page (033; WEBSITE-BUILD-SPEC §2). Trust-before-sale:
+ * "choose where to buy", never a hard CTA. Retailer clicks are the tracked intent events
+ * (analytics wiring at 2.3d). Cover art lands at 2.3b.
+ */
+const retailers = [
+  { name: 'Amazon', href: 'https://a.co/d/07GmSdEm', event: 'retailer_click_amazon' },
+  {
+    name: 'Barnes & Noble',
+    href: 'https://www.barnesandnoble.com/s/9798993255316',
+    event: 'retailer_click_bn',
+  },
+  {
+    name: 'Walmart',
+    href: 'https://www.walmart.com/search?q=9798993255309',
+    event: 'retailer_click_walmart',
+  },
+]
+---
+
+<DefaultLayout title="Sissy the Butterfly — the book">
+  <PageHeader
+    title="Sissy the Butterfly"
+    subtitle="The first adventure from the meadow — a read-aloud for ages 3–7."
+  />
+  <section class="my-24">
+    <div class="container">
+      <div class="mx-auto flex max-w-2xl flex-col gap-6 text-lg">
+        <p>
+          Sissy’s wings are new, the meadow is big, and being brave is easier said than done.
+          The very first Sissy the Butterfly book is a gentle read-aloud about small courage —
+          written by a teacher, made for laps, story rugs, and one-more-time bedtimes.
+        </p>
+        <p>
+          It’s a “read it together” kind of book: short enough for tonight, warm enough for
+          every night this week.
+        </p>
+        <Heading level="h2" class="mt-8">Choose where to buy</Heading>
+        <div class="flex flex-col gap-3 min-[500px]:flex-row">
+          {
+            retailers.map((retailer) => (
+              <Link
+                href={retailer.href}
+                isExternal={true}
+                class="button"
+                data-event={retailer.event}
+              >
+                {retailer.name}
+              </Link>
+            ))
+          }
+        </div>
+        <p class="mt-6 text-base">
+          However you read it, we hope it earns a spot in the pile. And if it does — the
+          meadow has five more stories waiting for their turn.
+        </p>
+      </div>
+    </div>
+  </section>
+</DefaultLayout>
