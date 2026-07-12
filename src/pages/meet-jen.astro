@@ -2,6 +2,8 @@
 import DefaultLayout from '@layouts/DefaultLayout.astro'
 import PageHeader from '@components/PageHeader.astro'
 import { Heading } from 'accessible-astro-components'
+import { Image } from 'astro:assets'
+import jenPhoto from '@assets/img/jen-author-photo.png'
 
 /**
  * Meet Jen — the trust anchor (013's copy shape; WEBSITE-BUILD-SPEC §2).
@@ -15,6 +17,14 @@ import { Heading } from 'accessible-astro-components'
   <section class="my-24">
     <div class="container">
       <div class="mx-auto flex max-w-2xl flex-col gap-6 text-lg">
+        <div class="flex justify-center">
+          <Image
+            src={jenPhoto}
+            alt="Jen Logsdon, the author — from the back cover of the first Sissy the Butterfly book."
+            width="300"
+            class="author-photo"
+          />
+        </div>
         <p>
           Hi — I’m Jen. I’ve spent my career as a teacher (including years helping children
           learning English find their voice), and I’m a mom who knows exactly what bedtime
@@ -45,3 +55,10 @@ import { Heading } from 'accessible-astro-components'
     </div>
   </section>
 </DefaultLayout>
+
+<style>
+  .author-photo {
+    border-radius: 1rem;
+    height: auto;
+  }
+</style>

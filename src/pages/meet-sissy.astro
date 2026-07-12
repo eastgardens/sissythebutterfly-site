@@ -4,6 +4,8 @@ import PageHeader from '@components/PageHeader.astro'
 import Feature from '@components/Feature.astro'
 import { Heading } from 'accessible-astro-components'
 import { Image } from 'astro:assets'
+import duo from '@assets/img/sissy-addy-duo.png'
+import addyCast from '@assets/img/addy-cast.png'
 import sissyCast from '@assets/img/sissy-cast.png'
 
 /**
@@ -21,9 +23,23 @@ import sissyCast from '@assets/img/sissy-cast.png'
     <div class="container">
       <div class="mb-16 flex justify-center">
         <Image
+          src={duo}
+          alt="Sissy and Addy, two smiling butterflies, standing together in the meadow holding flowers — from their first book."
+          width="900"
+          class="cast-art"
+        />
+      </div>
+      <div class="mb-16 flex flex-wrap justify-center gap-8">
+        <Image
           src={sissyCast}
-          alt="Sissy the Butterfly smiling in the meadow, from her first book."
-          width="420"
+          alt="Sissy the Butterfly, purple and pink wings with pink bows."
+          width="320"
+          class="cast-art"
+        />
+        <Image
+          src={addyCast}
+          alt="Addy the butterfly, blue and yellow wings with blue bows, flying happily."
+          width="320"
           class="cast-art"
         />
       </div>
