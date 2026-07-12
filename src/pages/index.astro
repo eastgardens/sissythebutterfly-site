@@ -5,6 +5,21 @@ import CallToAction from '@components/CallToAction.astro'
 import { Heading, Link } from 'accessible-astro-components'
 import { Image } from 'astro:assets'
 import heroImage from '@assets/img/sissy-hero.png'
+import sceneMeadow from '@assets/img/scenes/scene-sunny-meadow.png'
+import sceneGarden from '@assets/img/scenes/scene-butterfly-garden.png'
+import scenePond from '@assets/img/scenes/scene-pond.png'
+import sceneWaterfall from '@assets/img/scenes/scene-waterfall.png'
+import sceneSunset from '@assets/img/scenes/scene-sunset-meadow.png'
+import sceneForest from '@assets/img/scenes/scene-enchanted-forest.png'
+
+const scenes = [
+  { src: sceneMeadow, label: 'The sunny meadow', alt: 'A sunny green meadow with a winding path and wildflowers.' },
+  { src: sceneGarden, label: 'The butterfly garden', alt: 'A bright garden full of big flowers and butterflies.' },
+  { src: scenePond, label: 'The lily pond', alt: 'A calm blue pond dotted with lily pads.' },
+  { src: sceneWaterfall, label: 'The waterfall', alt: 'A little waterfall tumbling over mossy rocks.' },
+  { src: sceneSunset, label: 'Sunset meadow', alt: 'Rolling hills glowing orange and pink at sunset.' },
+  { src: sceneForest, label: 'The Enchanted Forest', alt: 'A magical forest path lit with glowing lanterns.' },
+]
 
 /**
  * Home — character-first, alive on load (WEBSITE-BUILD-SPEC §2).
@@ -64,6 +79,22 @@ import heroImage from '@assets/img/sissy-hero.png'
 
   <section class="my-32">
     <div class="container">
+      <Heading level="h2" class="mb-8">Places to explore in the meadow</Heading>
+      <ul class="scene-grid">
+        {
+          scenes.map((scene) => (
+            <li class="scene-tile">
+              <Image src={scene.src} alt={scene.alt} width="240" class="scene-img" />
+              <span class="scene-label">{scene.label}</span>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </section>
+
+  <section class="my-32">
+    <div class="container">
       <Heading level="h2" class="mb-4">Fresh this week</Heading>
       <p class="mb-6 max-w-2xl text-lg">
         A new free activity lands here every week. First up: the meadow is getting ready —
@@ -83,5 +114,45 @@ import heroImage from '@assets/img/sissy-hero.png'
     border-radius: 1.5rem;
     height: auto;
     max-width: 100%;
+  }
+
+  .scene-grid {
+    list-style: none;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.25rem;
+  }
+
+  @media (min-width: 640px) {
+    .scene-grid {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .scene-grid {
+      grid-template-columns: repeat(6, 1fr);
+    }
+  }
+
+  .scene-tile {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+    text-align: center;
+  }
+
+  .scene-img {
+    width: 100%;
+    height: auto;
+    border-radius: 1rem;
+    border: 3px solid var(--color-primary-100);
+  }
+
+  .scene-label {
+    font-weight: 700;
+    font-size: 0.95rem;
   }
 </style>
