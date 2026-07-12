@@ -1,0 +1,113 @@
+---
+import { newsletterLive, MAILERLITE_ACTION, MAILERLITE_EMAIL_FIELD } from '@config/funnel'
+
+/**
+ * Newsletter signup (runbook 2.3d) — gated behind the deliverability gate (037).
+ * When `newsletterLive` is false it shows an honest "almost ready" state instead of collecting
+ * addresses it can't yet email safely. When live, it's a plain HTML form that POSTs straight to
+ * MailerLite (no backend, works on a static host). Parent-facing; a real adult opts in.
+ */
+---
+
+{
+  newsletterLive ? (
+    <form
+      class="newsletter-form"
+      action={MAILERLITE_ACTION}
+      method="post"
+      target="_blank"
+      rel="noopener"
+    >
+      <label for="newsletter-email" class="newsletter-label">
+        Your email
+      </label>
+      <div class="newsletter-row">
+        <input
+          id="newsletter-email"
+          type="email"
+          name={MAILERLITE_EMAIL_FIELD}
+          autocomplete="email"
+          required
+          placeholder="grown-up@example.com"
+          class="newsletter-input"
+        />
+        <button type="submit" class="button" data-event="newsletter_submit">
+          Send me printables
+        </button>
+      </div>
+      {/* Honeypot: real people leave this empty; bots fill it. Hidden from humans + AT. */}
+      <input
+        type="text"
+        name="hp_website"
+        tabindex="-1"
+        autocomplete="off"
+        aria-hidden="true"
+        class="newsletter-hp"
+      />
+      <p class="newsletter-fineprint">
+        For grown-ups. Free printables and gentle updates from the meadow — no spam, unsubscribe
+        anytime. We never collect anything from children. See our <a href="/privacy/">privacy
+        promise</a>.
+      </p>
+    </form>
+  ) : (
+    <div class="newsletter-soon" role="status">
+      <p class="newsletter-soon-title">The meadow's mailing list is almost ready. 🦋</p>
+      <p>
+        We're getting everything set up so our first hello lands in your inbox — not your spam
+        folder. Check back soon, or find us on social in the meantime.
+      </p>
+    </div>
+  )
+}
+
+<style>
+  .newsletter-form,
+  .newsletter-soon {
+    max-width: 32rem;
+    margin-inline: auto;
+  }
+  .newsletter-label {
+    display: block;
+    font-weight: 700;
+    margin-block-end: 0.5rem;
+  }
+  .newsletter-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+  }
+  .newsletter-input {
+    flex: 1 1 14rem;
+    padding: 0.85rem 1rem;
+    border: 3px solid var(--color-primary-300);
+    border-radius: 999px;
+    font-size: 1rem;
+  }
+  .newsletter-input:focus-visible {
+    outline: 3px solid var(--color-secondary-400);
+    outline-offset: 2px;
+  }
+  .newsletter-hp {
+    position: absolute;
+    left: -9999px;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+  }
+  .newsletter-fineprint {
+    margin-block-start: 0.9rem;
+    font-size: 0.9rem;
+  }
+  .newsletter-soon {
+    text-align: center;
+    padding: 2rem;
+    border: 2px dashed var(--color-primary-300);
+    border-radius: 1.25rem;
+  }
+  .newsletter-soon-title {
+    font-weight: 700;
+    font-size: 1.25rem;
+    margin-block-end: 0.5rem;
+  }
+</style>

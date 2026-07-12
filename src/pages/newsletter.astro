@@ -1,0 +1,32 @@
+---
+import DefaultLayout from '@layouts/DefaultLayout.astro'
+import PageHeader from '@components/PageHeader.astro'
+import NewsletterSignup from '@components/NewsletterSignup.astro'
+
+/**
+ * /newsletter — the email-capture page (runbook 2.3d). The signup itself self-gates behind the
+ * deliverability gate (see src/config/funnel.ts); this page is safe to ship either way.
+ */
+---
+
+<DefaultLayout
+  title="Sissy the Butterfly — free printables in your inbox"
+  description="Join the meadow's mailing list for free teacher-created printables and gentle updates. For grown-ups, no spam, and nothing ever collected from children."
+>
+  <PageHeader
+    title="Free printables, straight to your inbox 🦋"
+    subtitle="Teacher-made activities and gentle updates from the meadow."
+  />
+  <section class="my-24">
+    <div class="container">
+      <div class="mx-auto flex max-w-2xl flex-col gap-6 text-lg">
+        <p>
+          Every so often, Jen sends a free printable — a coloring page, a little activity, a
+          read-aloud idea — plus the occasional hello about what's new in Sissy's world. It's
+          made for grown-ups to enjoy together with their little ones.
+        </p>
+        <NewsletterSignup />
+      </div>
+    </div>
+  </section>
+</DefaultLayout>
