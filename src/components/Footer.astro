@@ -1,99 +1,71 @@
 ---
 import CallToAction from './CallToAction.astro'
 import Logo from './Logo.astro'
+import themeConfig from '@theme-config'
 import { Heading, Link } from 'accessible-astro-components'
+import { Icon } from 'astro-icon/components'
 
 /**
- * Footer Component
- *
- * @description A component that displays the footer of the website
+ * Footer — Sissy's own (the template's demo footer fully replaced, 2.3e).
  */
 const currentYear = new Date().getFullYear()
 ---
 
 <footer>
-  <CallToAction />
+  <CallToAction
+    title="Free printables are coming to the meadow"
+    link="/printables/"
+    linkText="Visit the activity garden"
+  />
   <section class="py-20">
     <Heading level="h2" class="sr-only">Footer</Heading>
     <div class="container grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-4">
       <div class="flex flex-col gap-4">
-        <Heading level="h3" size="h6">Features</Heading>
+        <Heading level="h3" size="h6">Explore</Heading>
         <ul class="flex flex-col gap-2">
-          <li><Link href="/accessibility-statement">Accessibility statement</Link></li>
-          <li><Link href="/accessible-components">Accessible components</Link></li>
-          <li><Link href="/color-contrast-checker">Color contrast checker</Link></li>
-          <li><Link href="/markdown-page">Markdown page</Link></li>
-          <li><Link href="/mdx-page">MDX page</Link></li>
-          <li><Link href="/404-page">404 page</Link></li>
-          <li><Link href="/sitemap">Sitemap</Link></li>
+          <li><Link href="/printables/">Printables &amp; activities</Link></li>
+          <li><Link href="/meet-sissy/">Meet Sissy &amp; Friends</Link></li>
+          <li><Link href="/book/">The book</Link></li>
+          <li><Link href="/links/">All our links</Link></li>
         </ul>
       </div>
       <div class="flex flex-col gap-4">
-        <Heading level="h3" size="h6">Incluud projects</Heading>
+        <Heading level="h3" size="h6">For grown-ups</Heading>
         <ul class="flex flex-col gap-2">
-          <li>
-            <Link isExternal href="https://accessible-astro-starter.incluud.dev">Accessible Astro Starter</Link>
-          </li>
-          <li>
-            <Link isExternal href="https://accessible-astro-dashboard.incluud.dev">Accessible Astro Dashboard</Link>
-          </li>
-          <li>
-            <Link isExternal href="https://accessible-astro-starter.incluud.dev/accessible-components"
-              >Accessible Astro Components</Link
-            >
-          </li>
-          <li>
-            <Link isExternal href="https://accessible-astro-docs.incluud.dev">Accessible Astro Docs</Link>
-          </li>
-          <li>
-            <Link isExternal href="https://color-contrast.incluud.dev">Color Contrast Checker</Link>
-          </li>
+          <li><Link href="/meet-jen/">Meet Jen, the author</Link></li>
+          <li><Link href="/parents/">For parents</Link></li>
+          <li><Link href="/privacy/">Privacy</Link></li>
+          <li><Link href="/accessibility-statement">Accessibility</Link></li>
         </ul>
       </div>
       <div class="flex flex-col gap-4">
-        <Heading level="h3" size="h6">Developer tools</Heading>
+        <Heading level="h3" size="h6">Find us</Heading>
         <ul class="flex flex-col gap-2">
-          <li>
-            <Link isExternal href="https://chrispederick.com/work/web-developer/">Web Developer Extension</Link>
-          </li>
-          <li>
-            <Link isExternal href="https://accessibilityinsights.io/">Accessibility Insights</Link>
-          </li>
-          <li>
-            <Link isExternal href="https://www.deque.com/axe/devtools/">axe DevTools</Link>
-          </li>
-          <li>
-            <Link isExternal href="https://wave.webaim.org/extension/">WAVE Web Accessibility</Link>
-          </li>
-          <li>
-            <Link isExternal href="https://www.w3.org/WAI/ARIA/apg/patterns/">ARIA Design Patterns</Link>
-          </li>
-          <li>
-            <Link isExternal href="https://aaardvarkaccessibility.com/wcag-plain-english/">WCAG Plain English</Link>
-          </li>
+          {
+            themeConfig.socials.map((social) => (
+              <li>
+                <Link isExternal href={social.href} class="flex items-center gap-2">
+                  <Icon aria-hidden="true" name={social.icon} size="20" />
+                  {social.label}
+                </Link>
+              </li>
+            ))
+          }
         </ul>
       </div>
       <div class="flex flex-col gap-4">
         <Logo loading="lazy" />
         <p class="leading-[1.75]">
-          Tip: always test for screen reader support. Press <kbd class="kbd">⌘</kbd> + <kbd class="kbd">F5</kbd> to start
-          VoiceOver or <kbd class="kbd">Win</kbd>
-          + <kbd class="kbd">Ctrl</kbd> + <kbd class="kbd">Enter</kbd> for Narrator.
+          Teacher-created stories and printables for parents, caregivers, and little
+          wonder-finders everywhere.
         </p>
-        <p>Cute astronaut image by <Link href="https://unsplash.com/@kobbymendez">Kobby Mendez</Link> on Unsplash.</p>
       </div>
     </div>
   </section>
   <section class="py-8">
-    <div class="container flex flex-col gap-4 md:flex-row md:justify-between">
-      <p>
-        &copy; {currentYear} - Starter Theme for <Link href="https://astro.build/">Astro</Link>.
-      </p>
-      <p>
-        Made with ❤️ by <Link href="https://github.com/markteekman">Mark Teekman</Link>. Part of <Link
-          href="https://www.incluud.dev">Incluud</Link
-        >.
-      </p>
+    <div class="container flex flex-col items-center gap-2 text-center">
+      <p>&copy; {currentYear} Jen Logsdon · Sissy the Butterfly</p>
+      <p class="text-sm">Made with love (and reviewed by a real human) in the meadow.</p>
     </div>
   </section>
 </footer>

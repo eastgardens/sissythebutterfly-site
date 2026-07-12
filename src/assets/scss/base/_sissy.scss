@@ -1,0 +1,63 @@
+// Sissy's brand layer (2.3e) — the warmth the bare template lacked.
+// Buttons, logo, and hero styling on top of the accessible foundation. Colors come from the
+// --brand-* / --color-* ramps in _root.scss (single source; theme.config.ts is the twin).
+
+.button {
+  display: inline-block;
+  background-color: var(--color-primary-400);
+  color: white;
+  border: 3px solid transparent;
+  border-radius: 999px;
+  padding: 0.85rem 1.9rem;
+  font-weight: 700;
+  text-decoration: none;
+  transition:
+    background-color 0.15s ease,
+    transform 0.15s ease;
+
+  &:hover,
+  &:focus-visible {
+    background-color: var(--color-primary-500);
+    color: white;
+    transform: translateY(-2px);
+  }
+
+  &:focus-visible {
+    outline: 3px solid var(--color-secondary-400);
+    outline-offset: 3px;
+  }
+
+  &.color-secondary {
+    background-color: var(--color-secondary-300);
+    color: #332d3c;
+
+    &:hover,
+    &:focus-visible {
+      background-color: var(--color-secondary-400);
+      color: #241f2b;
+    }
+  }
+}
+
+// The header logo: soft-rounded so the face crop reads as a friendly badge, not a rectangle.
+header .flex.items-center img,
+footer img[src*='sissy-logo'] {
+  border-radius: 30%;
+}
+
+// Warm hero: a soft meadow-sky wash behind the landing section instead of white void.
+.hero {
+  background: linear-gradient(
+    180deg,
+    color-mix(in oklch, var(--color-primary-100) 35%, transparent) 0%,
+    transparent 100%
+  );
+  border-radius: 0 0 3rem 3rem;
+  padding-block: 3rem;
+}
+
+// Feature cards: give the tiles a gentle card body so sections don't float in whitespace.
+.grid > :is(div, a) > .flex.flex-col.gap-4,
+.feature-card {
+  border-radius: 1.25rem;
+}
