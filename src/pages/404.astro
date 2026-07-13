@@ -4,19 +4,26 @@ import { Heading, Link } from 'accessible-astro-components'
 import { Icon } from 'astro-icon/components'
 ---
 
-<DefaultLayout title="404">
-  <section class="my-12">
-    <div class="container">
-      <Heading level="h1">404</Heading>
-    </div>
-  </section>
-  <section class="my-12">
-    <div class="space-content container">
-      <p class="text-2xl">This page does not exist. Don't worry though, we got you.</p>
-      <Link href="/" isButton type="primary" animateOnHover animationType="nudge">
-        Let's get you home, Astronaut
-        <Icon aria-hidden="true" name="lucide:rocket" size="1.5rem" />
-      </Link>
+<DefaultLayout title="Page not found">
+  <section class="my-24">
+    <div class="space-content container mx-auto max-w-2xl text-center">
+      <Icon aria-hidden="true" name="lucide:flower-2" size="3rem" class="not-found-icon" />
+      <Heading level="h1">Oh, fiddlesticks!</Heading>
+      <p class="text-2xl">
+        Looks like this little flower fluttered away&hellip; let&rsquo;s find our way back to the
+        meadow.
+      </p>
+      <div class="flex flex-col justify-center gap-3 min-[500px]:flex-row">
+        <Link href="/" class="button">Back to the meadow</Link>
+        <Link href="/printables/" class="button color-secondary">Free printables &amp; activities</Link>
+      </div>
     </div>
   </section>
 </DefaultLayout>
+
+<style>
+  .not-found-icon {
+    display: inline-block;
+    color: var(--brand-primary);
+  }
+</style>

@@ -4,7 +4,9 @@
 
 .button {
   display: inline-block;
-  background-color: var(--color-primary-400);
+  // brand-primary (#400c9f) is ~11.9:1 on white text (well above WCAG AAA); hover
+  // primary-500 (L 50%) is a touch lighter than brand-primary (L 36.4%) and stays >=4.5:1.
+  background-color: var(--brand-primary);
   color: white;
   border: 3px solid transparent;
   border-radius: 999px;

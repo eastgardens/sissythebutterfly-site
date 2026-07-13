@@ -24,9 +24,30 @@ const retailers = [
     event: 'retailer_click_walmart',
   },
 ]
+
+// Book structured data (WEBSITE-BUILD-SPEC §5 — conservative, true-only).
+const bookLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Book',
+  name: 'Sissy the Butterfly',
+  author: { '@type': 'Person', name: 'Jen Logsdon' },
+  isbn: '9798993255316',
+  gtin13: '9798993255309',
+  offers: retailers.map((retailer) => ({
+    '@type': 'Offer',
+    url: retailer.href,
+    seller: { '@type': 'Organization', name: retailer.name },
+  })),
+}
 ---
 
-<DefaultLayout title="Sissy the Butterfly — the book" description="Sissy the Butterfly, Book 1: a gentle children's story about friendship and finding her courage. See where to buy the book and start your read-aloud adventure.">
+<DefaultLayout
+  title="Sissy the Butterfly — the book"
+  description="Sissy the Butterfly, Book 1: a gentle children's story about friendship and finding her courage. See where to buy the book and start your read-aloud adventure."
+  image={homeArt}
+  imageAlt="Sissy and Addy back home in the meadow, eyes closed and smiling — from the book's happy ending."
+>
+  <script type="application/ld+json" set:html={JSON.stringify(bookLd)} is:inline />
   <PageHeader
     title="Sissy the Butterfly"
     subtitle="The first adventure from the meadow — a read-aloud for ages 3–7."

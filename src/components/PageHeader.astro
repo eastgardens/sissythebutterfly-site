@@ -90,9 +90,29 @@ const sanitizedSubtitle: string = subtitle
       },
     })
   : ''
+
+// BreadcrumbList structured data (WEBSITE-BUILD-SPEC §5) — mirrors the rendered breadcrumbs.
+const breadcrumbSegments = Astro.url.pathname.split('/').filter(Boolean)
+const breadcrumbLd =
+  showBreadcrumbs && breadcrumbSegments.length > 0
+    ? {
+        '@context': 'https://schema.org',
+        '@type': 'BreadcrumbList',
+        itemListElement: [
+          { '@type': 'ListItem', position: 1, name: 'Home', item: new URL('/', Astro.site).href },
+          ...breadcrumbSegments.map((segment, index) => ({
+            '@type': 'ListItem',
+            position: index + 2,
+            name: formatSegment(segment),
+            item: new URL(`/${breadcrumbSegments.slice(0, index + 1).join('/')}/`, Astro.site).href,
+          })),
+        ],
+      }
+    : null
 ---
 
 <section class:list={[className, 'page-header']}>
+  {breadcrumbLd && <script type="application/ld+json" set:html={JSON.stringify(breadcrumbLd)} is:inline />}
   <div class="container my-3">
     {
       showBreadcrumbs &&

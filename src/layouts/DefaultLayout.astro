@@ -26,6 +26,10 @@ interface Props {
    */
   image?: ImageMetadata | string | null
   /**
+   * Alt text describing the social-share image (og:image:alt / twitter:image:alt)
+   */
+  imageAlt?: string
+  /**
    * The author of the page
    */
   author?: string
@@ -45,6 +49,7 @@ const {
   description = themeConfig.seo.description ?? '',
   url = Astro.url.href,
   image = themeConfig.seo.image ?? null,
+  imageAlt = themeConfig.seo.title,
   author = themeConfig.seo.author ?? '',
   type = 'website',
   useTitleTemplate = true,
@@ -54,6 +59,20 @@ const {
 // If image is an ImageMetadata object, use its src, otherwise treat as string path
 const imagePath = image ? (typeof image === 'string' ? image : image.src) : '/social-preview-image.png'
 const imageUrl = new URL(imagePath, Astro.site).href
+
+// Organization structured data (WEBSITE-BUILD-SPEC §5 — conservative, true-only).
+const logoPath = themeConfig.logo
+  ? typeof themeConfig.logo === 'string'
+    ? themeConfig.logo
+    : themeConfig.logo.src
+  : '/favicon-512.png'
+const organizationLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Organization',
+  name: themeConfig.name,
+  url: new URL('/', Astro.site).href,
+  logo: new URL(logoPath, Astro.site).href,
+}
 ---
 
 <html lang="en" dir="ltr">
@@ -86,7 +105,7 @@ const imageUrl = new URL(imagePath, Astro.site).href
 
     <SEO
       title={title}
-      titleTemplate={useTitleTemplate ? `%s - ${themeConfig.seo.title}` : undefined}
+      titleTemplate={useTitleTemplate ? `%s · ${themeConfig.name}` : undefined}
       titleDefault={themeConfig.seo.title}
       description={description}
       canonical={url}
@@ -100,12 +119,16 @@ const imageUrl = new URL(imagePath, Astro.site).href
         optional: {
           description: description,
         },
+        image: {
+          alt: imageAlt,
+        },
       }}
       twitter={{
         card: 'summary_large_image',
         title: title,
         description: description,
         image: imageUrl,
+        imageAlt: imageAlt,
       }}
       extend={{
         meta: [
@@ -116,6 +139,9 @@ const imageUrl = new URL(imagePath, Astro.site).href
         ],
       }}
     />
+
+    <!-- Organization structured data (schema.org) -->
+    <script type="application/ld+json" set:html={JSON.stringify(organizationLd)} is:inline />
 
     <!-- Enable Astro View Transitions for all browsers -->
     <ClientRouter />
