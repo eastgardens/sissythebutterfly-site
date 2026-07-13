@@ -1,31 +1,17 @@
 [
   {
     "category": "coloring",
-    "slug": "sissy-butterfly-garden-coloring-page",
-    "title": "Sissy's Butterfly Garden Coloring Page",
-    "alt": "A big butterfly in the middle of a flower garden, drawn as bold outlines to color in.",
+    "slug": "meadow-friends-coloring-page",
+    "title": "Meadow Friends Coloring Page",
+    "alt": "Sissy, Addy, Buddy, and Flitter together in a flower meadow with a flowered archway and clouds, drawn as bold outlines to color in.",
     "ageBand": "3-7",
-    "blurb": "A big butterfly and four flowers, ready for your best colors.",
-    "pdf": "/printables/coloring/sissy-butterfly-garden-coloring-page.pdf",
-    "thumb": "/printables/coloring/sissy-butterfly-garden-coloring-page.png",
+    "blurb": "Color Sissy and all her meadow friends in the flower field.",
+    "pdf": "/printables/coloring/meadow-friends-coloring-page.pdf",
+    "thumb": "/printables/coloring/meadow-friends-coloring-page.png",
     "thumbWidth": 800,
-    "thumbHeight": 1035,
+    "thumbHeight": 618,
     "featured": true,
-    "downloadEvent": "printable_download_sissy_butterfly_garden_coloring_page"
-  },
-  {
-    "category": "coloring",
-    "slug": "meadow-of-flowers-coloring-page",
-    "title": "A Meadow of Flowers Coloring Page",
-    "alt": "Three large simple flowers and a star, drawn as bold outlines for a young child to color.",
-    "ageBand": "3-7",
-    "blurb": "Big, simple flowers with lots of room for color.",
-    "pdf": "/printables/coloring/meadow-of-flowers-coloring-page.pdf",
-    "thumb": "/printables/coloring/meadow-of-flowers-coloring-page.png",
-    "thumbWidth": 800,
-    "thumbHeight": 1035,
-    "featured": false,
-    "downloadEvent": "printable_download_meadow_of_flowers_coloring_page"
+    "downloadEvent": "printable_download_meadow_friends_coloring_page"
   },
   {
     "category": "crafts",
