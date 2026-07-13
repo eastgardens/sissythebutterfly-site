@@ -7,6 +7,7 @@ import Header from '@components/Header.astro'
 import Footer from '@components/Footer.astro'
 import { ClientRouter } from 'astro:transitions'
 import type { ImageMetadata } from 'astro'
+import { analyticsEnabled, cfBeaconConfig } from '@config/analytics'
 
 interface Props {
   /**
@@ -154,11 +155,19 @@ const organizationLd = {
     <Footer />
 
     <script>
-      // Provider-agnostic click tracking (runbook 2.3d). Captures [data-event] clicks (retailer
-      // buy-links, newsletter submit) into a queue an analytics provider can drain later (034,
-      // deferred — the vendor choice is privacy-sensitive). No third party, no PII: privacy-safe
-      // by construction for a children's brand. Delegated on document, so it survives view
-      // transitions without re-binding.
+      // Provider-agnostic click tracking (runbook 2.3d). Captures [data-event] clicks
+      // (retailer_click_*, newsletter_submit, printable_download_*) into a queue for a future
+      // analytics sink. No third party, no PII: privacy-safe by construction for a children's
+      // brand. Delegated on document, so it survives view transitions without re-binding.
+      //
+      // ── EVENT-SINK SEAM (WEBSITE-BUILD-SPEC D3) ────────────────────────────────────────────
+      // Cloudflare Web Analytics (wired below) is DASHBOARD-ONLY: it gives automatic PAGEVIEWS
+      // but has NO custom-event API, so this array is intentionally NOT drained today — the
+      // events are captured and left queued on purpose. They become valuable when the operator
+      // self-hosts Umami/Plausible on the NAS: at that point add a drain here (post the queued
+      // events to the sink's collect endpoint) — that is the precise retailer-click /
+      // printable-download upgrade path. Until then, KDP dashboard = sales truth, CF = traffic.
+      // See src/config/analytics.ts for the full seam + upgrade notes.
       ;(function () {
         window.__sissyEvents = window.__sissyEvents || []
         document.addEventListener('click', function (e) {
@@ -172,6 +181,24 @@ const organizationLd = {
         })
       })()
     </script>
+
+    {/*
+      Cloudflare Web Analytics beacon (WEBSITE-BUILD-SPEC D3). Standalone JS beacon — free,
+      cookieless, no PII, COPPA-friendly; works on GitHub Pages with no proxy and no DNS change.
+      Gated behind CF_BEACON_TOKEN in src/config/analytics.ts: ships INERT (nothing injected)
+      until the operator pastes a real token. `is:inline` keeps Astro from bundling this
+      third-party script; `spa:true` tracks ClientRouter (View Transitions) client-side navs.
+    */}
+    {
+      analyticsEnabled && (
+        <script
+          is:inline
+          defer
+          src="https://static.cloudflareinsights.com/beacon.min.js"
+          data-cf-beacon={JSON.stringify(cfBeaconConfig)}
+        />
+      )
+    }
     <style lang="scss" is:global>
       @use 'scss/base/mixins' as *;
 
