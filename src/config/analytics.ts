@@ -40,7 +40,7 @@
  * Cloudflare Web Analytics beacon token. Empty string ⇒ analytics OFF (no beacon injected).
  * Paste the token from the Cloudflare dashboard (see step 4 above) to turn analytics ON.
  */
-export const CF_BEACON_TOKEN = ''
+export const CF_BEACON_TOKEN = '803ba311e39d4c3eb3340600e4c498a7'
 
 /**
  * SPA mode. This site uses Astro `<ClientRouter />` (View Transitions), so page navigations are
