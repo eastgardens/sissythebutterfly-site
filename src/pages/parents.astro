@@ -3,6 +3,7 @@ import DefaultLayout from '@layouts/DefaultLayout.astro'
 import PageHeader from '@components/PageHeader.astro'
 import Feature from '@components/Feature.astro'
 import { Heading } from 'accessible-astro-components'
+import bannerArt from '@assets/img/scenes/scene-sunny-meadow.png'
 
 /**
  * For Parents — the trust surface (013/014; WEBSITE-BUILD-SPEC §2). COPPA-clean by
@@ -14,6 +15,7 @@ import { Heading } from 'accessible-astro-components'
   <PageHeader
     title="For Parents"
     subtitle="What Sissy the Butterfly is, how we work, and the promises we keep."
+    featuredImage={bannerArt}
   />
   <section class="my-24">
     <div class="container">

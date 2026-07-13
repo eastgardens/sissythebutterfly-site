@@ -4,6 +4,7 @@ import PageHeader from '@components/PageHeader.astro'
 import { Heading, Link } from 'accessible-astro-components'
 import { Image } from 'astro:assets'
 import homeArt from '@assets/img/sissy-addy-home.png'
+import bannerArt from '@assets/img/scenes/scene-enchanted-forest.png'
 
 /**
  * The Book — the first-party buy page (033; WEBSITE-BUILD-SPEC §2). Trust-before-sale:
@@ -29,6 +30,7 @@ const retailers = [
   <PageHeader
     title="Sissy the Butterfly"
     subtitle="The first adventure from the meadow — a read-aloud for ages 3–7."
+    featuredImage={bannerArt}
   />
   <section class="my-24">
     <div class="container">
