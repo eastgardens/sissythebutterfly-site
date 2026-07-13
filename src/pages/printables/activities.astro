@@ -1,21 +1,25 @@
 ---
 import DefaultLayout from '@layouts/DefaultLayout.astro'
 import PageHeader from '@components/PageHeader.astro'
+import PrintableGrid from '@components/PrintableGrid.astro'
+import { CATEGORY_META, printablesByCategory } from '@data/printables'
 
 /**
- * Activities — Pinterest-search-matched landing (WEBSITE-BUILD-SPEC §2).
- * Items populate from the content engine at 2.5 (every pin links to its item page here).
+ * Activities — Pinterest-search-matched landing (WEBSITE-BUILD-SPEC §2). Real printables now live
+ * here: a validation-first SEL calm-down card and more, teacher-created and screen-free.
  */
+const meta = CATEGORY_META['activities']
+const items = printablesByCategory('activities')
 ---
 
-<DefaultLayout title="Activities — Sissy the Butterfly" description="Movement games and garden adventures for kids ages 3-7 — teacher-created active play, screen-free and parent-guided, from Sissy the Butterfly.">
-  <PageHeader title="Activities" subtitle="Movement games, treasure hunts, and butterfly-garden activities for ages 3-7." />
+<DefaultLayout title={meta.seoTitle} description={meta.seoDescription}>
+  <PageHeader title={meta.pageTitle} subtitle={meta.subtitle} />
   <section class="my-24">
-    <div class="container">
-      <p class="mx-auto max-w-2xl text-center text-lg">
-        This shelf is being stocked! The first free printables arrive with our grand opening.
-        Everything here will always be free, teacher-created, and made for grown-ups to share
-        with their children.
+    <div class="container space-content">
+      <PrintableGrid items={items} />
+      <p class="mt-16 text-center text-base">
+        More activities are on the way — everything here is always free, teacher-created, and made
+        for grown-ups to share with their children.
       </p>
     </div>
   </section>

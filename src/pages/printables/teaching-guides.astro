@@ -1,21 +1,33 @@
 ---
 import DefaultLayout from '@layouts/DefaultLayout.astro'
 import PageHeader from '@components/PageHeader.astro'
+import PrintableGrid from '@components/PrintableGrid.astro'
+import { CATEGORY_META, printablesByCategory } from '@data/printables'
 
 /**
- * Teaching Guides — Pinterest-search-matched landing (WEBSITE-BUILD-SPEC §2).
- * Items populate from the content engine at 2.5 (every pin links to its item page here).
+ * Teaching Guides — Pinterest-search-matched landing (WEBSITE-BUILD-SPEC §2). Real printables now
+ * live here, including the Book-1 TEACHER PACK — the intended email magnet.
+ *
+ * ── EMAIL-GATE TODO (commission 037) ──────────────────────────────────────────────────────────
+ * The teacher pack ships today as a FREE UNGATED download (an ungated free magnet beats an empty
+ * shell or a broken email wall). The newsletter is 037-gated (src/config/funnel.ts → newsletterLive
+ * is false until the sending domain is authenticated). WHEN 037 lands: gate ONLY the teacher-pack
+ * card (isEmailMagnet(item) in src/data/printables.ts) behind an inline email signup that reveals
+ * the PDF on submit; leave every other sheet a direct download. Do not build the gate before the
+ * form can accept an address.
  */
+const meta = CATEGORY_META['teaching-guides']
+const items = printablesByCategory('teaching-guides')
 ---
 
-<DefaultLayout title="Teaching Guides — Sissy the Butterfly" description="Teacher-created read-aloud companions and classroom resources for Sissy the Butterfly: discussion questions, activity sheets, and teaching guides.">
-  <PageHeader title="Teaching Guides" subtitle="Teacher-created read-aloud scripts, discussion questions, and classroom companions." />
+<DefaultLayout title={meta.seoTitle} description={meta.seoDescription}>
+  <PageHeader title={meta.pageTitle} subtitle={meta.subtitle} />
   <section class="my-24">
-    <div class="container">
-      <p class="mx-auto max-w-2xl text-center text-lg">
-        This shelf is being stocked! The first free printables arrive with our grand opening.
-        Everything here will always be free, teacher-created, and made for grown-ups to share
-        with their children.
+    <div class="container space-content">
+      <PrintableGrid items={items} />
+      <p class="mt-16 text-center text-base">
+        More teaching guides are on the way — everything here is always free, teacher-created, and
+        made for grown-ups to share with their children and classrooms.
       </p>
     </div>
   </section>

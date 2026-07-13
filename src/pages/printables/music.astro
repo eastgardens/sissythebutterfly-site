@@ -1,21 +1,25 @@
 ---
 import DefaultLayout from '@layouts/DefaultLayout.astro'
 import PageHeader from '@components/PageHeader.astro'
+import PrintableGrid from '@components/PrintableGrid.astro'
+import { CATEGORY_META, printablesByCategory } from '@data/printables'
 
 /**
- * Music & Songs — Pinterest-search-matched landing (WEBSITE-BUILD-SPEC §2).
- * Items populate from the content engine at 2.5 (every pin links to its item page here).
+ * Music & Songs — Pinterest-search-matched landing (WEBSITE-BUILD-SPEC §2). Real printables now
+ * live here: piggyback lyric + action sheets (the Wiggles model) — a line, its action, repeat.
  */
+const meta = CATEGORY_META['music']
+const items = printablesByCategory('music')
 ---
 
-<DefaultLayout title="Music & Songs — Sissy the Butterfly" description="Kids songs and movement sheets from Sissy the Butterfly: printable lyric and action sheets to sing, buzz, and flutter — screen-free family fun.">
-  <PageHeader title="Music & Songs" subtitle="Lyric and action sheets, movement songs, and the Buzz Dance — print, sing, and wiggle." />
+<DefaultLayout title={meta.seoTitle} description={meta.seoDescription}>
+  <PageHeader title={meta.pageTitle} subtitle={meta.subtitle} />
   <section class="my-24">
-    <div class="container">
-      <p class="mx-auto max-w-2xl text-center text-lg">
-        This shelf is being stocked! The first free printables arrive with our grand opening.
-        Everything here will always be free, teacher-created, and made for grown-ups to share
-        with their children.
+    <div class="container space-content">
+      <PrintableGrid items={items} />
+      <p class="mt-16 text-center text-base">
+        More songs are on the way — everything here is always free, teacher-created, and made for
+        grown-ups to share with their children.
       </p>
     </div>
   </section>

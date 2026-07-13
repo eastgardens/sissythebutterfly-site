@@ -1,21 +1,25 @@
 ---
 import DefaultLayout from '@layouts/DefaultLayout.astro'
 import PageHeader from '@components/PageHeader.astro'
+import PrintableGrid from '@components/PrintableGrid.astro'
+import { CATEGORY_META, printablesByCategory } from '@data/printables'
 
 /**
- * Coloring Pages — Pinterest-search-matched landing (WEBSITE-BUILD-SPEC §2).
- * Items populate from the content engine at 2.5 (every pin links to its item page here).
+ * Coloring Pages — Pinterest-search-matched landing (WEBSITE-BUILD-SPEC §2). Real printables now
+ * live here: every sheet is a free, teacher-created PDF rendered by the mascotAI generators.
  */
+const meta = CATEGORY_META['coloring']
+const items = printablesByCategory('coloring')
 ---
 
-<DefaultLayout title="Coloring Pages — Sissy the Butterfly" description="Free printable butterfly coloring pages for kids ages 3-7, teacher-created in the world of Sissy the Butterfly. Print at home or use in the classroom.">
-  <PageHeader title="Coloring Pages" subtitle="Free printable Sissy the Butterfly coloring pages for kids - butterflies, meadows, and friends, teacher-created." />
+<DefaultLayout title={meta.seoTitle} description={meta.seoDescription}>
+  <PageHeader title={meta.pageTitle} subtitle={meta.subtitle} />
   <section class="my-24">
-    <div class="container">
-      <p class="mx-auto max-w-2xl text-center text-lg">
-        This shelf is being stocked! The first free printables arrive with our grand opening.
-        Everything here will always be free, teacher-created, and made for grown-ups to share
-        with their children.
+    <div class="container space-content">
+      <PrintableGrid items={items} />
+      <p class="mt-16 text-center text-base">
+        More coloring pages are on the way — everything here is always free, teacher-created, and
+        made for grown-ups to share with their children.
       </p>
     </div>
   </section>

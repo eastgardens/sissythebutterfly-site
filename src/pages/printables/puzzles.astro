@@ -1,21 +1,26 @@
 ---
 import DefaultLayout from '@layouts/DefaultLayout.astro'
 import PageHeader from '@components/PageHeader.astro'
+import PrintableGrid from '@components/PrintableGrid.astro'
+import { CATEGORY_META, printablesByCategory } from '@data/printables'
 
 /**
- * Puzzles & Games — Pinterest-search-matched landing (WEBSITE-BUILD-SPEC §2).
- * Items populate from the content engine at 2.5 (every pin links to its item page here).
+ * Puzzles & Games — Pinterest-search-matched landing (WEBSITE-BUILD-SPEC §2). Real printables now
+ * live here: word search, connect-the-dots, counting sheet, and a board game — all rendered by the
+ * deterministic mascotAI puzzle generators (no model text, reproducible by seed).
  */
+const meta = CATEGORY_META['puzzles']
+const items = printablesByCategory('puzzles')
 ---
 
-<DefaultLayout title="Puzzles & Games — Sissy the Butterfly" description="Free printable puzzles for kids: mazes, word searches, matching games, and connect-the-dots from the world of Sissy the Butterfly.">
-  <PageHeader title="Puzzles & Games" subtitle="Printable mazes, word searches, and matching games for preschool and early elementary." />
+<DefaultLayout title={meta.seoTitle} description={meta.seoDescription}>
+  <PageHeader title={meta.pageTitle} subtitle={meta.subtitle} />
   <section class="my-24">
-    <div class="container">
-      <p class="mx-auto max-w-2xl text-center text-lg">
-        This shelf is being stocked! The first free printables arrive with our grand opening.
-        Everything here will always be free, teacher-created, and made for grown-ups to share
-        with their children.
+    <div class="container space-content">
+      <PrintableGrid items={items} />
+      <p class="mt-16 text-center text-base">
+        More puzzles are on the way — everything here is always free, teacher-created, and made for
+        grown-ups to share with their children.
       </p>
     </div>
   </section>
