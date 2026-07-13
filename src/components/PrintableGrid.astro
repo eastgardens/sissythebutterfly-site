@@ -1,0 +1,19 @@
+---
+import PrintableCard from '@components/PrintableCard.astro'
+import type { Printable } from '@data/printables'
+
+/**
+ * PrintableGrid — the responsive grid of PrintableCards shared by every category page and the
+ * printables landing (DRY: one grid, one card, all pages). One column on phones, two on tablets,
+ * three on desktop (reuses the site's existing responsive-grid pattern).
+ */
+interface Props {
+  items: Printable[]
+}
+
+const { items } = Astro.props
+---
+
+<div class="printable-grid grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3">
+  {items.map((item) => <PrintableCard item={item} />)}
+</div>

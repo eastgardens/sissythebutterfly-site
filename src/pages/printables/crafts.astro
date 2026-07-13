@@ -1,21 +1,25 @@
 ---
 import DefaultLayout from '@layouts/DefaultLayout.astro'
 import PageHeader from '@components/PageHeader.astro'
+import PrintableGrid from '@components/PrintableGrid.astro'
+import { CATEGORY_META, printablesByCategory } from '@data/printables'
 
 /**
- * Kids Crafts — Pinterest-search-matched landing (WEBSITE-BUILD-SPEC §2).
- * Items populate from the content engine at 2.5 (every pin links to its item page here).
+ * Kids Crafts — Pinterest-search-matched landing (WEBSITE-BUILD-SPEC §2). Real printables now live
+ * here: free, teacher-created craft cards with a grown-up helper split + verbatim safety notes.
  */
+const meta = CATEGORY_META['crafts']
+const items = printablesByCategory('crafts')
 ---
 
-<DefaultLayout title="Kids Crafts — Sissy the Butterfly" description="Simple kids crafts from Sissy the Butterfly's meadow: butterfly crafts, paper crafts, and nature crafts using materials you already have at home.">
-  <PageHeader title="Kids Crafts" subtitle="Simple butterfly crafts and meadow make-alongs for kids, using everyday household materials." />
+<DefaultLayout title={meta.seoTitle} description={meta.seoDescription}>
+  <PageHeader title={meta.pageTitle} subtitle={meta.subtitle} />
   <section class="my-24">
-    <div class="container">
-      <p class="mx-auto max-w-2xl text-center text-lg">
-        This shelf is being stocked! The first free printables arrive with our grand opening.
-        Everything here will always be free, teacher-created, and made for grown-ups to share
-        with their children.
+    <div class="container space-content">
+      <PrintableGrid items={items} />
+      <p class="mt-16 text-center text-base">
+        More crafts are on the way — everything here is always free, teacher-created, and made for
+        grown-ups to share with their children.
       </p>
     </div>
   </section>

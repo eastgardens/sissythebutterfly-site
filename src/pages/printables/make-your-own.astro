@@ -1,21 +1,25 @@
 ---
 import DefaultLayout from '@layouts/DefaultLayout.astro'
 import PageHeader from '@components/PageHeader.astro'
+import PrintableGrid from '@components/PrintableGrid.astro'
+import { CATEGORY_META, printablesByCategory } from '@data/printables'
 
 /**
- * Make Your Own — Pinterest-search-matched landing (WEBSITE-BUILD-SPEC §2).
- * Items populate from the content engine at 2.5 (every pin links to its item page here).
+ * Make Your Own — Pinterest-search-matched landing (WEBSITE-BUILD-SPEC §2). Real printables now
+ * live here: make-your-own templates where the child is the author (their imagination is the magic).
  */
+const meta = CATEGORY_META['make-your-own']
+const items = printablesByCategory('make-your-own')
 ---
 
-<DefaultLayout title="Make Your Own — Sissy the Butterfly" description="Make-your-own printables for young imaginations: blank comic panels, song sheets, and meadow maps from the world of Sissy the Butterfly.">
-  <PageHeader title="Make Your Own" subtitle="Blank Sissy comic panels, write-your-own-song sheets, and draw-your-own meadow maps." />
+<DefaultLayout title={meta.seoTitle} description={meta.seoDescription}>
+  <PageHeader title={meta.pageTitle} subtitle={meta.subtitle} />
   <section class="my-24">
-    <div class="container">
-      <p class="mx-auto max-w-2xl text-center text-lg">
-        This shelf is being stocked! The first free printables arrive with our grand opening.
-        Everything here will always be free, teacher-created, and made for grown-ups to share
-        with their children.
+    <div class="container space-content">
+      <PrintableGrid items={items} />
+      <p class="mt-16 text-center text-base">
+        More make-your-own templates are on the way — everything here is always free,
+        teacher-created, and made for grown-ups to share with their children.
       </p>
     </div>
   </section>
