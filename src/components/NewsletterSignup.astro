@@ -44,6 +44,9 @@ import { newsletterLive, MAILERLITE_ACTION, MAILERLITE_EMAIL_FIELD } from '@conf
         aria-hidden="true"
         class="newsletter-hp"
       />
+      {/* MailerLite's embedded-form required hidden fields (from the form's HTML embed code). */}
+      <input type="hidden" name="ml-submit" value="1" />
+      <input type="hidden" name="anticsrf" value="true" />
       <p class="newsletter-fineprint">
         For grown-ups. Free printables and gentle updates from the meadow — no spam, unsubscribe
         anytime. We never collect anything from children. See our <a href="/privacy/">privacy

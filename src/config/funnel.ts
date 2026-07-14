@@ -13,10 +13,11 @@
  *   3. Only after domain auth verifies, set `NEWSLETTER_ENABLED = true`.
  */
 
-export const NEWSLETTER_ENABLED = false
+export const NEWSLETTER_ENABLED = true
 
-/** MailerLite embedded-form POST action URL. Empty until the setup session. */
-export const MAILERLITE_ACTION = ''
+/** MailerLite embedded-form POST action URL (form "Website Newsletter Signup", double opt-in ON). */
+export const MAILERLITE_ACTION =
+  'https://assets.mailerlite.com/jsonp/2508109/forms/192924327735199043/subscribe'
 
 /** The field name MailerLite expects for the email (confirm against the dashboard embed code). */
 export const MAILERLITE_EMAIL_FIELD = 'fields[email]'
