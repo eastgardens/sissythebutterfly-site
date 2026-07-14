@@ -73,7 +73,7 @@ export default defineThemeConfig({
     },
     {
       label: 'X',
-      href: 'https://x.com/sissybutterfly',
+      href: 'https://x.com/sissybutterfly3',
       icon: 'lucide:twitter',
     },
   ],
