@@ -3,6 +3,7 @@ import DefaultLayout from '@layouts/DefaultLayout.astro'
 import PageHeader from '@components/PageHeader.astro'
 import Feature from '@components/Feature.astro'
 import PrintableGrid from '@components/PrintableGrid.astro'
+import NewsletterSignup from '@components/NewsletterSignup.astro'
 import { Heading } from 'accessible-astro-components'
 import {
   CATEGORY_META,
@@ -72,6 +73,13 @@ const featured = featuredPrintables()
       </section>
     )
   }
+
+  <section class="my-24">
+    <div class="container space-content">
+      <Heading level="h2" class="text-center">Never miss a new printable</Heading>
+      <NewsletterSignup />
+    </div>
+  </section>
 </DefaultLayout>
 
 <style>
