@@ -1,0 +1,243 @@
+---
+import DefaultLayout from '@layouts/DefaultLayout.astro'
+import PageHeader from '@components/PageHeader.astro'
+import PrintableGrid from '@components/PrintableGrid.astro'
+import NewsletterSignup from '@components/NewsletterSignup.astro'
+import { Heading } from 'accessible-astro-components'
+import { printables, type Printable } from '@data/printables'
+import heroArt from '@assets/img/scenes/scene-butterfly-garden.png'
+
+/**
+ * SEO resource page — target cluster: "free butterfly printables for kids".
+ * A genuinely useful hub that curates our real, teacher-created printables across every category
+ * and funnels Google organic traffic into the email list + the book (soft, trust-first). Content
+ * is original guidance, not keyword filler; every printable link resolves to a real PDF card.
+ */
+const pick = (slugs: string[]): Printable[] =>
+  slugs
+    .map((slug) => printables.find((p) => p.slug === slug))
+    .filter((p): p is Printable => Boolean(p))
+
+// A curated best-of across categories — the strongest first-download sheets.
+const starterSet = pick([
+  'meadow-friends-coloring-page',
+  'make-a-paper-butterfly',
+  'meadow-friends-word-search',
+  'the-flutter-song-lyric-and-action-sheet',
+  'rainbow-breaths-calm-down-card',
+  'make-your-own-meadow-map',
+])
+
+const pageUrl = new URL('/free-butterfly-printables/', Astro.site).href
+const heroUrl = new URL(heroArt.src, Astro.site).href
+const logoUrl = new URL('/favicon-512.png', Astro.site).href
+
+const articleLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Article',
+  headline: 'Free Butterfly Printables for Kids',
+  description:
+    'A teacher-created collection of free butterfly printables for kids ages 3-7: coloring pages, crafts, puzzles, songs, and calm-down cards — all free to download and print.',
+  image: heroUrl,
+  author: { '@type': 'Person', name: 'Jen Logsdon' },
+  publisher: {
+    '@type': 'Organization',
+    name: 'Sissy the Butterfly',
+    logo: { '@type': 'ImageObject', url: logoUrl },
+  },
+  datePublished: '2026-07-13',
+  dateModified: '2026-07-13',
+  mainEntityOfPage: pageUrl,
+}
+
+const faqs = [
+  {
+    q: 'Are these butterfly printables really free?',
+    a: 'Yes. Every printable here is free to download and print — no purchase, no catch. They stay free; we never move them behind a paywall.',
+  },
+  {
+    q: 'What ages are the printables for?',
+    a: 'Most are made for children ages 3 to 7 — preschool, pre-K, and early elementary. Each printable lists its own suggested age band so you can pick the right fit.',
+  },
+  {
+    q: 'Can I use these in my classroom?',
+    a: 'Absolutely. They are teacher-created and classroom-friendly. Print as many copies as your class needs for non-commercial classroom and home use.',
+  },
+  {
+    q: 'How do I print them?',
+    a: 'Each printable is a standard US-letter PDF. Click Download, open the PDF, and print at home or at school on a regular printer — black-and-white works great for coloring pages.',
+  },
+]
+const faqLd = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: faqs.map((item) => ({
+    '@type': 'Question',
+    name: item.q,
+    acceptedAnswer: { '@type': 'Answer', text: item.a },
+  })),
+}
+---
+
+<DefaultLayout
+  title="Free Butterfly Printables for Kids"
+  description="Free butterfly printables for kids ages 3-7 — teacher-created coloring pages, crafts, puzzles, songs, and calm-down cards. Download and print, always free."
+  image={heroArt}
+  imageAlt="A bright butterfly garden full of big flowers, from the world of Sissy the Butterfly."
+  type="article"
+>
+  <script type="application/ld+json" set:html={JSON.stringify(articleLd)} is:inline />
+  <script type="application/ld+json" set:html={JSON.stringify(faqLd)} is:inline />
+
+  <PageHeader
+    title="Free Butterfly Printables for Kids"
+    subtitle="Teacher-created, always free, and ready to print — coloring pages, crafts, puzzles, songs, and more from the meadow."
+    featuredImage={heroArt}
+  />
+
+  <section class="my-24">
+    <div class="container space-content">
+      <div class="mx-auto flex max-w-2xl flex-col gap-4 text-lg">
+        <p>
+          Looking for free butterfly printables that are actually worth the paper? You are in the
+          right meadow. Everything here is made by a real teacher, drawn from the gentle world of
+          Sissy the Butterfly, and completely free to download and print — at home, in the
+          classroom, or at the kitchen table on a rainy afternoon.
+        </p>
+        <p>
+          We keep the collection small on purpose: a handful of well-made sheets your child will
+          actually finish beats a hundred you will never print. Start with the favorites below,
+          then browse by what your little one is in the mood for.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="my-24">
+    <div class="container space-content">
+      <Heading level="h2">Start with these favorites</Heading>
+      <p class="text-lg">
+        A little of everything — a coloring page, a paper-butterfly craft, a word search, a
+        sing-along, a calm-down card, and a make-your-own map. Pick one and press print.
+      </p>
+      <PrintableGrid items={starterSet} />
+    </div>
+  </section>
+
+  <section class="my-24">
+    <div class="container space-content">
+      <Heading level="h2">Browse butterfly printables by type</Heading>
+      <p class="text-lg">Looking for something specific? Each of these opens a full, free category:</p>
+      <ul class="mx-auto flex max-w-2xl list-disc flex-col gap-3 pl-6 text-lg">
+        <li>
+          <a href="/printables/coloring/">Butterfly coloring pages</a> — Sissy and friends, ready
+          for your child's best colors.
+        </li>
+        <li>
+          <a href="/printables/crafts/">Butterfly crafts</a> — make a paper butterfly and build a
+          meadow with things you already have at home.
+        </li>
+        <li>
+          <a href="/printables/puzzles/">Puzzles &amp; games</a> — word searches, connect-the-dots,
+          counting sheets, and a meadow board game.
+        </li>
+        <li>
+          <a href="/printables/activities/">Calm-down &amp; movement activities</a> — screen-free
+          ways to breathe, wiggle, and reset.
+        </li>
+        <li>
+          <a href="/printables/music/">Songs &amp; movement sheets</a> — lyric and action pages to
+          sing and flutter along.
+        </li>
+        <li>
+          <a href="/printables/make-your-own/">Make-your-own templates</a> — blank maps where your
+          child is the author.
+        </li>
+        <li>
+          <a href="/printables/teaching-guides/">Teaching guides</a> — read-aloud companions and
+          classroom-ready resources.
+        </li>
+      </ul>
+      <p class="text-lg">
+        Want to see everything in one place? Visit the
+        <a href="/printables/">full printables &amp; activities library</a>.
+      </p>
+    </div>
+  </section>
+
+  <section class="my-24">
+    <div class="container space-content">
+      <Heading level="h2">Tips for parents &amp; teachers</Heading>
+      <div class="mx-auto flex max-w-2xl flex-col gap-4 text-lg">
+        <ul class="flex list-disc flex-col gap-2 pl-6">
+          <li>
+            <strong>Print black-and-white.</strong> Coloring pages and word searches were designed
+            to look great in plain ink — save the color cartridge.
+          </li>
+          <li>
+            <strong>Keep a small stash.</strong> Tuck two or three printed sheets in a bag for
+            restaurants, waiting rooms, and long car rides.
+          </li>
+          <li>
+            <strong>Talk while they work.</strong> Ask what color a butterfly should be, or what a
+            word in the search means. The conversation is where the learning lives.
+          </li>
+          <li>
+            <strong>Let it be theirs.</strong> There is no wrong way to color a butterfly. Praise
+            the effort, not the neatness.
+          </li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="my-24">
+    <div class="container space-content">
+      <Heading level="h2">More free resource guides</Heading>
+      <ul class="mx-auto flex max-w-2xl list-disc flex-col gap-3 pl-6 text-lg">
+        <li>
+          <a href="/butterfly-life-cycle-activities/">Butterfly life cycle activities for preschoolers</a>
+        </li>
+        <li><a href="/butterfly-crafts-for-kids/">Butterfly crafts for kids</a></li>
+        <li><a href="/screen-free-activities-for-kids/">Screen-free activities for kids ages 3-7</a></li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="my-24">
+    <div class="container space-content">
+      <Heading level="h2">Frequently asked questions</Heading>
+      <dl class="mx-auto flex max-w-2xl flex-col gap-6 text-lg">
+        {
+          faqs.map((item) => (
+            <div>
+              <dt class="font-bold">{item.q}</dt>
+              <dd class="mt-1">{item.a}</dd>
+            </div>
+          ))
+        }
+      </dl>
+    </div>
+  </section>
+
+  <section class="my-24">
+    <div class="container space-content">
+      <div class="mx-auto max-w-2xl text-lg">
+        <Heading level="h2">Meet the butterfly behind the printables</Heading>
+        <p class="mt-3">
+          Every sheet here comes from the world of a gentle picture book about a little butterfly
+          learning to be brave. If your family enjoys the printables, you might love the story they
+          grew from — no pressure, it is simply there when you are ready.
+          <a href="/book/">Read about the book</a>.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="my-24">
+    <div class="container space-content">
+      <Heading level="h2" class="text-center">New printables in your inbox</Heading>
+      <NewsletterSignup />
+    </div>
+  </section>
+</DefaultLayout>

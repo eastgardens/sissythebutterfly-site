@@ -1,0 +1,227 @@
+---
+import DefaultLayout from '@layouts/DefaultLayout.astro'
+import PageHeader from '@components/PageHeader.astro'
+import PrintableGrid from '@components/PrintableGrid.astro'
+import NewsletterSignup from '@components/NewsletterSignup.astro'
+import { Heading } from 'accessible-astro-components'
+import { printables, type Printable } from '@data/printables'
+import heroArt from '@assets/img/scenes/scene-enchanted-forest.png'
+
+/**
+ * SEO resource page — target cluster: "butterfly crafts for kids".
+ * Original, practical craft guidance using household materials, curating our real craft +
+ * make-your-own + coloring printables. Includes an honest safety note (scissors/adult help),
+ * age framing, soft book link, cross-links, and email capture.
+ */
+const pick = (slugs: string[]): Printable[] =>
+  slugs
+    .map((slug) => printables.find((p) => p.slug === slug))
+    .filter((p): p is Printable => Boolean(p))
+
+const craftSet = pick([
+  'make-a-paper-butterfly',
+  'make-your-own-meadow-map',
+  'meadow-friends-coloring-page',
+  'courage-quote-poster',
+])
+
+const pageUrl = new URL('/butterfly-crafts-for-kids/', Astro.site).href
+const heroUrl = new URL(heroArt.src, Astro.site).href
+const logoUrl = new URL('/favicon-512.png', Astro.site).href
+
+const articleLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Article',
+  headline: 'Butterfly Crafts for Kids',
+  description:
+    'Easy butterfly crafts for kids ages 3-7 using materials you already have at home — free printable templates, coloring pages, and simple make-along ideas from the meadow.',
+  image: heroUrl,
+  author: { '@type': 'Person', name: 'Jen Logsdon' },
+  publisher: {
+    '@type': 'Organization',
+    name: 'Sissy the Butterfly',
+    logo: { '@type': 'ImageObject', url: logoUrl },
+  },
+  datePublished: '2026-07-13',
+  dateModified: '2026-07-13',
+  mainEntityOfPage: pageUrl,
+}
+
+const materials = [
+  'Paper or cardstock (a cereal box works great)',
+  'Crayons, markers, or colored pencils',
+  'Child-safe scissors — with grown-up help',
+  'A glue stick or tape',
+  'Optional: pipe cleaners, tissue paper, or a clothespin for the body',
+]
+
+const faqs = [
+  {
+    q: 'What is an easy butterfly craft for a toddler or preschooler?',
+    a: 'A folded paper butterfly is the classic: color our template, cut it out with grown-up help, and pinch the middle so the wings pop. It works for ages 3 and up, and there is no wrong way to do it.',
+  },
+  {
+    q: 'What household materials do I need for butterfly crafts?',
+    a: 'Very little — paper or an old cereal box, crayons or markers, child-safe scissors, and a glue stick or tape. Pipe cleaners, tissue paper, or a clothespin are nice extras but not required.',
+  },
+  {
+    q: 'Are butterfly crafts safe for young children?',
+    a: 'Yes, with supervision. Use child-safe scissors and help with any cutting, keep small parts away from children who still mouth objects, and let an adult handle anything sharp.',
+  },
+]
+const faqLd = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: faqs.map((item) => ({
+    '@type': 'Question',
+    name: item.q,
+    acceptedAnswer: { '@type': 'Answer', text: item.a },
+  })),
+}
+---
+
+<DefaultLayout
+  title="Butterfly Crafts for Kids"
+  description="Easy butterfly crafts for kids ages 3-7 using materials you already have at home — free printable templates, coloring pages, and simple make-along ideas from the meadow."
+  image={heroArt}
+  imageAlt="A soft, glowing enchanted forest from the world of Sissy the Butterfly."
+  type="article"
+>
+  <script type="application/ld+json" set:html={JSON.stringify(articleLd)} is:inline />
+  <script type="application/ld+json" set:html={JSON.stringify(faqLd)} is:inline />
+
+  <PageHeader
+    title="Butterfly Crafts for Kids"
+    subtitle="Simple make-alongs using things you already have — free printable templates for ages 3 to 7."
+    featuredImage={heroArt}
+  />
+
+  <section class="my-24">
+    <div class="container space-content">
+      <div class="mx-auto flex max-w-2xl flex-col gap-4 text-lg">
+        <p>
+          Butterfly crafts are a little bit of magic: a flat piece of paper becomes something with
+          wings. They are perfect for small hands ages 3 to 7 — big enough to feel proud of, simple
+          enough to finish before anyone loses interest.
+        </p>
+        <p>
+          The best part? You almost certainly have everything you need already. Grab our free
+          printable templates below, raid the craft drawer, and make a meadow of your own.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="my-24">
+    <div class="container space-content">
+      <Heading level="h2">What you will need</Heading>
+      <ul class="mx-auto flex max-w-2xl list-disc flex-col gap-2 pl-6 text-lg">
+        {materials.map((item) => <li>{item}</li>)}
+      </ul>
+    </div>
+  </section>
+
+  <section class="my-24">
+    <div class="container space-content">
+      <Heading level="h2">Free printable butterfly crafts</Heading>
+      <p class="text-lg">
+        Each of these is a free, teacher-created PDF. Print, color, cut, and make — the paper
+        butterfly is the perfect place to start.
+      </p>
+      <PrintableGrid items={craftSet} />
+      <p class="text-lg">
+        Find more in the full <a href="/printables/crafts/">butterfly crafts collection</a> and the
+        <a href="/printables/make-your-own/">make-your-own templates</a>.
+      </p>
+    </div>
+  </section>
+
+  <section class="my-24">
+    <div class="container space-content">
+      <Heading level="h2">Make it your own</Heading>
+      <div class="mx-auto flex max-w-2xl flex-col gap-4 text-lg">
+        <ul class="flex list-disc flex-col gap-2 pl-6">
+          <li>
+            <strong>Color first, cut second.</strong> Let your child fill the wings with color
+            before an adult helps with the scissors.
+          </li>
+          <li>
+            <strong>Add texture.</strong> Tissue-paper scraps, stickers, or a thumbprint caterpillar
+            turn a flat page into a keepsake.
+          </li>
+          <li>
+            <strong>Give it a body.</strong> Pinch the middle, add a clothespin, or twist a pipe
+            cleaner for antennae so the wings really pop.
+          </li>
+          <li>
+            <strong>Make a flock.</strong> Tape finished butterflies to a window or a string for an
+            instant indoor garden.
+          </li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="my-24">
+    <div class="container space-content">
+      <div class="mx-auto max-w-2xl text-lg">
+        <Heading level="h2">A quick safety note</Heading>
+        <p class="mt-3">
+          Crafting is a grown-up-and-child activity. Use child-safe scissors and help with any
+          cutting, keep small parts (pipe cleaners, googly eyes) away from children who still put
+          things in their mouths, and let an adult handle anything sharp or hot. When in doubt,
+          sit close and craft together.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="my-24">
+    <div class="container space-content">
+      <Heading level="h2">More free resource guides</Heading>
+      <ul class="mx-auto flex max-w-2xl list-disc flex-col gap-3 pl-6 text-lg">
+        <li><a href="/free-butterfly-printables/">Free butterfly printables for kids</a></li>
+        <li>
+          <a href="/butterfly-life-cycle-activities/">Butterfly life cycle activities for preschoolers</a>
+        </li>
+        <li><a href="/screen-free-activities-for-kids/">Screen-free activities for kids ages 3-7</a></li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="my-24">
+    <div class="container space-content">
+      <Heading level="h2">Frequently asked questions</Heading>
+      <dl class="mx-auto flex max-w-2xl flex-col gap-6 text-lg">
+        {
+          faqs.map((item) => (
+            <div>
+              <dt class="font-bold">{item.q}</dt>
+              <dd class="mt-1">{item.a}</dd>
+            </div>
+          ))
+        }
+      </dl>
+    </div>
+  </section>
+
+  <section class="my-24">
+    <div class="container space-content">
+      <div class="mx-auto max-w-2xl text-lg">
+        <Heading level="h2">The butterfly with a story</Heading>
+        <p class="mt-3">
+          The butterfly your child just made has a name in our world — Sissy, a little butterfly
+          learning to be brave. If the craft sparks curiosity,
+          <a href="/book/">the picture book</a> is a gentle next step whenever you are ready.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="my-24">
+    <div class="container space-content">
+      <Heading level="h2" class="text-center">Free printables in your inbox</Heading>
+      <NewsletterSignup />
+    </div>
+  </section>
+</DefaultLayout>

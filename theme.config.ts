@@ -28,6 +28,16 @@ export default defineThemeConfig({
       { type: 'link', label: 'Home', href: '/' },
       { type: 'link', label: 'Meet Sissy & Friends', href: '/meet-sissy/' },
       { type: 'link', label: 'Printables', href: '/printables/' },
+      {
+        type: 'dropdown',
+        label: 'Guides',
+        items: [
+          { label: 'Free butterfly printables', href: '/free-butterfly-printables/' },
+          { label: 'Butterfly life cycle activities', href: '/butterfly-life-cycle-activities/' },
+          { label: 'Butterfly crafts for kids', href: '/butterfly-crafts-for-kids/' },
+          { label: 'Screen-free activities', href: '/screen-free-activities-for-kids/' },
+        ],
+      },
       { type: 'link', label: 'Meet Jen', href: '/meet-jen/' },
       { type: 'link', label: 'For Parents', href: '/parents/' },
       { type: 'link', label: 'The Book', href: '/book/' },
