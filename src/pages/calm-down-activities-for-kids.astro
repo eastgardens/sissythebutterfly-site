@@ -1,0 +1,217 @@
+---
+import DefaultLayout from '@layouts/DefaultLayout.astro'
+import PageHeader from '@components/PageHeader.astro'
+import PrintableGrid from '@components/PrintableGrid.astro'
+import NewsletterSignup from '@components/NewsletterSignup.astro'
+import { Heading } from 'accessible-astro-components'
+import { printables, type Printable } from '@data/printables'
+import heroArt from '@assets/img/scenes/scene-pond.png'
+
+/**
+ * SEO resource page — target cluster: "calm down activities for kids" / "calming activities for
+ * preschoolers" / "calm down corner printables". Original, practical co-regulation guidance for
+ * ages 3-7, curating our real calm-down + movement cards. Gentle, parent-first, teacher-created.
+ */
+const pick = (slugs: string[]): Printable[] =>
+  slugs
+    .map((slug) => printables.find((p) => p.slug === slug))
+    .filter((p): p is Printable => Boolean(p))
+
+const calmSet = pick([
+  'butterfly-hug-calm-down-card',
+  'balloon-belly-calm-down-card',
+  'rainbow-breaths-calm-down-card',
+  'five-senses-calm-down-card',
+  'flutter-and-freeze-movement-card',
+])
+
+const pageUrl = new URL('/calm-down-activities-for-kids/', Astro.site).href
+const heroUrl = new URL(heroArt.src, Astro.site).href
+const logoUrl = new URL('/favicon-512.png', Astro.site).href
+
+const articleLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Article',
+  headline: 'Calm-Down Activities for Kids',
+  description:
+    'Gentle calm-down activities for kids ages 3-7 — free printable breathing and grounding cards a teacher and mom uses to help little ones move through big feelings.',
+  image: heroUrl,
+  author: { '@type': 'Person', name: 'Jen Logsdon' },
+  publisher: {
+    '@type': 'Organization',
+    name: 'Sissy the Butterfly',
+    logo: { '@type': 'ImageObject', url: logoUrl },
+  },
+  datePublished: '2026-07-14',
+  dateModified: '2026-07-14',
+  mainEntityOfPage: pageUrl,
+}
+
+const faqs = [
+  {
+    q: 'What are good calm-down activities for a preschooler?',
+    a: 'Simple, body-based ones work best: slow "balloon belly" breathing, a self-hug with gentle taps (the butterfly hug), tracing a rainbow with a long breath, or naming five things you can see and hear. They give a young child something concrete to do while a big feeling passes.',
+  },
+  {
+    q: 'How do I make a calm-down corner at home?',
+    a: 'Pick a cozy, low-traffic spot with a pillow or soft chair. Add one or two comfort items and print a few calm-down cards to hang at your child’s eye level. Keep it small and calm — it is a place to reset, never a place for time-out or punishment.',
+  },
+  {
+    q: 'At what age can children start learning to calm themselves?',
+    a: 'Toddlers can follow along with a grown-up as young as 2-3, and by 4-5 many children can start using a favorite technique on their own. The key is practicing when everyone is already calm, so the tool is familiar before a hard moment arrives.',
+  },
+  {
+    q: 'Do these calming activities really work?',
+    a: 'Slow breathing and grounding genuinely help settle the body’s stress response — but they work best as a practiced habit, and with a calm grown-up nearby. Think of these cards as training wheels for self-regulation, not a magic off-switch.',
+  },
+]
+const faqLd = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: faqs.map((item) => ({
+    '@type': 'Question',
+    name: item.q,
+    acceptedAnswer: { '@type': 'Answer', text: item.a },
+  })),
+}
+---
+
+<DefaultLayout
+  title="Calm-Down Activities for Kids"
+  description="Gentle calm-down activities for kids ages 3-7 — free printable breathing and grounding cards a teacher and mom uses to help little ones move through big feelings."
+  image={heroArt}
+  imageAlt="A calm, glowing pond from the world of Sissy the Butterfly."
+  type="article"
+>
+  <script type="application/ld+json" set:html={JSON.stringify(articleLd)} is:inline />
+  <script type="application/ld+json" set:html={JSON.stringify(faqLd)} is:inline />
+
+  <PageHeader
+    title="Calm-Down Activities for Kids"
+    subtitle="Gentle, teacher-created ways to help little ones move through big feelings — free printable cards for ages 3 to 7."
+    featuredImage={heroArt}
+  />
+
+  <section class="my-24">
+    <div class="container space-content">
+      <div class="mx-auto flex max-w-2xl flex-col gap-4 text-lg">
+        <p>
+          Big feelings come in small bodies. A tumble, a "no," a change of plans — and suddenly a
+          three-year-old is completely underwater. In those moments a young child cannot think their
+          way calm; they need something simple to <em>do</em> with their body while the wave passes.
+        </p>
+        <p>
+          That is exactly what these cards are for. Each one gives your little one a gentle, concrete
+          action — a breath to take, a hug to give themselves, a rainbow to trace. Practice them when
+          everyone is already calm, and they become a familiar friend for the hard moments. They are
+          free, teacher-created, and made to print and keep close.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="my-24">
+    <div class="container space-content">
+      <Heading level="h2">Free printable calm-down cards</Heading>
+      <p class="text-lg">
+        Five gentle tools, each a free PDF. Print them, hang them at your child&rsquo;s eye level, and
+        pick a favorite to practice together.
+      </p>
+      <PrintableGrid items={calmSet} />
+      <p class="text-lg">
+        Find more in the full <a href="/printables/activities/">activities collection</a>.
+      </p>
+    </div>
+  </section>
+
+  <section class="my-24">
+    <div class="container space-content">
+      <Heading level="h2">How to use them</Heading>
+      <div class="mx-auto flex max-w-2xl flex-col gap-4 text-lg">
+        <ul class="flex list-disc flex-col gap-2 pl-6">
+          <li>
+            <strong>Practice when it&rsquo;s calm.</strong> Try a card together during a happy, quiet
+            moment so it feels familiar <em>before</em> a meltdown — not for the first time in the storm.
+          </li>
+          <li>
+            <strong>Do it with them.</strong> Little ones borrow our calm. Take the slow breaths
+            alongside your child rather than directing from across the room.
+          </li>
+          <li>
+            <strong>Name the feeling, then the tool.</strong> &ldquo;You&rsquo;re really frustrated.
+            Let&rsquo;s do a balloon belly together.&rdquo; Naming it is half the calm.
+          </li>
+          <li>
+            <strong>Let them choose.</strong> Offer two cards and let your child pick — a small choice
+            hands a little control back in an out-of-control moment.
+          </li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="my-24">
+    <div class="container space-content">
+      <Heading level="h2">Building a calm-down corner</Heading>
+      <div class="mx-auto flex max-w-2xl flex-col gap-4 text-lg">
+        <p>
+          A calm-down corner is simply a cozy, predictable spot where a child can go to reset — a
+          pillow or soft chair, a comfort item or two, and a few of these cards at eye level. Keep it
+          small and inviting.
+        </p>
+        <p>
+          One gentle rule: it is a place to feel better, never a place for punishment. When a
+          calm-down corner is offered with warmth instead of used as a time-out, children learn to
+          seek it out on their own — which is the whole goal.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="my-24">
+    <div class="container space-content">
+      <Heading level="h2">More free resource guides</Heading>
+      <ul class="mx-auto flex max-w-2xl list-disc flex-col gap-3 pl-6 text-lg">
+        <li><a href="/screen-free-activities-for-kids/">Screen-free activities for kids ages 3-7</a></li>
+        <li><a href="/free-butterfly-printables/">Free butterfly printables for kids</a></li>
+        <li><a href="/butterfly-crafts-for-kids/">Butterfly crafts for kids</a></li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="my-24">
+    <div class="container space-content">
+      <Heading level="h2">Frequently asked questions</Heading>
+      <dl class="mx-auto flex max-w-2xl flex-col gap-6 text-lg">
+        {
+          faqs.map((item) => (
+            <div>
+              <dt class="font-bold">{item.q}</dt>
+              <dd class="mt-1">{item.a}</dd>
+            </div>
+          ))
+        }
+      </dl>
+    </div>
+  </section>
+
+  <section class="my-24">
+    <div class="container space-content">
+      <div class="mx-auto max-w-2xl text-lg">
+        <Heading level="h2">A little butterfly learning to be brave</Heading>
+        <p class="mt-3">
+          The butterfly on these cards is Sissy — a small character learning that big feelings are
+          okay, and that courage is quiet. If the cards help, <a href="/book/">her picture book</a> is
+          a gentle read-aloud on the same theme whenever you&rsquo;re ready.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="my-24">
+    <div class="container space-content">
+      <Heading level="h2" class="text-center">Free printables in your inbox</Heading>
+      <NewsletterSignup />
+    </div>
+  </section>
+</DefaultLayout>

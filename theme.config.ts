@@ -45,6 +45,9 @@ export default defineThemeConfig({
         type: 'dropdown',
         label: 'Guides',
         items: [
+          { label: 'Free butterfly coloring pages', href: '/free-butterfly-coloring-pages/' },
+          { label: 'Calm-down activities for kids', href: '/calm-down-activities-for-kids/' },
+          { label: 'Printable word searches for kids', href: '/printable-word-searches-for-kids/' },
           { label: 'Butterfly life cycle activities', href: '/butterfly-life-cycle-activities/' },
           { label: 'Butterfly crafts for kids', href: '/butterfly-crafts-for-kids/' },
           { label: 'Screen-free activities', href: '/screen-free-activities-for-kids/' },

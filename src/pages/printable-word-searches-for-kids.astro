@@ -1,0 +1,196 @@
+---
+import DefaultLayout from '@layouts/DefaultLayout.astro'
+import PageHeader from '@components/PageHeader.astro'
+import PrintableGrid from '@components/PrintableGrid.astro'
+import NewsletterSignup from '@components/NewsletterSignup.astro'
+import { Heading } from 'accessible-astro-components'
+import { printables, type Printable } from '@data/printables'
+import heroArt from '@assets/img/scenes/scene-sunny-meadow.png'
+
+/**
+ * SEO resource page — target cluster: "printable word searches for kids" / "free word search for
+ * kids". Curates our real word-search sheets with genuine guidance on age, skills, and how to help
+ * an early reader. Gentle, teacher-created.
+ */
+const pick = (slugs: string[]): Printable[] =>
+  slugs
+    .map((slug) => printables.find((p) => p.slug === slug))
+    .filter((p): p is Printable => Boolean(p))
+
+const wordSearchSet = pick([
+  'meadow-friends-word-search',
+  'nature-word-search',
+  'kindness-word-search',
+])
+
+const pageUrl = new URL('/printable-word-searches-for-kids/', Astro.site).href
+const heroUrl = new URL(heroArt.src, Astro.site).href
+const logoUrl = new URL('/favicon-512.png', Astro.site).href
+
+const articleLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Article',
+  headline: 'Printable Word Searches for Kids',
+  description:
+    'Free printable word searches for kids ages 5-7 — gentle, teacher-created puzzles that build letter recognition and focus, themed around the meadow. Print and play.',
+  image: heroUrl,
+  author: { '@type': 'Person', name: 'Jen Logsdon' },
+  publisher: {
+    '@type': 'Organization',
+    name: 'Sissy the Butterfly',
+    logo: { '@type': 'ImageObject', url: logoUrl },
+  },
+  datePublished: '2026-07-14',
+  dateModified: '2026-07-14',
+  mainEntityOfPage: pageUrl,
+}
+
+const faqs = [
+  {
+    q: 'What age are word searches good for?',
+    a: 'Word searches suit early readers, roughly ages 5 to 7. Younger children can hunt for letters with a grown-up reading the clues aloud; older kids can work independently and race the clock.',
+  },
+  {
+    q: 'What skills do word searches build?',
+    a: 'They strengthen letter recognition, left-to-right visual tracking, spelling familiarity, and patient focus — all wrapped in a puzzle that feels like play rather than practice.',
+  },
+  {
+    q: 'How do I help a child who gets stuck?',
+    a: 'Read the target word together and say its first letter, then help them scan one row at a time. Highlighting the word list as each is found keeps the sense of progress going.',
+  },
+  {
+    q: 'Are these word searches free to print?',
+    a: 'Yes — every puzzle here is a free, teacher-created PDF. Print on regular letter-size paper and grab a highlighter or crayon to circle the finds.',
+  },
+]
+const faqLd = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: faqs.map((item) => ({
+    '@type': 'Question',
+    name: item.q,
+    acceptedAnswer: { '@type': 'Answer', text: item.a },
+  })),
+}
+---
+
+<DefaultLayout
+  title="Printable Word Searches for Kids"
+  description="Free printable word searches for kids ages 5-7 — gentle, teacher-created puzzles that build letter recognition and focus, themed around the meadow. Print and play."
+  image={heroArt}
+  imageAlt="A sunny wildflower meadow from the world of Sissy the Butterfly."
+  type="article"
+>
+  <script type="application/ld+json" set:html={JSON.stringify(articleLd)} is:inline />
+  <script type="application/ld+json" set:html={JSON.stringify(faqLd)} is:inline />
+
+  <PageHeader
+    title="Printable Word Searches for Kids"
+    subtitle="Gentle, teacher-created puzzles that sneak in letter practice — free to print for early readers, ages 5 to 7."
+    featuredImage={heroArt}
+  />
+
+  <section class="my-24">
+    <div class="container space-content">
+      <div class="mx-auto flex max-w-2xl flex-col gap-4 text-lg">
+        <p>
+          A word search is a quiet little workout dressed up as a game. For an early reader, hunting
+          for &ldquo;friend&rdquo; or &ldquo;flower&rdquo; in a grid of letters builds real skills —
+          spotting shapes, tracking left to right, sticking with a task — without ever feeling like a
+          worksheet.
+        </p>
+        <p>
+          Each puzzle below is a free, teacher-created PDF themed around Sissy&rsquo;s meadow. Print
+          one, grab a highlighter, and let the finding begin.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="my-24">
+    <div class="container space-content">
+      <Heading level="h2">Free printable word searches</Heading>
+      <p class="text-lg">
+        Three gentle puzzles — meadow friends, nature words, and kind words — each a free PDF ready to
+        print.
+      </p>
+      <PrintableGrid items={wordSearchSet} />
+      <p class="text-lg">
+        Find more brain-teasers in the full <a href="/printables/puzzles/">puzzles collection</a>.
+      </p>
+    </div>
+  </section>
+
+  <section class="my-24">
+    <div class="container space-content">
+      <Heading level="h2">Tips for early readers</Heading>
+      <div class="mx-auto flex max-w-2xl flex-col gap-4 text-lg">
+        <ul class="flex list-disc flex-col gap-2 pl-6">
+          <li>
+            <strong>Start with the first letter.</strong> Say the word, name its first letter, and
+            hunt for just that letter first — the rest follows.
+          </li>
+          <li>
+            <strong>Scan one row at a time.</strong> A finger or a ruler under each line keeps little
+            eyes from getting lost in the grid.
+          </li>
+          <li>
+            <strong>Cross off as you go.</strong> Checking each word off the list turns the puzzle
+            into a series of small, satisfying wins.
+          </li>
+          <li>
+            <strong>Do the first one together.</strong> Model finding one word aloud, then hand over
+            the highlighter — confidence grows fast.
+          </li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="my-24">
+    <div class="container space-content">
+      <Heading level="h2">More free resource guides</Heading>
+      <ul class="mx-auto flex max-w-2xl list-disc flex-col gap-3 pl-6 text-lg">
+        <li><a href="/free-butterfly-printables/">Free butterfly printables for kids</a></li>
+        <li><a href="/screen-free-activities-for-kids/">Screen-free activities for kids ages 3-7</a></li>
+        <li><a href="/free-butterfly-coloring-pages/">Free butterfly coloring pages</a></li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="my-24">
+    <div class="container space-content">
+      <Heading level="h2">Frequently asked questions</Heading>
+      <dl class="mx-auto flex max-w-2xl flex-col gap-6 text-lg">
+        {
+          faqs.map((item) => (
+            <div>
+              <dt class="font-bold">{item.q}</dt>
+              <dd class="mt-1">{item.a}</dd>
+            </div>
+          ))
+        }
+      </dl>
+    </div>
+  </section>
+
+  <section class="my-24">
+    <div class="container space-content">
+      <div class="mx-auto max-w-2xl text-lg">
+        <Heading level="h2">The words come from a story</Heading>
+        <p class="mt-3">
+          &ldquo;Brave,&rdquo; &ldquo;kind,&rdquo; &ldquo;friend&rdquo; — the words hiding in these
+          puzzles are the heart of Sissy&rsquo;s world, a little butterfly learning to be brave.
+          <a href="/book/">Her picture book</a> is a gentle read-aloud whenever you&rsquo;re ready.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="my-24">
+    <div class="container space-content">
+      <Heading level="h2" class="text-center">Free printables in your inbox</Heading>
+      <NewsletterSignup />
+    </div>
+  </section>
+</DefaultLayout>

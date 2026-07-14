@@ -1,0 +1,197 @@
+---
+import DefaultLayout from '@layouts/DefaultLayout.astro'
+import PageHeader from '@components/PageHeader.astro'
+import PrintableGrid from '@components/PrintableGrid.astro'
+import NewsletterSignup from '@components/NewsletterSignup.astro'
+import { Heading } from 'accessible-astro-components'
+import { printables, type Printable } from '@data/printables'
+import heroArt from '@assets/img/scenes/scene-butterfly-garden.png'
+
+/**
+ * SEO resource page — target cluster: "free butterfly coloring pages" / "printable butterfly
+ * coloring pages for kids". Curates our real character coloring pages with genuine guidance on
+ * printing, ages, and making coloring calm and screen-free. Gentle, teacher-created.
+ */
+const pick = (slugs: string[]): Printable[] =>
+  slugs
+    .map((slug) => printables.find((p) => p.slug === slug))
+    .filter((p): p is Printable => Boolean(p))
+
+const coloringSet = pick([
+  'sissy-butterfly-coloring-page',
+  'addy-butterfly-coloring-page',
+  'buddy-grasshopper-coloring-page',
+  'flitter-firefly-coloring-page',
+  'meadow-friends-coloring-page',
+])
+
+const pageUrl = new URL('/free-butterfly-coloring-pages/', Astro.site).href
+const heroUrl = new URL(heroArt.src, Astro.site).href
+const logoUrl = new URL('/favicon-512.png', Astro.site).href
+
+const articleLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Article',
+  headline: 'Free Butterfly Coloring Pages',
+  description:
+    'Free printable butterfly coloring pages for kids ages 3-7 — teacher-created character pages from the meadow, ready to print and color for calm, screen-free time.',
+  image: heroUrl,
+  author: { '@type': 'Person', name: 'Jen Logsdon' },
+  publisher: {
+    '@type': 'Organization',
+    name: 'Sissy the Butterfly',
+    logo: { '@type': 'ImageObject', url: logoUrl },
+  },
+  datePublished: '2026-07-14',
+  dateModified: '2026-07-14',
+  mainEntityOfPage: pageUrl,
+}
+
+const faqs = [
+  {
+    q: 'Are these butterfly coloring pages really free?',
+    a: 'Yes. Every page here is a free, teacher-created PDF — just click, print, and color. There is no sign-up required to download them.',
+  },
+  {
+    q: 'What age are these coloring pages for?',
+    a: 'They are designed for ages 3 to 7, with friendly, open shapes that are forgiving for little hands. Younger toddlers can scribble happily, and older children can add their own details.',
+  },
+  {
+    q: 'How do I print the coloring pages?',
+    a: 'Open the page you like, download the PDF, and print it on regular letter-size paper — no special settings needed. For the boldest lines, print at 100% (not "fit to page").',
+  },
+  {
+    q: 'Why is coloring good for young children?',
+    a: 'Coloring builds fine-motor control and pencil grip, stretches focus and patience, and offers a calm, screen-free way to unwind. Best of all, there is no wrong way to do it.',
+  },
+]
+const faqLd = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: faqs.map((item) => ({
+    '@type': 'Question',
+    name: item.q,
+    acceptedAnswer: { '@type': 'Answer', text: item.a },
+  })),
+}
+---
+
+<DefaultLayout
+  title="Free Butterfly Coloring Pages"
+  description="Free printable butterfly coloring pages for kids ages 3-7 — teacher-created character pages from the meadow, ready to print and color for calm, screen-free time."
+  image={heroArt}
+  imageAlt="A sunlit butterfly garden from the world of Sissy the Butterfly."
+  type="article"
+>
+  <script type="application/ld+json" set:html={JSON.stringify(articleLd)} is:inline />
+  <script type="application/ld+json" set:html={JSON.stringify(faqLd)} is:inline />
+
+  <PageHeader
+    title="Free Butterfly Coloring Pages"
+    subtitle="Teacher-created character pages from the meadow — print, color, and slow the afternoon down. Free for ages 3 to 7."
+    featuredImage={heroArt}
+  />
+
+  <section class="my-24">
+    <div class="container space-content">
+      <div class="mx-auto flex max-w-2xl flex-col gap-4 text-lg">
+        <p>
+          There is something quietly wonderful about a crayon and a blank pair of wings. Coloring
+          asks nothing of a child except to slow down and enjoy — no screen, no score, no rush. It is
+          one of the gentlest ways to spend a rainy morning or wind down before nap.
+        </p>
+        <p>
+          Every page below is a free, teacher-created download starring a friend from Sissy&rsquo;s
+          meadow. Print one, print them all, and let your little one give the meadow its colors.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="my-24">
+    <div class="container space-content">
+      <Heading level="h2">Free printable butterfly coloring pages</Heading>
+      <p class="text-lg">
+        Meet the whole gang — Sissy the butterfly, her friend Addy, little Buddy, and Flitter the
+        firefly. Each is a free PDF, ready to print.
+      </p>
+      <PrintableGrid items={coloringSet} />
+      <p class="text-lg">
+        Browse them all in the <a href="/printables/coloring/">coloring pages collection</a>.
+      </p>
+    </div>
+  </section>
+
+  <section class="my-24">
+    <div class="container space-content">
+      <Heading level="h2">Make coloring time even nicer</Heading>
+      <div class="mx-auto flex max-w-2xl flex-col gap-4 text-lg">
+        <ul class="flex list-disc flex-col gap-2 pl-6">
+          <li>
+            <strong>Print a few at once.</strong> A little stack means no one has to stop just as the
+            colors are flowing.
+          </li>
+          <li>
+            <strong>Skip the &ldquo;right&rdquo; colors.</strong> A purple sun and a rainbow butterfly
+            are exactly the point — imagination over accuracy.
+          </li>
+          <li>
+            <strong>Color together.</strong> Sit down with your own page; children love it when a
+            grown-up joins in instead of just supervising.
+          </li>
+          <li>
+            <strong>Display the finished art.</strong> A butterfly taped to the fridge or window is a
+            small, proud win worth celebrating.
+          </li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="my-24">
+    <div class="container space-content">
+      <Heading level="h2">More free resource guides</Heading>
+      <ul class="mx-auto flex max-w-2xl list-disc flex-col gap-3 pl-6 text-lg">
+        <li><a href="/free-butterfly-printables/">Free butterfly printables for kids</a></li>
+        <li><a href="/butterfly-crafts-for-kids/">Butterfly crafts for kids</a></li>
+        <li><a href="/calm-down-activities-for-kids/">Calm-down activities for kids</a></li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="my-24">
+    <div class="container space-content">
+      <Heading level="h2">Frequently asked questions</Heading>
+      <dl class="mx-auto flex max-w-2xl flex-col gap-6 text-lg">
+        {
+          faqs.map((item) => (
+            <div>
+              <dt class="font-bold">{item.q}</dt>
+              <dd class="mt-1">{item.a}</dd>
+            </div>
+          ))
+        }
+      </dl>
+    </div>
+  </section>
+
+  <section class="my-24">
+    <div class="container space-content">
+      <div class="mx-auto max-w-2xl text-lg">
+        <Heading level="h2">Meet the butterfly they just colored</Heading>
+        <p class="mt-3">
+          Sissy is more than a coloring page — she is a little butterfly learning to be brave, with a
+          picture book of her own. If your child falls for the meadow, <a href="/book/">the book</a>
+          is a gentle next step, and <a href="/meet-sissy/">you can meet the whole cast here</a>.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="my-24">
+    <div class="container space-content">
+      <Heading level="h2" class="text-center">Free printables in your inbox</Heading>
+      <NewsletterSignup />
+    </div>
+  </section>
+</DefaultLayout>
