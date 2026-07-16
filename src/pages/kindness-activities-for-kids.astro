@@ -1,0 +1,196 @@
+---
+import DefaultLayout from '@layouts/DefaultLayout.astro'
+import PageHeader from '@components/PageHeader.astro'
+import PrintableGrid from '@components/PrintableGrid.astro'
+import NewsletterSignup from '@components/NewsletterSignup.astro'
+import { Heading } from 'accessible-astro-components'
+import { printables, type Printable } from '@data/printables'
+import heroArt from '@assets/img/scenes/scene-sunset-meadow.png'
+
+/**
+ * SEO resource page — target cluster: "kindness activities for kids" / "read aloud about kindness"
+ * / "free kindness printables". Curates our real kindness + read-aloud sheets with genuine guidance
+ * on talking about kindness with a young child. Gentle, teacher-created.
+ */
+const pick = (slugs: string[]): Printable[] =>
+  slugs
+    .map((slug) => printables.find((p) => p.slug === slug))
+    .filter((p): p is Printable => Boolean(p))
+
+const kindnessSet = pick(['kindness-word-search', 'the-kindness-song-lyric-and-action-sheet'])
+const readAloudSet = pick(['friendship-read-aloud-card', 'butterfly-teacher-pack-book-one'])
+
+const pageUrl = new URL('/kindness-activities-for-kids/', Astro.site).href
+const heroUrl = new URL(heroArt.src, Astro.site).href
+const logoUrl = new URL('/favicon-512.png', Astro.site).href
+
+const articleLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Article',
+  headline: 'Kindness Activities for Kids',
+  description:
+    'Free printable kindness activities and read-aloud cards for kids ages 3-7 — a word search, an action song, and gentle talk-about-it questions. Teacher-created, print and share.',
+  image: heroUrl,
+  author: { '@type': 'Person', name: 'Jen Logsdon' },
+  publisher: {
+    '@type': 'Organization',
+    name: 'Sissy the Butterfly',
+    logo: { '@type': 'ImageObject', url: logoUrl },
+  },
+  datePublished: '2026-07-15',
+  dateModified: '2026-07-15',
+  mainEntityOfPage: pageUrl,
+}
+
+const faqs = [
+  {
+    q: 'How do you teach kindness to a young child?',
+    a: 'Mostly by noticing it out loud. A three-year-old learns what kindness is from hearing it named — "you waited for her, that was kind" — far more than from being told to be kind. The activities here give you something to do together, and the naming happens naturally alongside it.',
+  },
+  {
+    q: 'What age are these kindness activities for?',
+    a: 'Roughly ages 3 to 7. The read-aloud cards and the song work from about three; the word search suits early readers, around five to seven. A younger child can hunt for letters while a grown-up reads the words aloud.',
+  },
+  {
+    q: 'What is a read-aloud card?',
+    a: 'A single sheet with three things: a short introduction, one talk-about-it question, and one small go-do. It is designed for the few minutes after a story, when a child is still in the world of the book and most ready to talk about it.',
+  },
+  {
+    q: 'Are these kindness printables free?',
+    a: 'Yes — every sheet here is a free, teacher-created PDF. Print on regular letter-size paper. The read-aloud cards are made for grown-ups to hold, so one copy is plenty.',
+  },
+]
+const faqLd = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: faqs.map((item) => ({
+    '@type': 'Question',
+    name: item.q,
+    acceptedAnswer: { '@type': 'Answer', text: item.a },
+  })),
+}
+---
+
+<DefaultLayout
+  title="Kindness Activities for Kids"
+  description="Free printable kindness activities and read-aloud cards for kids ages 3-7 — a word search, an action song, and gentle talk-about-it questions. Teacher-created, print and share."
+  image={heroArt}
+  imageAlt="A meadow at sunset from the world of Sissy the Butterfly."
+  type="article"
+>
+  <script type="application/ld+json" set:html={JSON.stringify(articleLd)} is:inline />
+  <script type="application/ld+json" set:html={JSON.stringify(faqLd)} is:inline />
+
+  <PageHeader
+    title="Kindness Activities for Kids"
+    subtitle="A word search, a song, and a few good questions — gentle ways to talk about being kind, free to print for ages 3 to 7."
+    featuredImage={heroArt}
+  />
+
+  <section class="my-24">
+    <div class="container space-content">
+      <div class="mx-auto flex max-w-2xl flex-col gap-4 text-lg">
+        <p>
+          Kindness is hard to teach and easy to notice. Children rarely learn it from being told to be
+          kind; they learn it from hearing it named when it happens — <em>you shared without being
+          asked</em> — and from stories where someone chooses it when choosing was difficult.
+        </p>
+        <p>
+          The sheets below are small openings for that: something to do with your hands, and a
+          question worth asking afterwards. All free, all teacher-created.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="my-24">
+    <div class="container space-content">
+      <Heading level="h2">Free printable kindness activities</Heading>
+      <p class="text-lg">
+        A word search of kind words for early readers, and a song with an action for every line.
+      </p>
+      <PrintableGrid items={kindnessSet} />
+    </div>
+  </section>
+
+  <section class="my-24">
+    <div class="container space-content">
+      <Heading level="h2">Read-aloud cards</Heading>
+      <p class="text-lg">
+        For the few minutes after a story — an introduction, one question worth asking, and one small
+        thing to go and do.
+      </p>
+      <PrintableGrid items={readAloudSet} />
+      <p class="text-lg">
+        More in the full <a href="/printables/teaching-guides/">teaching guides collection</a>.
+      </p>
+    </div>
+  </section>
+
+  <section class="my-24">
+    <div class="container space-content">
+      <Heading level="h2">Talking about kindness</Heading>
+      <div class="mx-auto flex max-w-2xl flex-col gap-4 text-lg">
+        <ul class="flex list-disc flex-col gap-2 pl-6">
+          <li>
+            <strong>Name it when you see it.</strong> Describe what they actually did rather than
+            labelling them — &ldquo;you waited so she could go first&rdquo; lands better than
+            &ldquo;good boy.&rdquo; The description is the part they can repeat tomorrow.
+          </li>
+          <li>
+            <strong>Ask about the character, not the child.</strong> &ldquo;Why do you think she did
+            that?&rdquo; is a question a four-year-old will answer honestly. &ldquo;Would you have
+            been kind?&rdquo; usually just gets the answer they think you want.
+          </li>
+          <li>
+            <strong>Let the hard version count.</strong> Kindness that costs something — sharing the
+            good one, waiting when you did not want to — is worth noticing out loud precisely because
+            it was hard.
+          </li>
+          <li>
+            <strong>Keep it short.</strong> One question after a story beats a conversation about
+            values. They are still thinking about it long after they have stopped talking.
+          </li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="my-24">
+    <div class="container space-content">
+      <Heading level="h2">Questions grown-ups ask</Heading>
+      <div class="mx-auto max-w-2xl">
+        <dl class="flex flex-col gap-6">
+          {
+            faqs.map((item) => (
+              <div>
+                <dt class="text-lg font-bold">{item.q}</dt>
+                <dd class="mt-2 text-lg">{item.a}</dd>
+              </div>
+            ))
+          }
+        </dl>
+      </div>
+    </div>
+  </section>
+
+  <section class="my-24">
+    <div class="container space-content">
+      <div class="mx-auto max-w-2xl text-lg">
+        <Heading level="h2">The kind words come from a story</Heading>
+        <p class="mt-3">
+          Sissy is a little butterfly learning to be brave, and her friends are the ones who make
+          being brave possible. <a href="/book/">Her picture book</a> is a gentle read-aloud whenever
+          you&rsquo;re ready.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="my-24">
+    <div class="container space-content">
+      <Heading level="h2" class="text-center">Free printables in your inbox</Heading>
+      <NewsletterSignup />
+    </div>
+  </section>
+</DefaultLayout>

@@ -1,0 +1,195 @@
+---
+import DefaultLayout from '@layouts/DefaultLayout.astro'
+import PageHeader from '@components/PageHeader.astro'
+import PrintableGrid from '@components/PrintableGrid.astro'
+import NewsletterSignup from '@components/NewsletterSignup.astro'
+import { Heading } from 'accessible-astro-components'
+import { printables, type Printable } from '@data/printables'
+import heroArt from '@assets/img/scenes/scene-sunny-meadow.png'
+
+/**
+ * SEO resource page — target cluster: "printable counting worksheets" / "counting activities for
+ * preschoolers" / "free number worksheets for kids". Curates our real counting + number-order
+ * sheets with genuine guidance on early number sense. Gentle, teacher-created.
+ */
+const pick = (slugs: string[]): Printable[] =>
+  slugs
+    .map((slug) => printables.find((p) => p.slug === slug))
+    .filter((p): p is Printable => Boolean(p))
+
+const countingSet = pick(['count-the-meadow-counting-sheet'])
+const numberOrderSet = pick(['butterfly-connect-the-dots', 'flower-connect-the-dots'])
+
+const pageUrl = new URL('/printable-counting-worksheets/', Astro.site).href
+const heroUrl = new URL(heroArt.src, Astro.site).href
+const logoUrl = new URL('/favicon-512.png', Astro.site).href
+
+const articleLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Article',
+  headline: 'Printable Counting Worksheets for Kids',
+  description:
+    'Free printable counting worksheets and number-order dot-to-dots for kids ages 3-7 — count the butterflies and flowers, then write the number. Teacher-created, print and play.',
+  image: heroUrl,
+  author: { '@type': 'Person', name: 'Jen Logsdon' },
+  publisher: {
+    '@type': 'Organization',
+    name: 'Sissy the Butterfly',
+    logo: { '@type': 'ImageObject', url: logoUrl },
+  },
+  datePublished: '2026-07-15',
+  dateModified: '2026-07-15',
+  mainEntityOfPage: pageUrl,
+}
+
+const faqs = [
+  {
+    q: 'What age should a child start counting worksheets?',
+    a: 'Around ages 3 to 6, though it varies enormously and that is completely normal. A three-year-old may count aloud while pointing at random; a five-year-old usually matches one number to one object. Both are real progress — the first is the rehearsal for the second.',
+  },
+  {
+    q: 'My child counts to ten but miscounts five objects. Why?',
+    a: 'Reciting numbers and counting things are two different skills. Saying "one two three" is a song; touching each butterfly exactly once while saying it is the harder job underneath. Counting slowly and touching each picture as you go is what joins them up.',
+  },
+  {
+    q: 'How do dot-to-dots help with numbers?',
+    a: 'A dot-to-dot hides number order inside a drawing. To get a butterfly at the end, a child has to find what comes after seven — and they will happily hunt for it, because there is a picture waiting. It is number order without a single flashcard.',
+  },
+  {
+    q: 'Are these counting sheets free to print?',
+    a: 'Yes — every sheet here is a free, teacher-created PDF. Print on regular letter-size paper. A crayon works better than a pencil for little hands.',
+  },
+]
+const faqLd = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: faqs.map((item) => ({
+    '@type': 'Question',
+    name: item.q,
+    acceptedAnswer: { '@type': 'Answer', text: item.a },
+  })),
+}
+---
+
+<DefaultLayout
+  title="Printable Counting Worksheets for Kids"
+  description="Free printable counting worksheets and number-order dot-to-dots for kids ages 3-7 — count the butterflies and flowers, then write the number. Teacher-created, print and play."
+  image={heroArt}
+  imageAlt="A sunny wildflower meadow from the world of Sissy the Butterfly."
+  type="article"
+>
+  <script type="application/ld+json" set:html={JSON.stringify(articleLd)} is:inline />
+  <script type="application/ld+json" set:html={JSON.stringify(faqLd)} is:inline />
+
+  <PageHeader
+    title="Printable Counting Worksheets for Kids"
+    subtitle="Count the butterflies, hunt for the next number, and find a picture waiting at the end — free to print, for ages 3 to 7."
+    featuredImage={heroArt}
+  />
+
+  <section class="my-24">
+    <div class="container space-content">
+      <div class="mx-auto flex max-w-2xl flex-col gap-4 text-lg">
+        <p>
+          Counting starts long before a child can write a number. It starts with pointing — one
+          butterfly, then another, then another — and slowly noticing that the last word you said is
+          how many there were. That quiet realisation is the whole foundation of early maths.
+        </p>
+        <p>
+          The sheets below give that practice something to count that a child actually cares about:
+          the butterflies, flowers, and stars of Sissy&rsquo;s meadow. All free, all teacher-created.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="my-24">
+    <div class="container space-content">
+      <Heading level="h2">Free printable counting worksheet</Heading>
+      <p class="text-lg">
+        Count what you find in the meadow, then write the number beside it.
+      </p>
+      <PrintableGrid items={countingSet} />
+    </div>
+  </section>
+
+  <section class="my-24">
+    <div class="container space-content">
+      <Heading level="h2">Number order, hidden in a picture</Heading>
+      <p class="text-lg">
+        Dot-to-dots are number practice in disguise — follow the numbers in order and a butterfly or
+        a flower appears, ready to colour.
+      </p>
+      <PrintableGrid items={numberOrderSet} />
+      <p class="text-lg">
+        More in the full <a href="/printables/puzzles/">puzzles collection</a>.
+      </p>
+    </div>
+  </section>
+
+  <section class="my-24">
+    <div class="container space-content">
+      <Heading level="h2">Tips for counting together</Heading>
+      <div class="mx-auto flex max-w-2xl flex-col gap-4 text-lg">
+        <ul class="flex list-disc flex-col gap-2 pl-6">
+          <li>
+            <strong>Touch every one.</strong> Have them put a finger on each butterfly as they say
+            the number. Touching is what turns the counting song into real counting.
+          </li>
+          <li>
+            <strong>Ask &ldquo;how many?&rdquo; at the end.</strong> If they recount the whole row to
+            answer, that is normal — the idea that the last number <em>is</em> the total takes a
+            while to land. Ask again next week.
+          </li>
+          <li>
+            <strong>Count things that are not on paper.</strong> Steps to the door, apples in the
+            bowl, birds on the wire. The sheet is practice; the world is where it sticks.
+          </li>
+          <li>
+            <strong>Let a wrong answer stand for a moment.</strong> Recount together rather than
+            correcting. &ldquo;Let&rsquo;s check&rdquo; keeps them trying; &ldquo;no&rdquo; ends the
+            game.
+          </li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="my-24">
+    <div class="container space-content">
+      <Heading level="h2">Questions grown-ups ask</Heading>
+      <div class="mx-auto max-w-2xl">
+        <dl class="flex flex-col gap-6">
+          {
+            faqs.map((item) => (
+              <div>
+                <dt class="text-lg font-bold">{item.q}</dt>
+                <dd class="mt-2 text-lg">{item.a}</dd>
+              </div>
+            ))
+          }
+        </dl>
+      </div>
+    </div>
+  </section>
+
+  <section class="my-24">
+    <div class="container space-content">
+      <div class="mx-auto max-w-2xl text-lg">
+        <Heading level="h2">The meadow comes from a story</Heading>
+        <p class="mt-3">
+          The butterflies being counted here live in a picture book about a little butterfly learning
+          to be brave. <a href="/book/">Sissy&rsquo;s story</a> is a gentle read-aloud whenever
+          you&rsquo;re ready.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="my-24">
+    <div class="container space-content">
+      <Heading level="h2" class="text-center">Free printables in your inbox</Heading>
+      <NewsletterSignup />
+    </div>
+  </section>
+</DefaultLayout>
