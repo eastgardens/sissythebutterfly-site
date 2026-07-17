@@ -1,0 +1,264 @@
+---
+import DefaultLayout from '@layouts/DefaultLayout.astro'
+import PageHeader from '@components/PageHeader.astro'
+import PrintableGrid from '@components/PrintableGrid.astro'
+import NewsletterSignup from '@components/NewsletterSignup.astro'
+import { Heading } from 'accessible-astro-components'
+import { printables, type Printable } from '@data/printables'
+import heroArt from '@assets/img/scenes/scene-sunset-meadow.png'
+
+/**
+ * SEO resource page — target cluster: "bug activities for preschoolers" / "insect activities for
+ * kids" / "insect printables preschool". Curates our real insect cast (grasshopper, firefly,
+ * butterflies) plus nature puzzles into a bug theme with gentle, teacher-created guidance. The
+ * meadow friends genuinely ARE insects, which keeps the content honest.
+ */
+const pick = (slugs: string[]): Printable[] =>
+  slugs
+    .map((slug) => printables.find((p) => p.slug === slug))
+    .filter((p): p is Printable => Boolean(p))
+
+const bugColorSet = pick([
+  'buddy-grasshopper-coloring-page',
+  'flitter-firefly-coloring-page',
+  'sissy-butterfly-coloring-page',
+  'addy-butterfly-coloring-page',
+])
+const bugActivitySet = pick([
+  'nature-word-search',
+  'butterfly-connect-the-dots',
+  'i-spy-the-meadow',
+  'backyard-butterfly-hunt-outdoor-card',
+])
+
+const pageUrl = new URL('/insect-activities-for-preschoolers/', Astro.site).href
+const heroUrl = new URL(heroArt.src, Astro.site).href
+const logoUrl = new URL('/favicon-512.png', Astro.site).href
+
+const articleLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Article',
+  headline: 'Bug and Insect Activities for Preschoolers',
+  description:
+    'Free bug and insect activities for preschoolers ages 3-7 — grasshopper, firefly, and butterfly coloring, a nature word search, connect-the-dots, and a backyard bug hunt. Teacher-created and ready to print.',
+  image: heroUrl,
+  author: { '@type': 'Person', name: 'Jen Logsdon' },
+  publisher: {
+    '@type': 'Organization',
+    name: 'Sissy the Butterfly',
+    logo: { '@type': 'ImageObject', url: logoUrl },
+  },
+  datePublished: '2026-07-16',
+  dateModified: '2026-07-16',
+  mainEntityOfPage: pageUrl,
+}
+
+const bugs = [
+  {
+    name: 'Butterflies',
+    body: 'The friendliest first insect. Six legs, two feelers, and wings that start out as a caterpillar — a whole life-cycle story hiding in one flutter. Count the wings, spot the symmetry, and watch how gently it lands.',
+  },
+  {
+    name: 'Grasshoppers',
+    body: 'Buddy the grasshopper is a preschooler favorite because he jumps. Talk about how far he can spring compared to his little body, then hop across the room together. Big legs, big leaps, lots of giggles.',
+  },
+  {
+    name: 'Fireflies',
+    body: 'Flitter the firefly turns a summer evening into magic. Fireflies make their own light to say hello in the dark — a wonderful way to talk about how different bugs have different jobs and gifts.',
+  },
+  {
+    name: 'Bees, ants, and beetles',
+    body: 'The busy background of any garden. Bees carry flower dust from bloom to bloom, ants work together in a line, and beetles wear a shiny shell. Watching them work is a first lesson in how much little creatures do.',
+  },
+]
+
+const faqs = [
+  {
+    q: 'What are good insect activities for a preschooler?',
+    a: 'Start with the bugs a child can actually meet: color a grasshopper or a firefly, count a butterfly’s wings, then head outside for a gentle bug hunt to find the real thing. Pairing a picture with a living creature is what makes an insect real to a three-year-old.',
+  },
+  {
+    q: 'How many legs does an insect have?',
+    a: 'Every true insect has six legs and three body parts — a head, a middle (the thorax), and a back part (the abdomen). It is a lovely counting job for little ones: find the six legs on a butterfly or a grasshopper. Spiders have eight legs, which is exactly why they are not insects.',
+  },
+  {
+    q: 'What if my child is scared of bugs?',
+    a: 'That is very common and completely okay. Start with the friendly, still ones on paper — a smiling butterfly or firefly to color — and only meet real bugs from a comfortable distance, like watching an ant from a step away. Curiosity grows when a child feels safe and in charge of how close they get.',
+  },
+  {
+    q: 'Are these insect printables free?',
+    a: 'Yes — every sheet here is a free, teacher-created PDF for ages 3 to 7. Print on regular letter-size paper, as many copies as your home or classroom needs.',
+  },
+]
+const faqLd = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: faqs.map((item) => ({
+    '@type': 'Question',
+    name: item.q,
+    acceptedAnswer: { '@type': 'Answer', text: item.a },
+  })),
+}
+---
+
+<DefaultLayout
+  title="Bug and Insect Activities for Preschoolers"
+  description="Free bug and insect activities for preschoolers ages 3-7 — grasshopper, firefly, and butterfly coloring, a nature word search, connect-the-dots, and a backyard bug hunt. Teacher-created and ready to print."
+  image={heroArt}
+  imageAlt="A glowing sunset meadow where fireflies begin to twinkle, from the world of Sissy the Butterfly."
+  type="article"
+>
+  <script type="application/ld+json" set:html={JSON.stringify(articleLd)} is:inline />
+  <script type="application/ld+json" set:html={JSON.stringify(faqLd)} is:inline />
+
+  <PageHeader
+    title="Bug and Insect Activities for Preschoolers"
+    subtitle="Grasshoppers, fireflies, and butterflies — meet the meadow&rsquo;s smallest friends with free, teacher-created sheets for ages 3 to 7."
+    featuredImage={heroArt}
+  />
+
+  <section class="my-24">
+    <div class="container space-content">
+      <div class="mx-auto flex max-w-2xl flex-col gap-4 text-lg">
+        <p>
+          Bugs are a preschooler&rsquo;s first zoo. They are small, they are everywhere, and a child
+          can crouch down and meet one without a car ride or a ticket. A grasshopper on the path or
+          a firefly at dusk is a genuine encounter with a wild animal — one that fits in the palm of
+          a very small hand.
+        </p>
+        <p>
+          Happily, the whole meadow cast is made of insects: Sissy and Addy are butterflies, Buddy
+          is a grasshopper, and Flitter is a firefly. So every sheet below is also a gentle bug
+          lesson. Color the friends, hunt for nature words, then step outside to find the real
+          thing. All free, all teacher-created.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="my-24">
+    <div class="container space-content">
+      <Heading level="h2">Meet the bugs</Heading>
+      <div class="mx-auto flex max-w-2xl flex-col gap-6 text-lg">
+        {
+          bugs.map((bug) => (
+            <div>
+              <Heading level="h3">{bug.name}</Heading>
+              <p class="mt-1">{bug.body}</p>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <section class="my-24">
+    <div class="container space-content">
+      <Heading level="h2">Color the meadow&rsquo;s insects</Heading>
+      <p class="text-lg">
+        Buddy the grasshopper, Flitter the firefly, and the butterflies Sissy and Addy — four
+        friendly bugs to color and get to know.
+      </p>
+      <PrintableGrid items={bugColorSet} />
+      <p class="text-lg">
+        More in the full <a href="/printables/coloring/">coloring collection</a>.
+      </p>
+    </div>
+  </section>
+
+  <section class="my-24">
+    <div class="container space-content">
+      <Heading level="h2">Bug puzzles and a backyard hunt</Heading>
+      <p class="text-lg">
+        Hunt for nature words, draw a butterfly dot by dot, count the meadow&rsquo;s little
+        creatures, then take the adventure card outside to find bugs of your own.
+      </p>
+      <PrintableGrid items={bugActivitySet} />
+      <p class="text-lg">
+        Find more in the <a href="/printables/puzzles/">puzzles collection</a> and the
+        <a href="/printables/activities/">activities collection</a>.
+      </p>
+    </div>
+  </section>
+
+  <section class="my-24">
+    <div class="container space-content">
+      <Heading level="h2">Ways to explore bugs together</Heading>
+      <div class="mx-auto flex max-w-2xl flex-col gap-4 text-lg">
+        <ul class="flex list-disc flex-col gap-2 pl-6">
+          <li>
+            <strong>Count to six.</strong> Every insect has six legs. Turn it into a game — find the
+            six on a butterfly, then on a picture of a beetle. Spiders have eight, which is the fun
+            catch.
+          </li>
+          <li>
+            <strong>Watch, don&rsquo;t hold.</strong> Kindness to the tiniest creatures starts here.
+            A bug is happiest left where it lives; we look closely and let it go on its way.
+          </li>
+          <li>
+            <strong>Hop like a grasshopper.</strong> Move like the bug you are learning about — hop,
+            flutter, or crawl. Bodies remember what a worksheet forgets.
+          </li>
+          <li>
+            <strong>Wait for the fireflies.</strong> A warm evening on the porch, watching for the
+            first blink, is one of childhood&rsquo;s quiet treasures. No sheet required.
+          </li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="my-24">
+    <div class="container space-content">
+      <Heading level="h2">Frequently asked questions</Heading>
+      <dl class="mx-auto flex max-w-2xl flex-col gap-6 text-lg">
+        {
+          faqs.map((item) => (
+            <div>
+              <dt class="font-bold">{item.q}</dt>
+              <dd class="mt-1">{item.a}</dd>
+            </div>
+          ))
+        }
+      </dl>
+    </div>
+  </section>
+
+  <section class="my-24">
+    <div class="container space-content">
+      <Heading level="h2">More gentle guides</Heading>
+      <ul class="mx-auto flex max-w-2xl list-disc flex-col gap-3 pl-6 text-lg">
+        <li>
+          <a href="/butterfly-life-cycle-activities/">Butterfly life cycle activities for preschoolers</a>
+        </li>
+        <li><a href="/spring-activities-for-preschoolers/">Spring activities for preschoolers</a></li>
+        <li><a href="/nature-activities-for-kids/">Nature activities for kids ages 3-7</a></li>
+        <li><a href="/free-butterfly-printables/">All our free butterfly printables</a></li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="my-24">
+    <div class="container space-content">
+      <div class="mx-auto max-w-2xl text-lg">
+        <Heading level="h2">The bugs come from a story</Heading>
+        <p class="mt-3">
+          Buddy, Flitter, and the butterflies all live in a picture book about a little butterfly
+          learning to be brave. <a href="/book/">Sissy&rsquo;s story</a> is a gentle read-aloud
+          companion whenever you&rsquo;re ready.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="my-24">
+    <div class="container space-content">
+      <Heading level="h2" class="text-center">Free printables in your inbox</Heading>
+      <p class="mx-auto max-w-2xl text-center text-lg">
+        Prefer them delivered? Our <a href="/newsletter/">free newsletter</a> sends new printables
+        and gentle updates for grown-ups — never for children.
+      </p>
+      <NewsletterSignup />
+    </div>
+  </section>
+</DefaultLayout>

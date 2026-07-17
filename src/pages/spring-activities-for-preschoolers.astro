@@ -1,0 +1,228 @@
+---
+import DefaultLayout from '@layouts/DefaultLayout.astro'
+import PageHeader from '@components/PageHeader.astro'
+import PrintableGrid from '@components/PrintableGrid.astro'
+import NewsletterSignup from '@components/NewsletterSignup.astro'
+import { Heading } from 'accessible-astro-components'
+import { printables, type Printable } from '@data/printables'
+import heroArt from '@assets/img/scenes/scene-butterfly-garden.png'
+
+/**
+ * SEO resource page — target cluster: "spring activities for preschoolers" / "spring crafts for
+ * kids" / "spring printables preschool". A seasonal hub that gathers our real flower, butterfly,
+ * and meadow sheets into a spring theme with gentle, teacher-created guidance. Warm, parent- and
+ * classroom-first.
+ */
+const pick = (slugs: string[]): Printable[] =>
+  slugs
+    .map((slug) => printables.find((p) => p.slug === slug))
+    .filter((p): p is Printable => Boolean(p))
+
+const springColorSet = pick([
+  'sissy-butterfly-coloring-page',
+  'meadow-friends-coloring-page',
+  'make-a-paper-butterfly',
+  'paper-plate-butterfly',
+])
+const springPuzzleSet = pick([
+  'flower-connect-the-dots',
+  'butterfly-connect-the-dots',
+  'i-spy-the-meadow',
+  'count-the-meadow-counting-sheet',
+])
+
+const pageUrl = new URL('/spring-activities-for-preschoolers/', Astro.site).href
+const heroUrl = new URL(heroArt.src, Astro.site).href
+const logoUrl = new URL('/favicon-512.png', Astro.site).href
+
+const articleLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Article',
+  headline: 'Spring Activities for Preschoolers',
+  description:
+    'Free spring activities for preschoolers ages 3-7 — flower and butterfly coloring, connect-the-dots, a paper-butterfly craft, and count-and-find meadow sheets. Teacher-created, ready to print.',
+  image: heroUrl,
+  author: { '@type': 'Person', name: 'Jen Logsdon' },
+  publisher: {
+    '@type': 'Organization',
+    name: 'Sissy the Butterfly',
+    logo: { '@type': 'ImageObject', url: logoUrl },
+  },
+  datePublished: '2026-07-16',
+  dateModified: '2026-07-16',
+  mainEntityOfPage: pageUrl,
+}
+
+const faqs = [
+  {
+    q: 'What are good spring activities for preschoolers?',
+    a: 'Anything that gets little ones looking at what is waking up outside — spotting the first flowers, watching for butterflies and bees, or planting a seed in a cup on the windowsill. Pair a short outdoor look with a matching sheet at the table, like a flower to draw dot by dot, and the season becomes something a child can both see and hold.',
+  },
+  {
+    q: 'What is a simple spring craft for a 3-year-old?',
+    a: 'A paper butterfly is hard to beat: fold, snip, and decorate one bright flutter from a single sheet. A paper-plate butterfly is just as easy and even more colorful. Both use things you already have, and a grown-up does the tricky cutting while little hands do the coloring.',
+  },
+  {
+    q: 'How do I plan a spring theme for preschool?',
+    a: 'Pick one small idea a day across a week — flowers, butterflies, bugs, weather, growing things — and give each its own sheet or craft. Read a spring story, do the matching activity, then step outside to find the real thing. Repeating a theme over several short days helps it stick far better than one long lesson.',
+  },
+  {
+    q: 'Are these spring printables free?',
+    a: 'Yes — every sheet here is a free, teacher-created PDF made for ages 3 to 7. Print on regular letter-size paper, as many copies as your home or classroom needs.',
+  },
+]
+const faqLd = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: faqs.map((item) => ({
+    '@type': 'Question',
+    name: item.q,
+    acceptedAnswer: { '@type': 'Answer', text: item.a },
+  })),
+}
+---
+
+<DefaultLayout
+  title="Spring Activities for Preschoolers"
+  description="Free spring activities for preschoolers ages 3-7 — flower and butterfly coloring, connect-the-dots, a paper-butterfly craft, and count-and-find meadow sheets. Teacher-created and ready to print."
+  image={heroArt}
+  imageAlt="A bright flower garden full of butterflies from the world of Sissy the Butterfly."
+  type="article"
+>
+  <script type="application/ld+json" set:html={JSON.stringify(articleLd)} is:inline />
+  <script type="application/ld+json" set:html={JSON.stringify(faqLd)} is:inline />
+
+  <PageHeader
+    title="Spring Activities for Preschoolers"
+    subtitle="Flowers, butterflies, and the first warm days — a gathered set of free, teacher-created sheets for ages 3 to 7."
+    featuredImage={heroArt}
+  />
+
+  <section class="my-24">
+    <div class="container space-content">
+      <div class="mx-auto flex max-w-2xl flex-col gap-4 text-lg">
+        <p>
+          Spring is a preschooler&rsquo;s favorite kind of science: everything is waking up, and it
+          is all at eye level. The first flowers push up, the first butterflies wobble past, and a
+          child who was cooped up all winter suddenly has a whole world to point at. The best spring
+          activities simply give that pointing somewhere to go.
+        </p>
+        <p>
+          Below is a gathered set of our flower, butterfly, and meadow sheets — coloring, crafts,
+          and gentle puzzles — arranged for the season. Print one, step outside to find the real
+          thing, then come back to the table. All free, all teacher-created.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="my-24">
+    <div class="container space-content">
+      <Heading level="h2">Spring coloring and crafts</Heading>
+      <p class="text-lg">
+        Color the meadow in bloom, then make a butterfly of your own. A grown-up handles the
+        cutting; little hands do the bright part.
+      </p>
+      <PrintableGrid items={springColorSet} />
+      <p class="text-lg">
+        More in the full <a href="/printables/coloring/">coloring collection</a> and the
+        <a href="/printables/crafts/">crafts collection</a>.
+      </p>
+    </div>
+  </section>
+
+  <section class="my-24">
+    <div class="container space-content">
+      <Heading level="h2">Spring puzzles for the table</Heading>
+      <p class="text-lg">
+        For a rainy spring morning or a wind-down after the garden — draw a flower dot by dot,
+        reveal a butterfly, and count the meadow&rsquo;s new arrivals.
+      </p>
+      <PrintableGrid items={springPuzzleSet} />
+      <p class="text-lg">
+        Find more in the full <a href="/printables/puzzles/">puzzles collection</a>.
+      </p>
+    </div>
+  </section>
+
+  <section class="my-24">
+    <div class="container space-content">
+      <Heading level="h2">Ways to welcome spring together</Heading>
+      <div class="mx-auto flex max-w-2xl flex-col gap-4 text-lg">
+        <ul class="flex list-disc flex-col gap-2 pl-6">
+          <li>
+            <strong>Grow one thing.</strong> A bean in a wet paper towel, or a seed in a paper cup
+            on the sill. Checking it each morning turns a whole week into a quiet, daily wonder.
+          </li>
+          <li>
+            <strong>Take a spring color walk.</strong> Head out to find one new color that was not
+            there last week — the first green, the first yellow. The season keeps handing you more.
+          </li>
+          <li>
+            <strong>Watch for the first flutter.</strong> Spotting the year&rsquo;s first butterfly
+            is a real event. Talk about where it came from, and you have wandered right into the
+            life cycle.
+          </li>
+          <li>
+            <strong>Bring the outside in.</strong> A jar of picked dandelions or a leaf on the table
+            gives a child something to draw, sort, and talk about long after the walk is done.
+          </li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="my-24">
+    <div class="container space-content">
+      <Heading level="h2">Frequently asked questions</Heading>
+      <dl class="mx-auto flex max-w-2xl flex-col gap-6 text-lg">
+        {
+          faqs.map((item) => (
+            <div>
+              <dt class="font-bold">{item.q}</dt>
+              <dd class="mt-1">{item.a}</dd>
+            </div>
+          ))
+        }
+      </dl>
+    </div>
+  </section>
+
+  <section class="my-24">
+    <div class="container space-content">
+      <Heading level="h2">More gentle guides</Heading>
+      <ul class="mx-auto flex max-w-2xl list-disc flex-col gap-3 pl-6 text-lg">
+        <li>
+          <a href="/butterfly-life-cycle-activities/">Butterfly life cycle activities for preschoolers</a>
+        </li>
+        <li><a href="/insect-activities-for-preschoolers/">Bug and insect activities for preschoolers</a></li>
+        <li><a href="/nature-activities-for-kids/">Nature activities for kids ages 3-7</a></li>
+        <li><a href="/free-butterfly-printables/">All our free butterfly printables</a></li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="my-24">
+    <div class="container space-content">
+      <div class="mx-auto max-w-2xl text-lg">
+        <Heading level="h2">The meadow comes from a story</Heading>
+        <p class="mt-3">
+          The flowers and butterflies your child is coloring all live in a picture book about a
+          little butterfly learning to be brave. <a href="/book/">Sissy&rsquo;s story</a> makes a
+          gentle spring read-aloud whenever you&rsquo;re ready.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="my-24">
+    <div class="container space-content">
+      <Heading level="h2" class="text-center">Free printables in your inbox</Heading>
+      <p class="mx-auto max-w-2xl text-center text-lg">
+        Prefer them delivered? Our <a href="/newsletter/">free newsletter</a> sends new printables
+        and gentle updates for grown-ups — never for children.
+      </p>
+      <NewsletterSignup />
+    </div>
+  </section>
+</DefaultLayout>

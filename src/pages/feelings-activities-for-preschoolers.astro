@@ -1,0 +1,265 @@
+---
+import DefaultLayout from '@layouts/DefaultLayout.astro'
+import PageHeader from '@components/PageHeader.astro'
+import PrintableGrid from '@components/PrintableGrid.astro'
+import NewsletterSignup from '@components/NewsletterSignup.astro'
+import { Heading } from 'accessible-astro-components'
+import { printables, type Printable } from '@data/printables'
+import heroArt from '@assets/img/scenes/scene-waterfall.png'
+
+/**
+ * SEO resource page — target cluster: "feelings activities for preschoolers" / "emotions activities
+ * for kids" / "naming feelings preschool" (social-emotional learning). ANGLE: naming and
+ * identifying feelings — the vocabulary side of SEL. Deliberately distinct from
+ * /calm-down-activities-for-kids/ (which covers the regulation techniques) so the two guides
+ * complement rather than cannibalize; this page hands off to the calm-down guide for the settling.
+ */
+const pick = (slugs: string[]): Printable[] =>
+  slugs
+    .map((slug) => printables.find((p) => p.slug === slug))
+    .filter((p): p is Printable => Boolean(p))
+
+const nameItSet = pick([
+  'friendship-read-aloud-card',
+  'meadow-friends-coloring-page',
+  'courage-quote-poster',
+  'the-kindness-song-lyric-and-action-sheet',
+])
+const thenSettleSet = pick([
+  'rainbow-breaths-calm-down-card',
+  'butterfly-hug-calm-down-card',
+  'five-senses-calm-down-card',
+])
+
+const pageUrl = new URL('/feelings-activities-for-preschoolers/', Astro.site).href
+const heroUrl = new URL(heroArt.src, Astro.site).href
+const logoUrl = new URL('/favicon-512.png', Astro.site).href
+
+const articleLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Article',
+  headline: 'Feelings and Emotions Activities for Preschoolers',
+  description:
+    'Free feelings and emotions activities for preschoolers ages 3-7 — gentle, teacher-created ways to help little ones name and talk about big feelings, with printables and a soft handoff to calming tools.',
+  image: heroUrl,
+  author: { '@type': 'Person', name: 'Jen Logsdon' },
+  publisher: {
+    '@type': 'Organization',
+    name: 'Sissy the Butterfly',
+    logo: { '@type': 'ImageObject', url: logoUrl },
+  },
+  datePublished: '2026-07-16',
+  dateModified: '2026-07-16',
+  mainEntityOfPage: pageUrl,
+}
+
+const feelings = [
+  {
+    name: 'Happy and excited',
+    body: 'The easy ones to start with. Ask what a happy body feels like — a bouncy tummy, a big smile — so a child learns that feelings live in the body, not just the face.',
+  },
+  {
+    name: 'Sad',
+    body: 'Sad is allowed. Naming it out loud — "you look sad that it is over" — tells a child the feeling is safe and seen. Naming is not fixing; it is company.',
+  },
+  {
+    name: 'Mad and frustrated',
+    body: 'The big, hot one. Little ones often act it out before they can say it. Giving it a word — "you are so frustrated" — is the first step to handling it instead of being swept away by it.',
+  },
+  {
+    name: 'Scared and worried',
+    body: 'Fear feels huge to a small person. Naming it gently, and noticing where it sits in the body, shrinks it to a size a child can look at — and that is exactly where courage starts.',
+  },
+]
+
+const faqs = [
+  {
+    q: 'How do I teach a preschooler to name their feelings?',
+    a: 'Narrate feelings out loud all day, both theirs and yours — "you’re frustrated the tower fell," "I feel proud." Use simple words, point to where the feeling sits in the body, and lean on stories and characters so a child can practice on someone else before naming their own. Naming comes first; managing the feeling comes later.',
+  },
+  {
+    q: 'What is the difference between naming feelings and calming down?',
+    a: 'They are two steps of the same skill. Naming is putting a word to what is happening inside — "I feel mad." Calming down is what you do next to help the feeling pass. This guide is about the naming; our calm-down activities guide covers the settling tools, and the two work best together.',
+  },
+  {
+    q: 'Why does naming feelings matter for young children?',
+    a: 'A child who can say "I feel mad" is far less likely to hit, bite, or melt down, because the word gives the feeling somewhere to go besides the body. Researchers sometimes call this "name it to tame it." A rich feelings vocabulary in the early years supports friendships, focus, and self-control later on.',
+  },
+  {
+    q: 'Are these feelings printables free?',
+    a: 'Yes — every sheet here is a free, teacher-created PDF for ages 3 to 7. Print on regular letter-size paper, as many copies as your home or classroom needs.',
+  },
+]
+const faqLd = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: faqs.map((item) => ({
+    '@type': 'Question',
+    name: item.q,
+    acceptedAnswer: { '@type': 'Answer', text: item.a },
+  })),
+}
+---
+
+<DefaultLayout
+  title="Feelings and Emotions Activities for Preschoolers"
+  description="Free feelings and emotions activities for preschoolers ages 3-7 — gentle, teacher-created ways to help little ones name and talk about big feelings, with printables and a soft handoff to calming tools."
+  image={heroArt}
+  imageAlt="A gentle glowing waterfall from the world of Sissy the Butterfly."
+  type="article"
+>
+  <script type="application/ld+json" set:html={JSON.stringify(articleLd)} is:inline />
+  <script type="application/ld+json" set:html={JSON.stringify(faqLd)} is:inline />
+
+  <PageHeader
+    title="Feelings and Emotions Activities for Preschoolers"
+    subtitle="Gentle, teacher-created ways to help little ones name big feelings — the first step before calming down. Free printables for ages 3 to 7."
+    featuredImage={heroArt}
+  />
+
+  <section class="my-24">
+    <div class="container space-content">
+      <div class="mx-auto flex max-w-2xl flex-col gap-4 text-lg">
+        <p>
+          Before a child can calm a big feeling, they have to know what it is. A three-year-old
+          rarely thinks &ldquo;I am frustrated&rdquo; — they just feel a storm and act it out. The
+          gift we can give is a word for the weather: happy, sad, mad, scared, proud, shy. Once a
+          feeling has a name, it stops being a mystery that runs the show.
+        </p>
+        <p>
+          This guide is about that first step — <em>naming</em> feelings. It is the vocabulary side
+          of social-emotional learning, and it pairs with our
+          <a href="/calm-down-activities-for-kids/">calm-down activities guide</a>, which covers what
+          to do once a feeling has a name. Name it here; settle it there. Everything below is free
+          and teacher-created.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="my-24">
+    <div class="container space-content">
+      <Heading level="h2">Feelings to name, one at a time</Heading>
+      <div class="mx-auto flex max-w-2xl flex-col gap-6 text-lg">
+        {
+          feelings.map((feeling) => (
+            <div>
+              <Heading level="h3">{feeling.name}</Heading>
+              <p class="mt-1">{feeling.body}</p>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <section class="my-24">
+    <div class="container space-content">
+      <Heading level="h2">Sheets for naming and talking about feelings</Heading>
+      <p class="text-lg">
+        Feelings are easiest to name on someone else first. A read-aloud with a talk-about-it
+        question, the meadow friends to color and describe, a courage poster, and a kindness song
+        all give little ones a gentle way in.
+      </p>
+      <PrintableGrid items={nameItSet} />
+      <p class="text-lg">
+        More in the <a href="/printables/teaching-guides/">teaching guides collection</a> and the
+        <a href="/printables/coloring/">coloring collection</a>.
+      </p>
+    </div>
+  </section>
+
+  <section class="my-24">
+    <div class="container space-content">
+      <Heading level="h2">Once the feeling has a name</Heading>
+      <p class="text-lg">
+        Naming is the first step; settling is the next. These few calm-down cards are a gentle
+        bridge — for the full set of breathing and grounding tools, see our
+        <a href="/calm-down-activities-for-kids/">calm-down activities guide</a>.
+      </p>
+      <PrintableGrid items={thenSettleSet} />
+    </div>
+  </section>
+
+  <section class="my-24">
+    <div class="container space-content">
+      <Heading level="h2">Ways to build feelings words</Heading>
+      <div class="mx-auto flex max-w-2xl flex-col gap-4 text-lg">
+        <ul class="flex list-disc flex-col gap-2 pl-6">
+          <li>
+            <strong>Narrate all day.</strong> &ldquo;You&rsquo;re disappointed the park is
+            closed.&rdquo; &ldquo;I feel proud of you.&rdquo; Children learn feelings words the same
+            way they learn every other word — by hearing them, out loud, in real moments.
+          </li>
+          <li>
+            <strong>Name your own, too.</strong> Saying &ldquo;I feel a little frustrated, so
+            I&rsquo;m taking a big breath&rdquo; shows a child that grown-ups have feelings and words
+            for them — and a plan.
+          </li>
+          <li>
+            <strong>Use the characters.</strong> &ldquo;How do you think Sissy feels here?&rdquo; is
+            easier to answer than &ldquo;how do <em>you</em> feel?&rdquo; Practicing on a friend
+            comes first.
+          </li>
+          <li>
+            <strong>Name it before you fix it.</strong> Resist jumping to the solution. Just
+            &ldquo;you&rsquo;re really mad&rdquo; — said and left to land — does more than any
+            lecture. Being understood is often the whole remedy.
+          </li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="my-24">
+    <div class="container space-content">
+      <Heading level="h2">Frequently asked questions</Heading>
+      <dl class="mx-auto flex max-w-2xl flex-col gap-6 text-lg">
+        {
+          faqs.map((item) => (
+            <div>
+              <dt class="font-bold">{item.q}</dt>
+              <dd class="mt-1">{item.a}</dd>
+            </div>
+          ))
+        }
+      </dl>
+    </div>
+  </section>
+
+  <section class="my-24">
+    <div class="container space-content">
+      <Heading level="h2">More gentle guides</Heading>
+      <ul class="mx-auto flex max-w-2xl list-disc flex-col gap-3 pl-6 text-lg">
+        <li><a href="/calm-down-activities-for-kids/">Calm-down activities for kids ages 3-7</a></li>
+        <li><a href="/kindness-activities-for-kids/">Kindness activities for kids</a></li>
+        <li><a href="/screen-free-activities-for-kids/">Screen-free activities for kids ages 3-7</a></li>
+        <li><a href="/free-butterfly-printables/">All our free butterfly printables</a></li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="my-24">
+    <div class="container space-content">
+      <div class="mx-auto max-w-2xl text-lg">
+        <Heading level="h2">A little butterfly learning to feel brave</Heading>
+        <p class="mt-3">
+          Sissy is a small character learning that big feelings are okay, and that courage is quiet.
+          If naming feelings sparks some good talks, <a href="/book/">her picture book</a> is a
+          gentle read-aloud on the very same theme whenever you&rsquo;re ready.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="my-24">
+    <div class="container space-content">
+      <Heading level="h2" class="text-center">Free printables in your inbox</Heading>
+      <p class="mx-auto max-w-2xl text-center text-lg">
+        Prefer them delivered? Our <a href="/newsletter/">free newsletter</a> sends new printables
+        and gentle updates for grown-ups — never for children.
+      </p>
+      <NewsletterSignup />
+    </div>
+  </section>
+</DefaultLayout>

@@ -47,8 +47,11 @@ export default defineThemeConfig({
         items: [
           { label: 'Free butterfly coloring pages', href: '/free-butterfly-coloring-pages/' },
           { label: 'Calm-down activities for kids', href: '/calm-down-activities-for-kids/' },
+          { label: 'Feelings activities for preschoolers', href: '/feelings-activities-for-preschoolers/' },
           { label: 'Printable word searches for kids', href: '/printable-word-searches-for-kids/' },
           { label: 'Butterfly life cycle activities', href: '/butterfly-life-cycle-activities/' },
+          { label: 'Spring activities for preschoolers', href: '/spring-activities-for-preschoolers/' },
+          { label: 'Insect activities for preschoolers', href: '/insect-activities-for-preschoolers/' },
           { label: 'Butterfly crafts for kids', href: '/butterfly-crafts-for-kids/' },
           { label: 'Butterfly activities for preschoolers', href: '/butterfly-activities-for-preschoolers/' },
           { label: 'Screen-free activities', href: '/screen-free-activities-for-kids/' },
