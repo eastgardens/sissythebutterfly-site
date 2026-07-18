@@ -1,0 +1,256 @@
+---
+import DefaultLayout from '@layouts/DefaultLayout.astro'
+import PageHeader from '@components/PageHeader.astro'
+import { Image } from 'astro:assets'
+import { PLACES } from '@data/places'
+
+/**
+ * Sissy's Adventure Map — the meadow as a trail of six hotspots (Jen catch 2026-07-17).
+ *
+ * Each place is a real <a> link to its scene page (works with zero JS). The "passport" is optional
+ * progressive enhancement: the inline script stamps the places this browser has already explored,
+ * shows progress, and reveals a printable certificate once all six are collected. COPPA-clean —
+ * state lives only in localStorage (see @utils/passport); nothing about the child is ever sent.
+ */
+const slugs = PLACES.map((p) => p.slug)
+---
+
+<DefaultLayout
+  title="Sissy's Adventure Map — explore every place in the meadow"
+  description="Explore all six places in Sissy the Butterfly's meadow: the sunny meadow, butterfly garden, lily pond, waterfall, sunset meadow, and the Enchanted Forest. Collect a badge at each one to become a Meadow Explorer."
+>
+  <PageHeader
+    title="Sissy's Adventure Map"
+    subtitle="Tap a place to explore it. Visit all six to become a Meadow Explorer!"
+    bgType="gradient"
+    customBreadcrumbLabels={{ meadow: 'Explore the meadow' }}
+    joinLastBreadcrumb={false}
+  />
+
+  <section class="my-16">
+    <div class="container">
+      <!-- Progress + certificate — progressive enhancement; revealed/updated by the script. -->
+      <div class="passport-progress" data-total={slugs.length} hidden>
+        <p class="passport-progress__text" role="status" aria-live="polite" data-progress-message></p>
+        <a class="button passport-progress__cert" href="/meadow/explorer-certificate/" data-cert hidden>
+          🏅 Get your Explorer certificate
+        </a>
+        <button type="button" class="passport-progress__reset" data-reset>Start over</button>
+      </div>
+
+      <ul class="trail" data-slugs={JSON.stringify(slugs)}>
+        {
+          PLACES.map((place, i) => (
+            <li class="trail__stop">
+              <a class="hotspot" href={`/meadow/${place.slug}/`} data-slug={place.slug}>
+                <span class="hotspot__frame">
+                  <Image src={place.image} alt="" width="480" class="hotspot__img" aria-hidden="true" />
+                  <span class="hotspot__stamp" data-stamp hidden>
+                    <span aria-hidden="true">✓</span> Explored
+                  </span>
+                </span>
+                <span class="hotspot__num" aria-hidden="true">
+                  {i + 1}
+                </span>
+                <span class="hotspot__label">{place.label}</span>
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+
+      <p class="trail__hint">
+        Every place has a gentle story, a look-and-find, and free printables to match. Collect all
+        six badges to earn your Meadow Explorer certificate.
+      </p>
+    </div>
+  </section>
+</DefaultLayout>
+
+<script>
+  import { getExplored, isComplete, reset } from '@utils/passport'
+
+  const trail = document.querySelector<HTMLElement>('.trail')
+  const progress = document.querySelector<HTMLElement>('.passport-progress')
+  if (trail && progress) {
+    let slugs: string[] = []
+    try {
+      slugs = JSON.parse(trail.dataset.slugs ?? '[]')
+    } catch {
+      slugs = []
+    }
+    const total = Number(progress.dataset.total ?? String(slugs.length))
+    const message = progress.querySelector<HTMLElement>('[data-progress-message]')
+    const cert = progress.querySelector<HTMLElement>('[data-cert]')
+    const resetBtn = progress.querySelector<HTMLButtonElement>('[data-reset]')
+
+    const render = () => {
+      const explored = getExplored()
+      // Stamp every explored hotspot (text, never colour-only — WCAG).
+      trail.querySelectorAll<HTMLElement>('.hotspot').forEach((spot) => {
+        const done = explored.has(spot.dataset.slug ?? '')
+        spot.classList.toggle('is-explored', done)
+        const stamp = spot.querySelector<HTMLElement>('[data-stamp]')
+        if (stamp) stamp.hidden = !done
+      })
+      const n = slugs.filter((s) => explored.has(s)).length
+      if (message) {
+        message.textContent =
+          n === 0
+            ? `Start exploring — visit a place to collect its badge. 0 of ${total} so far.`
+            : n >= total
+              ? `You explored every place in the meadow. You are a Meadow Explorer!`
+              : `You have explored ${n} of ${total} places. Keep going!`
+      }
+      if (cert) cert.hidden = !isComplete(slugs)
+    }
+
+    resetBtn?.addEventListener('click', () => {
+      reset()
+      render()
+    })
+
+    render()
+    progress.hidden = false
+  }
+</script>
+
+<style>
+  .passport-progress {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.75rem 1.25rem;
+    margin-bottom: 2rem;
+    padding: 1rem 1.25rem;
+    border: 2px dashed var(--color-primary-100);
+    border-radius: 1rem;
+    background-color: light-dark(var(--color-primary-100), var(--color-neutral-900));
+  }
+
+  .passport-progress__text {
+    margin: 0;
+    flex: 1 1 16rem;
+    font-weight: 700;
+    font-size: 1.1rem;
+  }
+
+  .passport-progress__reset {
+    background: none;
+    border: none;
+    padding: 0.25rem 0.5rem;
+    font: inherit;
+    text-decoration: underline;
+    cursor: pointer;
+    color: inherit;
+    border-radius: 0.5rem;
+  }
+
+  .trail {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+
+  @media (min-width: 640px) {
+    .trail {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .trail {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+
+  .hotspot {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+    text-align: center;
+    text-decoration: none;
+    color: inherit;
+  }
+
+  .hotspot__frame {
+    position: relative;
+    display: block;
+    width: 100%;
+    border-radius: 1rem;
+    overflow: hidden;
+    border: 3px solid var(--color-primary-100);
+    transition: transform 0.15s ease;
+  }
+
+  .hotspot:hover .hotspot__frame,
+  .hotspot:focus-visible .hotspot__frame {
+    transform: translateY(-4px);
+  }
+
+  .hotspot:focus-visible {
+    outline: 3px solid var(--color-primary-400);
+    outline-offset: 4px;
+    border-radius: 1rem;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .hotspot__frame {
+      transition: none;
+    }
+    .hotspot:hover .hotspot__frame,
+    .hotspot:focus-visible .hotspot__frame {
+      transform: none;
+    }
+  }
+
+  .hotspot__img {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+
+  .hotspot__stamp {
+    position: absolute;
+    top: 0.6rem;
+    right: 0.6rem;
+    padding: 0.3rem 0.6rem;
+    border-radius: 999px;
+    font-size: 0.85rem;
+    font-weight: 800;
+    color: var(--color-neutral-900);
+    background-color: rgb(255 236 145 / 0.95);
+    box-shadow: 0 2px 6px rgb(0 0 0 / 0.25);
+  }
+
+  .hotspot__num {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 1.9rem;
+    height: 1.9rem;
+    margin-top: -1.5rem;
+    border-radius: 999px;
+    font-weight: 800;
+    color: var(--color-neutral-900);
+    background-color: light-dark(var(--color-primary-100), var(--color-primary-200));
+    border: 2px solid light-dark(#fff, var(--color-neutral-900));
+    position: relative;
+    z-index: 1;
+  }
+
+  .hotspot__label {
+    font-weight: 700;
+    font-size: 1rem;
+  }
+
+  .trail__hint {
+    margin-top: 2rem;
+    max-width: 44rem;
+    font-size: 1.05rem;
+  }
+</style>

@@ -1,0 +1,228 @@
+---
+import DefaultLayout from '@layouts/DefaultLayout.astro'
+import PageHeader from '@components/PageHeader.astro'
+import PrintableGrid from '@components/PrintableGrid.astro'
+import NewsletterSignup from '@components/NewsletterSignup.astro'
+import { Heading, Link } from 'accessible-astro-components'
+import { PLACES, printablesFor, coloringFor, nextPlace, type Place } from '@data/places'
+
+/**
+ * A place in the meadow — the scene page every homepage tile now links to (Jen catch 2026-07-17).
+ * Turns a dead decorative tile into: Sissy's micro-moment + a look-and-find + the printables that
+ * match the place + a "color this place" download + the passport badge + the next place. One
+ * template, six pages (getStaticPaths).
+ */
+export function getStaticPaths() {
+  return PLACES.map((place) => ({ params: { place: place.slug }, props: { place } }))
+}
+
+interface Props {
+  place: Place
+}
+
+const { place } = Astro.props
+const sheets = printablesFor(place)
+const coloring = coloringFor(place)
+const next = nextPlace(place.slug)
+const total = PLACES.length
+---
+
+<DefaultLayout
+  title={`${place.label} — explore Sissy the Butterfly's meadow`}
+  description={`Explore ${place.label} with Sissy: a gentle read-aloud moment, a look-and-find, and free printables that match the scene. ${place.subtitle}`}
+  image={place.image}
+  imageAlt={place.alt}
+>
+  <PageHeader
+    title={place.label}
+    subtitle={place.subtitle}
+    featuredImage={place.image}
+    customBreadcrumbLabels={{ meadow: 'Explore the meadow', [place.slug]: place.label }}
+  />
+
+  <section class="my-16">
+    <div class="container">
+      <div class="place-intro">
+        <p class="place-story">{place.story}</p>
+        <p class="place-seek">
+          <span class="place-seek__eyes" aria-hidden="true">👀</span>
+          {place.seek}
+        </p>
+      </div>
+
+      <!-- Passport badge — progressive enhancement; the inline script below reveals/updates it. -->
+      <div id="passport-badge" class="passport-badge" data-slug={place.slug} data-total={total} hidden>
+        <p class="passport-badge__text" role="status" aria-live="polite" data-passport-message></p>
+        <Link href="/meadow/">See your Adventure Map</Link>
+      </div>
+    </div>
+  </section>
+
+  {
+    coloring && (
+      <section class="my-16">
+        <div class="container">
+          <div class="color-callout">
+            <img
+              src={coloring.thumb}
+              alt={coloring.alt}
+              width={coloring.thumbWidth}
+              height={coloring.thumbHeight}
+              loading="lazy"
+              decoding="async"
+              class="color-callout__thumb"
+            />
+            <div class="color-callout__body">
+              <Heading level="h2">Color this place</Heading>
+              <p>{coloring.blurb}</p>
+              <a
+                href={coloring.pdf}
+                download
+                data-event={coloring.downloadEvent}
+                class="button"
+              >
+                Download the coloring page (PDF)
+              </a>
+            </div>
+          </div>
+        </div>
+      </section>
+    )
+  }
+
+  {
+    sheets.length > 0 && (
+      <section class="my-16">
+        <div class="container">
+          <Heading level="h2" class="mb-8">
+            Things to make and do here
+          </Heading>
+          <PrintableGrid items={sheets} />
+        </div>
+      </section>
+    )
+  }
+
+  <section class="my-16">
+    <div class="container">
+      <div class="next-place">
+        <p class="next-place__label">Ready for the next stop?</p>
+        <Link href={`/meadow/${next.slug}/`}>Explore {next.label} →</Link>
+        <span class="next-place__sep" aria-hidden="true">·</span>
+        <Link href="/meadow/">Back to the Adventure Map</Link>
+      </div>
+    </div>
+  </section>
+
+  <section class="my-24">
+    <div class="container">
+      <Heading level="h2" class="mb-4 text-center">Free printables in your inbox</Heading>
+      <NewsletterSignup />
+    </div>
+  </section>
+</DefaultLayout>
+
+<script>
+  import { markExplored, getExplored } from '@utils/passport'
+
+  const badge = document.getElementById('passport-badge')
+  if (badge) {
+    const slug = badge.dataset.slug ?? ''
+    const total = Number(badge.dataset.total ?? '6')
+    const explored = markExplored(slug) // visiting a place collects its badge
+    const message = badge.querySelector('[data-passport-message]')
+    if (message) {
+      const n = explored.size
+      message.textContent =
+        n >= total
+          ? `Badge collected! You have explored all ${total} places — you are a Meadow Explorer!`
+          : `Badge collected! You have explored ${n} of ${total} places.`
+    }
+    badge.hidden = false
+  }
+  // Keep the reference used so bundlers never tree-shake the persist call on re-render.
+  void getExplored
+</script>
+
+<style>
+  .place-intro {
+    max-width: 44rem;
+  }
+
+  .place-story {
+    font-size: 1.5rem;
+    line-height: 1.5;
+  }
+
+  .place-seek {
+    margin-top: 1rem;
+    font-size: 1.15rem;
+    font-weight: 600;
+    color: light-dark(var(--color-primary-400), var(--color-primary-200));
+  }
+
+  .place-seek__eyes {
+    margin-right: 0.35rem;
+  }
+
+  .passport-badge {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.75rem 1.25rem;
+    margin-top: 2rem;
+    padding: 1rem 1.25rem;
+    border: 2px dashed var(--color-primary-100);
+    border-radius: 1rem;
+    background-color: light-dark(var(--color-primary-100), var(--color-neutral-900));
+  }
+
+  .passport-badge__text {
+    margin: 0;
+    font-weight: 700;
+  }
+
+  .color-callout {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 1.5rem;
+    padding: 1.5rem;
+    border: 1px solid var(--border-color-subtle);
+    border-radius: 1rem;
+    background-color: light-dark(var(--color-neutral-100), var(--color-neutral-900));
+  }
+
+  .color-callout__thumb {
+    width: 220px;
+    max-width: 40vw;
+    height: auto;
+    border-radius: 0.75rem;
+    border: 1px solid var(--border-color-subtle);
+  }
+
+  .color-callout__body {
+    flex: 1 1 16rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    align-items: flex-start;
+  }
+
+  .next-place {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.5rem 1rem;
+    font-size: 1.15rem;
+  }
+
+  .next-place__label {
+    margin: 0;
+    font-weight: 700;
+  }
+
+  .next-place__sep {
+    color: var(--border-color-subtle);
+  }
+</style>

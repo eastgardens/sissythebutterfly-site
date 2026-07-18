@@ -1,0 +1,144 @@
+---
+import DefaultLayout from '@layouts/DefaultLayout.astro'
+import { Heading, Link } from 'accessible-astro-components'
+import { Image } from 'astro:assets'
+import certArt from '@assets/img/cast-group-meadow.png'
+
+/**
+ * Meadow Explorer certificate — the passport payoff (Jen catch 2026-07-17).
+ *
+ * The certificate itself is a lovely printable, so it always renders (no-JS users can print it too).
+ * The optional script adds an encouraging progress line for kids who have not collected all six
+ * badges yet — it never hides the certificate. Print-optimised: the site chrome drops on print.
+ */
+---
+
+<DefaultLayout
+  title="Meadow Explorer Certificate — Sissy the Butterfly"
+  description="Print your Meadow Explorer certificate from Sissy the Butterfly after exploring every place in the meadow."
+>
+  <section class="my-16">
+    <div class="container">
+      <div class="cert-progress" role="status" aria-live="polite" data-cert-progress hidden></div>
+
+      <div class="certificate">
+        <p class="certificate__ribbon">🏅 Meadow Explorer 🦋</p>
+        <Image src={certArt} alt="" width="520" class="certificate__art" aria-hidden="true" />
+        <Heading level="h1" class="certificate__title">Certificate of Exploring</Heading>
+        <p class="certificate__body">
+          This certifies that a curious, kind explorer has explored every place in Sissy's meadow —
+          the sunny meadow, the butterfly garden, the lily pond, the waterfall, the sunset meadow,
+          and the Enchanted Forest.
+        </p>
+        <p class="certificate__cheer">Well done, friend!</p>
+        <p class="certificate__sign">With love, Sissy the Butterfly</p>
+      </div>
+
+      <div class="cert-actions">
+        <button type="button" class="button" data-print>Print my certificate</button>
+        <Link href="/meadow/">Back to the Adventure Map</Link>
+      </div>
+    </div>
+  </section>
+</DefaultLayout>
+
+<script>
+  import { getExplored, isComplete } from '@utils/passport'
+
+  const SLUGS = [
+    'sunny-meadow',
+    'butterfly-garden',
+    'lily-pond',
+    'waterfall',
+    'sunset-meadow',
+    'enchanted-forest',
+  ]
+  const note = document.querySelector<HTMLElement>('[data-cert-progress]')
+  if (note && !isComplete(SLUGS)) {
+    const n = SLUGS.filter((s) => getExplored().has(s)).length
+    note.textContent = `You have explored ${n} of ${SLUGS.length} places so far — visit the rest to complete your adventure. You can still print this certificate any time!`
+    note.hidden = false
+  }
+
+  document.querySelector<HTMLButtonElement>('[data-print]')?.addEventListener('click', () => {
+    window.print()
+  })
+</script>
+
+<style>
+  .cert-progress {
+    max-width: 44rem;
+    margin: 0 auto 1.5rem;
+    padding: 0.85rem 1.15rem;
+    border-radius: 0.75rem;
+    background-color: light-dark(var(--color-primary-100), var(--color-neutral-900));
+    font-weight: 600;
+  }
+
+  .certificate {
+    max-width: 44rem;
+    margin: 0 auto;
+    padding: 2.5rem 2rem;
+    text-align: center;
+    border: 6px double light-dark(var(--color-primary-400), var(--color-primary-200));
+    border-radius: 1.5rem;
+    background-color: light-dark(#fffdf6, var(--color-neutral-900));
+  }
+
+  .certificate__ribbon {
+    margin: 0 0 0.5rem;
+    font-size: 1.4rem;
+    font-weight: 800;
+    letter-spacing: 0.03em;
+  }
+
+  .certificate__art {
+    width: 320px;
+    max-width: 80%;
+    height: auto;
+    margin: 0.5rem auto 1rem;
+    border-radius: 1rem;
+  }
+
+  .certificate__title {
+    font-size: clamp(1.8rem, 5vw, 2.6rem);
+  }
+
+  .certificate__body {
+    max-width: 34rem;
+    margin: 1rem auto;
+    font-size: 1.2rem;
+    line-height: 1.6;
+  }
+
+  .certificate__cheer {
+    font-size: 1.5rem;
+    font-weight: 800;
+    color: light-dark(var(--color-primary-400), var(--color-primary-200));
+  }
+
+  .certificate__sign {
+    margin-top: 1.25rem;
+    font-style: italic;
+  }
+
+  .cert-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    align-items: center;
+    justify-content: center;
+    margin-top: 1.75rem;
+  }
+
+  /* Print: just the certificate on the page, no site chrome. */
+  @media print {
+    .cert-progress,
+    .cert-actions {
+      display: none;
+    }
+    .certificate {
+      border-color: #b070d0;
+    }
+  }
+</style>

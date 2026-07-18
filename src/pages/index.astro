@@ -7,21 +7,7 @@ import { Heading, Link } from 'accessible-astro-components'
 import { Image } from 'astro:assets'
 import { seasonBanner } from '@config/season'
 import heroImage from '@assets/img/cast-group-meadow.png'
-import sceneMeadow from '@assets/img/scenes/scene-sunny-meadow.png'
-import sceneGarden from '@assets/img/scenes/scene-butterfly-garden.png'
-import scenePond from '@assets/img/scenes/scene-pond.png'
-import sceneWaterfall from '@assets/img/scenes/scene-waterfall.png'
-import sceneSunset from '@assets/img/scenes/scene-sunset-meadow.png'
-import sceneForest from '@assets/img/scenes/scene-enchanted-forest.png'
-
-const scenes = [
-  { src: sceneMeadow, label: 'The sunny meadow', alt: 'A sunny green meadow with a winding path and wildflowers.' },
-  { src: sceneGarden, label: 'The butterfly garden', alt: 'A bright garden full of big flowers and butterflies.' },
-  { src: scenePond, label: 'The lily pond', alt: 'A calm blue pond dotted with lily pads.' },
-  { src: sceneWaterfall, label: 'The waterfall', alt: 'A little waterfall tumbling over mossy rocks.' },
-  { src: sceneSunset, label: 'Sunset meadow', alt: 'Rolling hills glowing orange and pink at sunset.' },
-  { src: sceneForest, label: 'The Enchanted Forest', alt: 'A magical forest path lit with glowing lanterns.' },
-]
+import { PLACES } from '@data/places'
 
 /**
  * Home — character-first, alive on load (WEBSITE-BUILD-SPEC §2).
@@ -95,17 +81,26 @@ const season = seasonBanner()
 
   <section class="my-32">
     <div class="container">
-      <Heading level="h2" class="mb-8">Places to explore in the meadow</Heading>
+      <Heading level="h2" class="mb-2">Places to explore in the meadow</Heading>
+      <p class="scene-intro mb-8">
+        Tap a place to visit it — each one has a gentle story, a look-and-find, and free printables.
+        Collect all six to become a <Link href="/meadow/">Meadow Explorer</Link>.
+      </p>
       <ul class="scene-grid">
         {
-          scenes.map((scene) => (
-            <li class="scene-tile">
-              <Image src={scene.src} alt={scene.alt} width="560" class="scene-img" />
-              <span class="scene-label">{scene.label}</span>
+          PLACES.map((place) => (
+            <li>
+              <a class="scene-tile" href={`/meadow/${place.slug}/`}>
+                <Image src={place.image} alt={place.alt} width="560" class="scene-img" />
+                <span class="scene-label">{place.label}</span>
+              </a>
             </li>
           ))
         }
       </ul>
+      <p class="scene-map-cta mt-8">
+        <Link href="/meadow/">See the whole Adventure Map →</Link>
+      </p>
     </div>
   </section>
 
@@ -198,6 +193,8 @@ const season = seasonBanner()
     align-items: center;
     gap: 0.5rem;
     text-align: center;
+    text-decoration: none;
+    color: inherit;
   }
 
   .scene-img {
@@ -205,10 +202,41 @@ const season = seasonBanner()
     height: auto;
     border-radius: 1rem;
     border: 3px solid var(--color-primary-100);
+    transition: transform 0.15s ease;
+  }
+
+  .scene-tile:hover .scene-img,
+  .scene-tile:focus-visible .scene-img {
+    transform: translateY(-4px);
+  }
+
+  .scene-tile:focus-visible {
+    outline: 3px solid var(--color-primary-400);
+    outline-offset: 4px;
+    border-radius: 1rem;
+  }
+
+  .scene-tile:hover .scene-label {
+    text-decoration: underline;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .scene-img {
+      transition: none;
+    }
+    .scene-tile:hover .scene-img,
+    .scene-tile:focus-visible .scene-img {
+      transform: none;
+    }
   }
 
   .scene-label {
     font-weight: 700;
     font-size: 0.95rem;
+  }
+
+  .scene-intro {
+    max-width: 44rem;
+    font-size: 1.1rem;
   }
 </style>
