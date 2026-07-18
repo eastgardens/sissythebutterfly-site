@@ -58,10 +58,8 @@ export const PLACES: Place[] = [
       'is always a new flower to say hello to. Come and see what we can find!',
     seek: 'Can you spot three yellow flowers and the winding path?',
     printableSlugs: [
-      'meadow-friends-coloring-page',
       'count-the-meadow-counting-sheet',
       'i-spy-the-meadow',
-      'meadow-friends-word-search',
       'sissys-meadow-hop-board-game',
     ],
     coloringSlug: 'meadow-friends-coloring-page',
@@ -77,11 +75,9 @@ export const PLACES: Place[] = [
       'which color we love best. There is always room for one more friend.',
     seek: 'Can you find a pink flower and a purple one?',
     printableSlugs: [
-      'sissy-butterfly-coloring-page',
       'make-a-paper-butterfly',
       'design-your-own-butterfly-wings',
-      'butterfly-maze',
-      'backyard-butterfly-hunt-outdoor-card',
+      'butterfly-connect-the-dots',
     ],
     coloringSlug: 'butterfly-garden-coloring-page',
   },
@@ -97,7 +93,6 @@ export const PLACES: Place[] = [
     seek: 'Can you find three lily pads on the water?',
     printableSlugs: [
       'five-senses-calm-down-card',
-      'balloon-belly-calm-down-card',
       'flower-connect-the-dots',
       'match-the-meadow',
     ],
@@ -134,7 +129,6 @@ export const PLACES: Place[] = [
       'the-kindness-song-lyric-and-action-sheet',
       'kindness-word-search',
       'friendship-read-aloud-card',
-      'courage-quote-poster',
     ],
     coloringSlug: 'sunset-meadow-coloring-page',
   },
@@ -152,11 +146,32 @@ export const PLACES: Place[] = [
       'butterfly-maze',
       'nature-word-search',
       'flutter-and-freeze-movement-card',
-      'the-flutter-song-lyric-and-action-sheet',
     ],
     coloringSlug: 'enchanted-forest-coloring-page',
   },
 ]
+
+// Golden-standard guard (Phase-1 cleanup, Jen's repeat-art catch): no printable may appear on more
+// than one scene page, and a place's own coloring page (in the "Color this place" callout) must not
+// also be in its grid. Fails the BUILD loudly if a future edit reintroduces a duplicate.
+{
+  const seenOnAPlace = new Set<string>()
+  for (const place of PLACES) {
+    if (place.printableSlugs.includes(place.coloringSlug)) {
+      throw new Error(
+        `places.ts: '${place.slug}' lists its coloring page in both the callout and the grid`,
+      )
+    }
+    for (const slug of place.printableSlugs) {
+      if (seenOnAPlace.has(slug)) {
+        throw new Error(
+          `places.ts: printable '${slug}' appears on two scene pages — keep each place distinct`,
+        )
+      }
+      seenOnAPlace.add(slug)
+    }
+  }
+}
 
 const BY_SLUG: Map<string, Printable> = new Map(printables.map((p) => [p.slug, p]))
 
