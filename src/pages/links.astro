@@ -1,6 +1,7 @@
 ---
 import DefaultLayout from '@layouts/DefaultLayout.astro'
 import PageHeader from '@components/PageHeader.astro'
+import NewsletterCallout from '@components/NewsletterCallout.astro'
 import { Link } from 'accessible-astro-components'
 
 /**
@@ -9,7 +10,7 @@ import { Link } from 'accessible-astro-components'
  */
 const links = [
   { href: '/printables/', label: 'Free printables & activities' },
-  { href: '/book/', label: 'The book — choose where to buy' },
+  { href: '/book/', label: 'Get the book' },
   { href: '/newsletter/', label: 'Free printables in your inbox' },
   { href: '/meet-sissy/', label: 'Meet Sissy & Friends' },
   { href: '/meet-jen/', label: 'Meet Jen (the author)' },
@@ -19,6 +20,7 @@ const links = [
 
 <DefaultLayout title="Sissy the Butterfly — links" description="All of Sissy the Butterfly in one place: free printables and activities, the book, our newsletter, meet Sissy and friends, meet the author, and resources for parents.">
   <PageHeader title="Hello from the meadow! 🦋" subtitle="Everything Sissy, one flutter away." />
+  <NewsletterCallout />
   <section class="my-24">
     <div class="container">
       <div class="mx-auto flex max-w-md flex-col gap-4">

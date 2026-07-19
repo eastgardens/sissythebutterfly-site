@@ -2,7 +2,7 @@
 import DefaultLayout from '@layouts/DefaultLayout.astro'
 import Feature from '@components/Feature.astro'
 import CallToAction from '@components/CallToAction.astro'
-import NewsletterSignup from '@components/NewsletterSignup.astro'
+import NewsletterCallout from '@components/NewsletterCallout.astro'
 import { Heading, Link } from 'accessible-astro-components'
 import { Image } from 'astro:assets'
 import { seasonBanner } from '@config/season'
@@ -61,6 +61,11 @@ const season = seasonBanner()
     </div>
   </section>
 
+  <NewsletterCallout
+    title="Free printables in your inbox"
+    text="Join grown-ups getting Sissy’s newest coloring pages, activities, and gentle read-aloud ideas — free, and never anything collected from kids."
+  />
+
   <section class="my-32">
     <div class="container">
       <Heading level="h2" class="mb-8">Made by a teacher, for families</Heading>
@@ -116,13 +121,6 @@ const season = seasonBanner()
   </section>
 
   <CallToAction title="Read the book that started it all" link="/book/" linkText="About the book" />
-
-  <section class="my-32">
-    <div class="container">
-      <Heading level="h2" class="mb-4 text-center">Free printables in your inbox</Heading>
-      <NewsletterSignup />
-    </div>
-  </section>
 </DefaultLayout>
 
 <style>

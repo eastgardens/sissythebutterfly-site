@@ -1,39 +1,34 @@
 ---
 import DefaultLayout from '@layouts/DefaultLayout.astro'
 import PageHeader from '@components/PageHeader.astro'
+import NewsletterCallout from '@components/NewsletterCallout.astro'
 import { Heading, Link } from 'accessible-astro-components'
 import { Image } from 'astro:assets'
 import homeArt from '@assets/img/sissy-addy-home.png'
 import bannerArt from '@assets/img/scenes/scene-enchanted-forest.png'
+import {
+  BOOK_AMAZON,
+  BOOK_SECONDARY_RETAILERS,
+  BOOK_ALL_RETAILERS,
+  BOOK_ISBN,
+  BOOK_GTIN13,
+} from '@config/book'
 
 /**
- * The Book — the first-party buy page (033; WEBSITE-BUILD-SPEC §2). Trust-before-sale:
- * "choose where to buy", never a hard CTA. Retailer clicks are the tracked intent events
- * (analytics wiring at 2.3d). Cover art lands at 2.3b.
+ * The Book — the first-party buy page (033; WEBSITE-BUILD-SPEC §2). Amazon leads as the primary
+ * buy path so reviews concentrate on one listing (operator call, 2026-07-19); Barnes & Noble +
+ * Walmart stay as a small "also available" line. Buy links live in ONE place (`@config/book`).
+ * Retailer clicks are the tracked intent events (analytics wiring at 2.3d).
  */
-const retailers = [
-  { name: 'Amazon', href: 'https://a.co/d/07GmSdEm', event: 'retailer_click_amazon' },
-  {
-    name: 'Barnes & Noble',
-    href: 'https://www.barnesandnoble.com/s/9798993255316',
-    event: 'retailer_click_bn',
-  },
-  {
-    name: 'Walmart',
-    href: 'https://www.walmart.com/search?q=9798993255309',
-    event: 'retailer_click_walmart',
-  },
-]
-
 // Book structured data (WEBSITE-BUILD-SPEC §5 — conservative, true-only).
 const bookLd = {
   '@context': 'https://schema.org',
   '@type': 'Book',
   name: 'Sissy the Butterfly',
   author: { '@type': 'Person', name: 'Jen Logsdon' },
-  isbn: '9798993255316',
-  gtin13: '9798993255309',
-  offers: retailers.map((retailer) => ({
+  isbn: BOOK_ISBN,
+  gtin13: BOOK_GTIN13,
+  offers: BOOK_ALL_RETAILERS.map((retailer) => ({
     '@type': 'Offer',
     url: retailer.href,
     seller: { '@type': 'Organization', name: retailer.name },
@@ -71,28 +66,41 @@ const bookLd = {
           It’s a “read it together” kind of book: short enough for tonight, warm enough for
           every night this week.
         </p>
-        <Heading level="h2" class="mt-8">Choose where to buy</Heading>
-        <div class="flex flex-col gap-3 min-[500px]:flex-row">
-          {
-            retailers.map((retailer) => (
-              <Link
-                href={retailer.href}
-                isExternal={true}
-                class="button"
-                data-event={retailer.event}
-              >
-                {retailer.name}
-              </Link>
-            ))
-          }
+        <Heading level="h2" class="mt-8">Get the book</Heading>
+        <div class="buy-primary">
+          <Link
+            href={BOOK_AMAZON.href}
+            isExternal={true}
+            class="button"
+            data-event={BOOK_AMAZON.event}
+          >
+            Buy on Amazon
+          </Link>
         </div>
-        <p class="mt-6 text-base">
-          However you read it, we hope it earns a spot in the pile. And if it does — the
-          meadow has five more stories waiting for their turn.
+        <p class="text-base">
+          Also available at{' '}
+          {
+            BOOK_SECONDARY_RETAILERS.map((retailer, i) => (
+              <Fragment>
+                {i > 0 && <span aria-hidden="true"> · </span>}
+                <Link href={retailer.href} isExternal={true} data-event={retailer.event}>
+                  {retailer.name}
+                </Link>
+              </Fragment>
+            ))
+          }.
+        </p>
+        <p class="mt-4 text-base">
+          If it earns a spot in the pile, a quick Amazon review helps other families find Sissy —
+          and helps the meadow’s five more stories reach their turn.
         </p>
       </div>
     </div>
   </section>
+  <NewsletterCallout
+    title="Love the book? Get free printables too"
+    text="Coloring pages, activities, and read-aloud ideas from Sissy’s meadow — free, sent to grown-ups. A gentle way to keep the story going between pages."
+  />
 </DefaultLayout>
 
 <style>
