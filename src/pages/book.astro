@@ -10,6 +10,7 @@ import {
   BOOK_AMAZON,
   BOOK_SECONDARY_RETAILERS,
   BOOK_ALL_RETAILERS,
+  BOOK_AMAZON_REVIEW_URL,
   BOOK_ISBN,
   BOOK_GTIN13,
 } from '@config/book'
@@ -91,9 +92,19 @@ const bookLd = {
           }.
         </p>
         <p class="mt-4 text-base">
-          If it earns a spot in the pile, a quick Amazon review helps other families find Sissy —
-          and helps the meadow’s five more stories reach their turn.
+          Already read it? A quick review helps other families find Sissy — and helps the meadow’s
+          five more stories reach their turn.
         </p>
+        <div>
+          <Link
+            href={BOOK_AMAZON_REVIEW_URL}
+            isExternal={true}
+            class="button color-secondary"
+            data-event="amazon_review_click"
+          >
+            ⭐ Leave a review on Amazon
+          </Link>
+        </div>
       </div>
     </div>
   </section>

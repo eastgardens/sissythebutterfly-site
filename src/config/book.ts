@@ -29,3 +29,8 @@ export const BOOK_ALL_RETAILERS = [BOOK_AMAZON, ...BOOK_SECONDARY_RETAILERS] as 
 
 export const BOOK_ISBN = '9798993255316'
 export const BOOK_GTIN13 = '9798993255309'
+
+/** Amazon ASIN (from the a.co product link) + a direct "write a review" deep-link that drops a
+ * logged-in shopper straight onto the review form for Book 1 (one tap, not a scroll-hunt). */
+export const BOOK_ASIN = 'B0FW21Z58R'
+export const BOOK_AMAZON_REVIEW_URL = `https://www.amazon.com/review/create-review?asin=${BOOK_ASIN}`
