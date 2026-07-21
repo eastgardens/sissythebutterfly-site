@@ -43,6 +43,11 @@ interface Props {
    * Set to false to use the title as-is without appending site name
    */
   useTitleTemplate?: boolean
+  /**
+   * Hide the footer's newsletter signup (for pages that already show a prominent in-body
+   * NewsletterCallout, e.g. the homepage — avoids a duplicate "Free printables in your inbox").
+   */
+  hideFooterNewsletter?: boolean
 }
 
 const {
@@ -54,6 +59,7 @@ const {
   author = themeConfig.seo.author ?? '',
   type = 'website',
   useTitleTemplate = true,
+  hideFooterNewsletter = false,
 } = Astro.props
 
 // For social sharing, we need the full absolute URL
@@ -157,7 +163,7 @@ const organizationLd = {
     <main id="main-content" transition:animate="fade">
       <slot />
     </main>
-    <Footer />
+    <Footer hideNewsletter={hideFooterNewsletter} />
 
     <script>
       // Provider-agnostic click tracking (runbook 2.3d). Captures [data-event] clicks
