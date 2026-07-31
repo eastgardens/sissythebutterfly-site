@@ -102,36 +102,37 @@ export const CATEGORY_META: Record<CategoryId, CategoryMeta> = {
     id: 'crafts',
     navTitle: 'Crafts',
     icon: 'lucide:scissors',
-    teaser: 'Make a butterfly, build a meadow — with things you already have.',
+    teaser: 'Make a butterfly that really flies — with things you already have.',
     pageTitle: 'Kids Crafts',
     subtitle:
-      'Simple butterfly crafts and meadow make-alongs for kids, using everyday household materials.',
+      'Simple butterfly crafts and paper toys for kids, using everyday household materials.',
     seoTitle: 'Kids Crafts — Sissy the Butterfly',
     seoDescription:
-      "Simple kids crafts from Sissy the Butterfly's meadow: butterfly crafts, paper crafts, and nature crafts using materials you already have at home.",
+      "Simple kids crafts from Sissy the Butterfly's meadow: a flying paper butterfly with a free cut-out template, paper crafts, and nature crafts using materials you already have at home.",
   },
   puzzles: {
     id: 'puzzles',
     navTitle: 'Puzzles',
     icon: 'lucide:puzzle',
-    teaser: 'Word searches, connect-the-dots, and counting games from the meadow.',
+    teaser: 'A roll-a-story game, word searches, connect-the-dots, and counting fun.',
     pageTitle: 'Puzzles & Games',
     subtitle:
-      'Printable word searches, connect-the-dots, counting sheets, and a board game for preschool and early elementary.',
+      'A roll-a-story dice game, printable word searches, connect-the-dots, counting sheets, and a board game for preschool and early elementary.',
     seoTitle: 'Puzzles & Games — Sissy the Butterfly',
     seoDescription:
-      'Free printable puzzles for kids: word searches, connect-the-dots, counting sheets, and a meadow board game from the world of Sissy the Butterfly.',
+      'Free printable puzzles and games for kids: a roll-a-story dice game, word searches, connect-the-dots, counting sheets, and a meadow board game from the world of Sissy the Butterfly.',
   },
   activities: {
     id: 'activities',
     navTitle: 'Activities',
     icon: 'lucide:trees',
-    teaser: 'Calm-down cards, movement games, and garden adventures.',
+    teaser: 'Play dough mats, routine charts, calm-down cards, and outdoor adventures.',
     pageTitle: 'Activities',
-    subtitle: 'Calm-down cards, movement games, and butterfly-garden activities for ages 3-7.',
+    subtitle:
+      'Play dough mats, morning and bedtime routine charts, an outdoor explorer journal, calm-down cards, and movement games for ages 3-7.',
     seoTitle: 'Activities — Sissy the Butterfly',
     seoDescription:
-      'Screen-free activities for kids ages 3-7 — teacher-created calm-down cards and active play, parent-guided, from Sissy the Butterfly.',
+      'Screen-free activities for kids ages 3-7: free printable play dough mats, daily routine charts, a nature walk journal, and teacher-created calm-down cards from Sissy the Butterfly.',
   },
   'teaching-guides': {
     id: 'teaching-guides',
