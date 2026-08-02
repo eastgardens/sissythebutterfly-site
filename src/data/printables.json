@@ -614,5 +614,61 @@
     "thumbHeight": 1035,
     "featured": false,
     "downloadEvent": "printable_download_bedtime_flutter_routine_chart"
+  },
+  {
+    "category": "activities",
+    "slug": "meadow-scavenger-bingo",
+    "title": "Meadow Scavenger Hunt Bingo",
+    "alt": "A three-by-three bingo card of things to find outside - a flower, a butterfly, a cloud, a rock, a leaf, a stick, the sun, and a mushroom - with a free centre square.",
+    "ageBand": "3-7",
+    "blurb": "Find three in a row outside - flower, cloud, rock, stick, and friends.",
+    "pdf": "/printables/activities/meadow-scavenger-bingo.pdf",
+    "thumb": "/printables/activities/meadow-scavenger-bingo.png",
+    "thumbWidth": 800,
+    "thumbHeight": 1035,
+    "featured": true,
+    "downloadEvent": "printable_download_meadow_scavenger_bingo"
+  },
+  {
+    "category": "activities",
+    "slug": "autumn-meadow-bingo",
+    "title": "Autumn Meadow Bingo",
+    "alt": "A three-by-three autumn bingo card of things to find outside - a red leaf, an acorn, a spider web, a gray cloud, a mushroom, a bare stick, a cold rock, and a late butterfly.",
+    "ageBand": "3-7",
+    "blurb": "An autumn walk in bingo form - acorns, red leaves, and spider webs.",
+    "pdf": "/printables/activities/autumn-meadow-bingo.pdf",
+    "thumb": "/printables/activities/autumn-meadow-bingo.png",
+    "thumbWidth": 800,
+    "thumbHeight": 1035,
+    "featured": false,
+    "downloadEvent": "printable_download_autumn_meadow_bingo"
+  },
+  {
+    "category": "activities",
+    "slug": "meadow-treasure-sensory-bin",
+    "title": "Meadow Treasure Sensory Bin",
+    "alt": "A sensory-bin recipe card: fill a tub with dry rice, hide six little treasures, and dig for them - with a can-you-find list and a safety note.",
+    "ageBand": "3-7",
+    "blurb": "Fill a tub with rice, hide the treasures, and dig in.",
+    "pdf": "/printables/activities/meadow-treasure-sensory-bin.pdf",
+    "thumb": "/printables/activities/meadow-treasure-sensory-bin.png",
+    "thumbWidth": 800,
+    "thumbHeight": 1035,
+    "featured": true,
+    "downloadEvent": "printable_download_meadow_treasure_sensory_bin"
+  },
+  {
+    "category": "activities",
+    "slug": "garden-helper-sensory-bin",
+    "title": "Garden Helper Sensory Bin",
+    "alt": "A garden-themed sensory-bin recipe card: fill a tub with dried beans, bury garden treasures, and hunt with a scoop - with a can-you-find list and a safety note.",
+    "ageBand": "3-7",
+    "blurb": "A little gardener's digging bin - pots, gloves, and seed packets.",
+    "pdf": "/printables/activities/garden-helper-sensory-bin.pdf",
+    "thumb": "/printables/activities/garden-helper-sensory-bin.png",
+    "thumbWidth": 800,
+    "thumbHeight": 1035,
+    "featured": false,
+    "downloadEvent": "printable_download_garden_helper_sensory_bin"
   }
 ]
