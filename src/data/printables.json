@@ -658,6 +658,20 @@
     "downloadEvent": "printable_download_meadow_treasure_sensory_bin"
   },
   {
+    "category": "activities",
+    "slug": "quiet-wings-yoga",
+    "title": "Quiet Wings Yoga",
+    "alt": "A kids' calm-down yoga sheet with four meadow moves - Butterfly Rest, Buddy's Big Stretch, Little Seed, and Flitter's Glow - each with an everybody-can line.",
+    "ageBand": "3-7",
+    "blurb": "Four calm meadow moves to slow the day down - every body welcome.",
+    "pdf": "/printables/activities/quiet-wings-yoga.pdf",
+    "thumb": "/printables/activities/quiet-wings-yoga.png",
+    "thumbWidth": 800,
+    "thumbHeight": 1035,
+    "featured": true,
+    "downloadEvent": "printable_download_quiet_wings_yoga"
+  },
+  {
     "category": "make-your-own",
     "slug": "my-meadow-comic",
     "title": "My Meadow Comic",
