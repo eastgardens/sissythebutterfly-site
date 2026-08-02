@@ -658,6 +658,20 @@
     "downloadEvent": "printable_download_meadow_treasure_sensory_bin"
   },
   {
+    "category": "make-your-own",
+    "slug": "my-meadow-comic",
+    "title": "My Meadow Comic",
+    "alt": "Four numbered empty comic panels with a blank speech bubble in the first panel, ready for a child to draw their own story.",
+    "ageBand": "3-7",
+    "blurb": "Four empty panels and one speech bubble - your story goes here.",
+    "pdf": "/printables/make-your-own/my-meadow-comic.pdf",
+    "thumb": "/printables/make-your-own/my-meadow-comic.png",
+    "thumbWidth": 800,
+    "thumbHeight": 1035,
+    "featured": true,
+    "downloadEvent": "printable_download_my_meadow_comic"
+  },
+  {
     "category": "activities",
     "slug": "garden-helper-sensory-bin",
     "title": "Garden Helper Sensory Bin",
