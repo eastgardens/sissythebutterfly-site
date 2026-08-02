@@ -102,13 +102,13 @@ export const CATEGORY_META: Record<CategoryId, CategoryMeta> = {
     id: 'crafts',
     navTitle: 'Crafts',
     icon: 'lucide:scissors',
-    teaser: 'Make a butterfly that really flies — with things you already have.',
+    teaser: 'Make a butterfly, build a meadow — with things you already have.',
     pageTitle: 'Kids Crafts',
     subtitle:
-      'Simple butterfly crafts and paper toys for kids, using everyday household materials.',
+      'Simple butterfly crafts and meadow make-alongs for kids, using everyday household materials.',
     seoTitle: 'Kids Crafts — Sissy the Butterfly',
     seoDescription:
-      "Simple kids crafts from Sissy the Butterfly's meadow: a flying paper butterfly with a free cut-out template, paper crafts, and nature crafts using materials you already have at home.",
+      "Simple kids crafts from Sissy the Butterfly's meadow: butterfly crafts, paper crafts, and nature crafts using materials you already have at home.",
   },
   puzzles: {
     id: 'puzzles',
