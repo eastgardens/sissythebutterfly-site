@@ -673,6 +673,20 @@
   },
   {
     "category": "teaching-guides",
+    "slug": "buddys-creature-report-2-grasshopper",
+    "title": "Buddy's Creature Report No. 2: The Grasshopper",
+    "alt": "A collectible real-facts nature card about grasshoppers - four true facts, a hop-and-count wonder question, and the source they were checked against.",
+    "ageBand": "3-7",
+    "blurb": "Real grasshopper facts, checked and cited - card two, starring Buddy's own kind.",
+    "pdf": "/printables/teaching-guides/buddys-creature-report-2-grasshopper.pdf",
+    "thumb": "/printables/teaching-guides/buddys-creature-report-2-grasshopper.png",
+    "thumbWidth": 800,
+    "thumbHeight": 1035,
+    "featured": false,
+    "downloadEvent": "printable_download_buddys_creature_report_2_grasshopper"
+  },
+  {
+    "category": "teaching-guides",
     "slug": "buddys-creature-report-1-firefly",
     "title": "Buddy's Creature Report No. 1: The Firefly",
     "alt": "A collectible real-facts nature card about fireflies - four true facts, a wonder question, and the source they were checked against.",
