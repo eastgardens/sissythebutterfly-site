@@ -672,6 +672,20 @@
     "downloadEvent": "printable_download_quiet_wings_yoga"
   },
   {
+    "category": "teaching-guides",
+    "slug": "buddys-creature-report-1-firefly",
+    "title": "Buddy's Creature Report No. 1: The Firefly",
+    "alt": "A collectible real-facts nature card about fireflies - four true facts, a wonder question, and the source they were checked against.",
+    "ageBand": "3-7",
+    "blurb": "Real firefly facts, checked and cited - the first card in Buddy's collectible series.",
+    "pdf": "/printables/teaching-guides/buddys-creature-report-1-firefly.pdf",
+    "thumb": "/printables/teaching-guides/buddys-creature-report-1-firefly.png",
+    "thumbWidth": 800,
+    "thumbHeight": 1035,
+    "featured": true,
+    "downloadEvent": "printable_download_buddys_creature_report_1_firefly"
+  },
+  {
     "category": "activities",
     "slug": "fruit-butterfly-snack",
     "title": "Fruit Butterfly Snack Card",
